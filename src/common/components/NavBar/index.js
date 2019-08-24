@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Icon } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 import styles from './style.module.css';
 
-export default ({}) => {
+export default props => {
+  let location = props.history.location.pathname;
   return (
     <div className={styles.navBarContainer}>
       <div className={styles.navBar}>
-        <div className={styles.menuIcon}>
-          <Link>
-            <Icon name="th" size="big" />
-          </Link>
-        </div>
         <div className={styles.item}>
+          <Icon name="th" size="big" />
+        </div>
+        <div
+          className={`${
+            location === '/timer' ? styles.selectedItem : styles.item
+          }`}
+        >
           <Link to="timer">
             <Icon name="clock outline" size="big" />
           </Link>
         </div>
-        <div className={styles.item}>
+        <div
+          className={`${
+            location === '/projects' ? styles.selectedItem : styles.item
+          }`}
+        >
           <Link to="projects">
             <Icon name="folder" size="big" />
           </Link>
