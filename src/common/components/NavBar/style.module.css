@@ -5,26 +5,27 @@
   z-index: 1;
   top: 0;
   left: 0;
-}
-.selectedItem {
+  border-right: 4px solid #f6f6f6;
 }
 
 .menuIcon {
   padding: 1em 0.5em 2em 0.5em;
   border-left: 3px solid white;
+  color: #8492a6;
 }
 
 .item {
   padding: 1em 0.5em;
   border-left: 3px solid white;
+  color: #8492a6;
 }
 
 .item:hover {
   padding: 1em 0.5em;
   border-left: 3px solid #4080b7;
-  animation-duration: 500ms;
+  animation-duration: 200ms;
   cursor: pointer;
-  animation-name: iconHover;
+  animation-name: itemHover;
 }
 
 @keyframes itemHover {

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import App from './App';
 import { Container } from 'semantic-ui-react';
 import MainScreenContainer from './common/features/MainScreen/MainScreenContainer';
-import CurrencyExchangeDetailsContainer from './common/features/CurrencyExchangeDetails/CurrencyExchangeDetailsContainer';
+import ProjectsContainer from './common/features/Projects/ProjectsContainer';
 
 const Router = () => {
   return (
@@ -11,18 +11,13 @@ const Router = () => {
       <Route path="/" component={App} />
       <Container>
         <Switch>
-          <Route
-            path="/currency-exchanges/:currencyExchangeId"
-            component={CurrencyExchangeDetailsContainer}
-          />
-          <Route path="/currency-exchanges" component={MainScreenContainer} />
-          <Redirect path="/" to="/currency-exchanges" />
+          <Route path="/projects" component={ProjectsContainer} />
+          <Route path="/timer" component={MainScreenContainer} />
+          <Redirect path="/" to="/timer" />
         </Switch>
       </Container>
     </BrowserRouter>
   );
 };
 
-const HOME = '/currency-exchanges';
 export default Router;
-export { HOME };
