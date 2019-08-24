@@ -1,51 +1,21 @@
 import React, { useState } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
+import styles from './style.module.css';
 
-export default ({ leftItems, rightItems, backButtonVisible, backCallback }) => {
-  const [activeItem, setActiveItem] = useState('home');
-  let leftItemsVisible = null;
-  if (backButtonVisible) {
-    leftItemsVisible = (
-      <Menu.Item
-        key={0}
-        name="back"
-        active={false}
-        onClick={() => backCallback()}
-      />
-    );
-  } else {
-    leftItemsVisible = leftItems.map(item => (
-      <Menu.Item
-        key={item.id}
-        name={item.name}
-        active={activeItem === item.name}
-        onClick={() => {
-          setActiveItem(item.name);
-          item.onClick && item.onClick();
-        }}
-      >
-        Dashboard
-      </Menu.Item>
-    ));
-  }
+export default ({}) => {
   return (
-    <Menu pointing secondary>
-      {leftItemsVisible}
-      <Menu.Menu position="right">
-        {rightItems.map(item => (
-          <Menu.Item
-            key={item.id}
-            name={item.name}
-            active={activeItem === item.name}
-            onClick={() => {
-              setActiveItem(item.name);
-              item.onClick && item.onClick();
-            }}
-          >
-            {item.content}
-          </Menu.Item>
-        ))}
-      </Menu.Menu>
-    </Menu>
+    <div className={styles.navBarContainer}>
+      <div className={styles.navBar}>
+        <div className={styles.menuIcon}>
+          <Icon name="th" size="big" />
+        </div>
+        <div className={styles.item}>
+          <Icon name="clock outline" size="big" />
+        </div>
+        <div className={styles.item}>
+          <Icon name="folder" size="big" />
+        </div>
+      </div>
+    </div>
   );
 };

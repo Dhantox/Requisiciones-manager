@@ -1,0 +1,42 @@
+.navBarContainer {
+  height: 100%;
+  position: fixed;
+  width: 60px;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+.selectedItem {
+}
+
+.menuIcon {
+  padding: 1em 0.5em 2em 0.5em;
+  border-left: 3px solid white;
+}
+
+.item {
+  padding: 1em 0.5em;
+  border-left: 3px solid white;
+}
+
+.item:hover {
+  padding: 1em 0.5em;
+  border-left: 3px solid #4080b7;
+  animation-duration: 500ms;
+  cursor: pointer;
+  animation-name: iconHover;
+}
+
+@keyframes itemHover {
+  from {
+    border-left: 3px solid white;
+  }
+  to {
+    border-left: 3px solid #4080b7;
+  }
+}
+
+.itemSelected {
+  padding: 1em 0.5em;
+  border-left: 3px solid #4080b7;
+}
