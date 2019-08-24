@@ -7,9 +7,11 @@ const MainContainer = ({ children, title }) => {
     <div className={styles.mainContainer}>
       <Grid>
         <Grid.Row>
-          <h1 className={styles.title}>{title}</h1>
+          <Grid.Column>
+            <h1 className={styles.title}>{title}</h1>
+          </Grid.Column>
         </Grid.Row>
-        <Grid.Row>{children}</Grid.Row>
+        {children}
       </Grid>
     </div>
   );
