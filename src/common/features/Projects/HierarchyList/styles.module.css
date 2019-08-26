@@ -1,0 +1,12 @@
+.item {
+  cursor: pointer;
+}
+
+.child:hover {
+  background-color: #4080b7;
+  color: #ffffff !important;
+}
+
+.child {
+  cursor: pointer;
+}
