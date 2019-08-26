@@ -13,6 +13,7 @@ const HierarchyList = props => {
       }))
     }))
   );
+  const [active, setActive] = useState(0);
   return (
     <List>
       {list.map(item => (
@@ -44,7 +45,16 @@ const HierarchyList = props => {
                 <List.List key={child.id}>
                   <List.Item>
                     <List.Content>
-                      <List.Header className={styles.child}>
+                      <List.Header
+                        className={`${styles.child} ${
+                          child.id === active ? styles.activeChild : ''
+                        } `}
+                        onClick={() => {
+                          props.onChange && props.onChange(child.id);
+                          setActive(child.id);
+                          console.log(active);
+                        }}
+                      >
                         {child.name}
                       </List.Header>
                     </List.Content>

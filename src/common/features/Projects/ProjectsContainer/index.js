@@ -9,6 +9,7 @@ export default () => {
       <Grid.Row>
         <Grid.Column>
           <HierarchyList
+            onChange={id => console.log(id)}
             list={[
               {
                 id: 6,
