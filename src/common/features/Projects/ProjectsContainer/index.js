@@ -1,46 +1,34 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import MainContainer from '../../../components/MainContainer';
 import { Grid } from 'semantic-ui-react';
 import HierarchyList from '../HierarchyList';
+import { ProjectContext, ProjectProvider } from '../ProjectProvider';
 
-export default () => {
-  const [projectSelected, setProjectSelected] = useState();
-  let projects = [
-    {
-      id: 6,
-      name: 'Languages',
-      children: [
-        {
-          id: 4,
-          name: 'English'
-        }
-      ]
-    },
-    {
-      id: 1,
-      name: 'Tech',
-      children: [
-        {
-          id: 5,
-          name: 'Ruby'
-        }
-      ]
-    }
-  ];
-  useState();
+const ProjectContainer = () => {
+  const [value, dispatch] = useContext(ProjectContext);
   return (
     <MainContainer title="Projects">
       <Grid.Row>
         <Grid.Column width="4">
           <HierarchyList
-            onChange={project => setProjectSelected(project)}
-            list={projects}
+            onChange={project =>
+              dispatch({ type: 'SELECT_PROJECT', value: project })
+            }
+            list={value.projects}
           ></HierarchyList>
         </Grid.Column>
         <Grid.Column width={12}>
-          {projectSelected && projectSelected.name}
+          {value.selectedProject && value.selectedProject.name}
         </Grid.Column>
       </Grid.Row>
     </MainContainer>
+  );
+};
+
+export default () => {
+  return (
+    <ProjectProvider>
+      <ProjectContainer></ProjectContainer>
+    </ProjectProvider>
   );
 };
