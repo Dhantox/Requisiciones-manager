@@ -50,9 +50,8 @@ const HierarchyList = props => {
                           child.id === active ? styles.activeChild : ''
                         } `}
                         onClick={() => {
-                          props.onChange && props.onChange(child.id);
+                          props.onChange && props.onChange(child);
                           setActive(child.id);
-                          console.log(active);
                         }}
                       >
                         {child.name}
