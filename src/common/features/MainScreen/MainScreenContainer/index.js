@@ -1,46 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MainContainer from '../../../components/MainContainer';
-import { Grid, Dropdown, Form, Button } from 'semantic-ui-react';
-
-const PomodoroButton = ({ pomodoroState }) => {
-  const dispatch = useDispatch();
-  let button = {
-    text: '',
-    action: {}
-  };
-  switch (pomodoroState) {
-    case 'awaiting_pomodoro':
-      button = {
-        text: 'Start Pomodoro',
-        action: 'start_pomodoro'
-      };
-      break;
-    case 'awaiting_break':
-      button = {
-        text: 'Break',
-        action: 'start_break'
-      };
-      break;
-    case 'pomodoro_started':
-      button = {
-        text: 'Cancel Pomodoro',
-        action: 'cancel_pomodoro'
-      };
-      break;
-    case 'break_started':
-      button = {
-        text: 'Cancel Break',
-        action: 'cancel_break'
-      };
-      break;
-  }
-  return (
-    <Button onClick={() => dispatch({ type: button.action })}>
-      {button.text}
-    </Button>
-  );
-};
+import { Grid, Dropdown, Form } from 'semantic-ui-react';
+import PomodoroButton from '../PomodoroButtonContainer';
 
 const MainScreenContainer = () => {
   let projects = [];
