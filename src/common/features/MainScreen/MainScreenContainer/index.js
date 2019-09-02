@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import MainContainer from '../../../components/MainContainer';
 import { Grid, Dropdown, Form } from 'semantic-ui-react';
 import PomodoroButton from '../PomodoroButtonContainer';

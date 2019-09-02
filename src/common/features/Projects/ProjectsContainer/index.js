@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import MainContainer from '../../../components/MainContainer';
 import { Grid } from 'semantic-ui-react';
 import HierarchyList from '../HierarchyList';

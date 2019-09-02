@@ -33,6 +33,8 @@ const PomodoroButton = ({ pomodoroState }) => {
         action: 'cancel_break'
       };
       break;
+    default:
+      break;
   }
   return (
     <Button onClick={() => dispatch({ type: button.action })}>
