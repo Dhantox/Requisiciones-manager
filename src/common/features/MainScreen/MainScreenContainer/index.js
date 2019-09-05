@@ -1,21 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import MainContainer from '../../../components/MainContainer';
-import { Grid, Dropdown, Form } from 'semantic-ui-react';
+import { Grid, Form } from 'semantic-ui-react';
 import PomodoroButton from '../PomodoroButtonContainer';
+import DropdownInput from '../../../components/DropdownInput';
 
 const MainScreenContainer = () => {
   let projects = [];
   useSelector(state => state.projectReducer.projects).map(project => {
     if (project.children) {
-      projects = projects.concat(
-        project.children.map(child => {
-          child.key = child.id;
-          child.value = child.id;
-          child.text = child.name;
-          return child;
-        })
-      );
+      projects = projects.concat(project.children.map(item => ({ ...item })));
     }
     return project;
   });
@@ -35,7 +29,7 @@ const MainScreenContainer = () => {
           <Form>
             <Form.Field>
               <label>Project</label>
-              <Dropdown
+              <DropdownInput
                 onChange={(e, { value }) => console.log(value)}
                 placeholder="Select Project"
                 fluid
