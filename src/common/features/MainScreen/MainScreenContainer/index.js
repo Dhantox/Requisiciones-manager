@@ -1,12 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import MainContainer from '../../../components/MainContainer';
+import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Form } from 'semantic-ui-react';
+import MainContainer from '../../../components/MainContainer';
 import PomodoroButton from '../PomodoroButtonContainer';
+import Timer from '../Timer';
 import DropdownInput from '../../../components/DropdownInput';
 
 const MainScreenContainer = () => {
   let projects = [];
+  const dispatch = useDispatch();
   useSelector(state => state.projectReducer.projects).map(project => {
     if (project.children) {
       projects = projects.concat(project.children.map(item => ({ ...item })));
@@ -18,7 +20,7 @@ const MainScreenContainer = () => {
     <MainContainer title="Pomodoro">
       <Grid.Row>
         <Grid.Column width={10}>
-          <h1>{new Date().toTimeString()}</h1>
+          <Timer />
           {
             <PomodoroButton
               pomodoroState={pomodoroState.status}
@@ -30,7 +32,12 @@ const MainScreenContainer = () => {
             <Form.Field>
               <label>Project</label>
               <DropdownInput
-                onChange={(e, { value }) => console.log(value)}
+                onChange={(e, { value }) =>
+                  dispatch({
+                    type: 'select_pomodoro_project',
+                    payload: value
+                  })
+                }
                 placeholder="Select Project"
                 fluid
                 search

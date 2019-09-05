@@ -16,6 +16,8 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, status: 'break_started' };
     case 'cancel_break':
       return { ...state, status: 'awaiting_pomodoro' };
+    case 'select_pomodoro_project':
+      return { ...state, selectedProject: payload };
 
     default:
       return state;
