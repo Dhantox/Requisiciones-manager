@@ -1,8 +1,8 @@
-import React from 'react';
-import MainContainer from '../../../components/MainContainer';
-import { Grid } from 'semantic-ui-react';
-import HierarchyList from '../HierarchyList';
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import MainContainer from "../../../components/MainContainer";
+import { Grid } from "semantic-ui-react";
+import HierarchyList from "../../../components/HierarchyList";
+import { useSelector, useDispatch } from "react-redux";
 
 const ProjectContainer = () => {
   let selectedProject = useSelector(
@@ -16,7 +16,7 @@ const ProjectContainer = () => {
         <Grid.Column width="4">
           <HierarchyList
             onChange={project =>
-              dispatch({ type: 'SELECT_PROJECT', payload: project })
+              dispatch({ type: "SELECT_PROJECT", payload: project })
             }
             list={projects}
           ></HierarchyList>
