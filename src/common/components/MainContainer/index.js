@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Container } from "semantic-ui-react";
 import styles from "./styles.module.css";
 
-const MainContainer = ({ children, title }) => {
+const MainContainer = ({ children, title, optionsButtons }) => {
   return (
     <div className={styles.mainContainer}>
       <div className="main-container">
@@ -13,9 +13,7 @@ const MainContainer = ({ children, title }) => {
                 <h1 className={styles.title}>{title}</h1>{" "}
               </Grid.Column>
               <Grid.Column floated="right" width={6}>
-                <button className={`ui primary button ${styles.button}`}>
-                  Agregar
-                </button>
+                {optionsButtons}
               </Grid.Column>
             </Grid.Row>
             {children}

@@ -1,1 +1,4 @@
-pomodoro-timer
+Eliminar
+Agregar
+Editar
+Ver
