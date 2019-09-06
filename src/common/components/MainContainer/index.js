@@ -1,6 +1,6 @@
-import React from 'react';
-import { Grid, Container } from 'semantic-ui-react';
-import styles from './styles.module.css';
+import React from "react";
+import { Grid, Container } from "semantic-ui-react";
+import styles from "./styles.module.css";
 
 const MainContainer = ({ children, title }) => {
   return (
@@ -9,8 +9,13 @@ const MainContainer = ({ children, title }) => {
         <Container>
           <Grid>
             <Grid.Row>
-              <Grid.Column>
-                <h1 className={styles.title}>{title}</h1>
+              <Grid.Column width={10}>
+                <h1 className={styles.title}>{title}</h1>{" "}
+              </Grid.Column>
+              <Grid.Column floated="right" width={6}>
+                <button className={`ui primary button ${styles.button}`}>
+                  Agregar
+                </button>
               </Grid.Column>
             </Grid.Row>
             {children}
