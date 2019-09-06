@@ -18,6 +18,8 @@ const LoginContainer = () => {
           onSuccess={credentials =>
             Auth.login(credentials)
               .then(r => {
+                Auth.configCookies(r.data);
+                Auth.configHeaders();
                 dispatch({ type: 'LOGIN_SUCCESS' });
               })
               .catch(e => console.log('Error login'))
