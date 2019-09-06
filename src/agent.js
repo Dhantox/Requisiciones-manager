@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-const API_ROOT = process.env.REACT_APP_API_SERVER;
+const API_ROOT = 'http://127.0.0.1:8000/api/';
 
 export const mediaServer = process.env.REACT_APP_MEDIA_SERVER;
 

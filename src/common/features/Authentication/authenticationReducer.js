@@ -1,5 +1,5 @@
 const initialState = {
-  isAuthenticated: true
+  isAuthenticated: false
 };
 
 const authenticationReducer = (state = initialState, { type, payload }) => {

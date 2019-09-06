@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Login from './Login';
 import MainContainer from '../../components/MainContainer';
 import { getIsAuthenticated } from './authenticationSelectors';
+import { Auth } from '../../../agent';
 
 const LoginContainer = () => {
   const isAuthenticated = useSelector(getIsAuthenticated);
@@ -13,7 +14,15 @@ const LoginContainer = () => {
       {isAuthenticated ? (
         <Redirect to="/"></Redirect>
       ) : (
-        <Login onSuccess={() => dispatch({ type: 'LOGIN_SUCCESS' })}></Login>
+        <Login
+          onSuccess={credentials =>
+            Auth.login(credentials)
+              .then(r => {
+                dispatch({ type: 'LOGIN_SUCCESS' });
+              })
+              .catch(e => console.log('Error login'))
+          }
+        ></Login>
       )}
     </MainContainer>
   );
