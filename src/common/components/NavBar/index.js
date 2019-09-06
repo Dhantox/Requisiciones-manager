@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Icon } from "semantic-ui-react";
-import styles from "./style.module.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Icon } from 'semantic-ui-react';
+import styles from './style.module.css';
 
 export default props => {
   let location = props.history.location.pathname;
@@ -13,7 +13,7 @@ export default props => {
         </div>
         <div
           className={`${
-            location === "/timer" ? styles.selectedItem : styles.item
+            location === '/timer' ? styles.selectedItem : styles.item
           }`}
         >
           <Link to="timer">
@@ -22,10 +22,19 @@ export default props => {
         </div>
         <div
           className={`${
-            location === "/usuarios" ? styles.selectedItem : styles.item
+            location === '/usuarios' ? styles.selectedItem : styles.item
           }`}
         >
           <Link to="usuarios">
+            <Icon name="users" size="big" />
+          </Link>
+        </div>
+        <div
+          className={`${
+            location === '/clientes' ? styles.selectedItem : styles.item
+          }`}
+        >
+          <Link to="clientes">
             <Icon name="users" size="big" />
           </Link>
         </div>
