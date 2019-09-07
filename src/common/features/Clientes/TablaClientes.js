@@ -44,14 +44,28 @@ const TablaClientes = props => {
             sorted={column === 'age' ? direction : null}
             onClick={handleSort('age')}
           >
+            Teléfono
+          </Table.HeaderCell>
+          <Table.HeaderCell
+            sorted={column === 'telefono' ? direction : null}
+            onClick={handleSort('telefono')}
+          >
+            Correo
+          </Table.HeaderCell>
+          <Table.HeaderCell
+            sorted={column === 'correo' ? direction : null}
+            onClick={handleSort('correo')}
+          >
             RFC
           </Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {_.map(data, ({ rfc, id, nombre }) => (
+        {_.map(data, ({ rfc, id, nombre, correo, telefono }) => (
           <Table.Row key={id}>
             <Table.Cell>{nombre}</Table.Cell>
+            <Table.Cell>{telefono}</Table.Cell>
+            <Table.Cell>{correo}</Table.Cell>
             <Table.Cell>{rfc}</Table.Cell>
           </Table.Row>
         ))}
