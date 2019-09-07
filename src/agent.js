@@ -50,7 +50,7 @@ export const Auth = {
 export const Clientes = {
   all: () => requests.get('clientes/clientes/'),
   get: lessonId => requests.get(`lessons/lessons/${lessonId}/`),
-  create: lesson => requests.post('lessons/lessons/', lesson),
+  create: lesson => requests.post('clientes/clientes/', lesson),
   update: (lessonId, lesson) =>
     requests.put(`lessons/lessons/${lessonId}/`, lesson),
   withConcepts: lessonId =>

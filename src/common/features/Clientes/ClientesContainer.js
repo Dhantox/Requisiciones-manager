@@ -21,7 +21,15 @@ const ClientesContainer = props => {
       title="Clientes"
       optionsButtons={
         <>
-          <AgregarClientesModal></AgregarClientesModal>
+          <AgregarClientesModal
+            onSubmit={cliente =>
+              Clientes.create(cliente)
+                .then(r => Clientes.get())
+                .then(r =>
+                  dispatch({ type: 'CARGAR_CLIENTES_SUCCESS', payload: r.data })
+                )
+            }
+          ></AgregarClientesModal>
         </>
       }
     >
