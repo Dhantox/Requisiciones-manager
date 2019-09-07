@@ -10,9 +10,17 @@ const AgregarClientesModal = ({ onSubmit }) => {
     telefono: '',
     correo: ''
   });
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   return (
-    <Modal trigger={<Button primary>Agregar cliente</Button>} centered={false}>
+    <Modal
+      open={visible}
+      trigger={
+        <Button onClick={() => setVisible(true)} primary>
+          Agregar cliente
+        </Button>
+      }
+      centered={false}
+    >
       <Modal.Header>Agregar cliente</Modal.Header>
       <Modal.Content>
         <Modal.Description>
@@ -57,7 +65,14 @@ const AgregarClientesModal = ({ onSubmit }) => {
               onChange={handleChange}
               value={form.correo}
             />
-            <Form.Button onClick={() => onSubmit(form)}>Submit</Form.Button>
+            <Form.Button
+              onClick={() => {
+                setVisible(false);
+                onSubmit(form);
+              }}
+            >
+              Submit
+            </Form.Button>
           </Form>
         </Modal.Description>
       </Modal.Content>

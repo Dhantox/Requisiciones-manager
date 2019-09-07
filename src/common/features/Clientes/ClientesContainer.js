@@ -12,7 +12,7 @@ const ClientesContainer = props => {
     Clientes.all().then(r => {
       dispatch({ type: 'CARGAR_CLIENTES_SUCCESS', payload: r.data });
     });
-  }, []);
+  }, [dispatch]);
   const clientes = useSelector(store =>
     store.clientes.clientes.map(cliente => ({ ...cliente }))
   );
@@ -24,7 +24,7 @@ const ClientesContainer = props => {
           <AgregarClientesModal
             onSubmit={cliente =>
               Clientes.create(cliente)
-                .then(r => Clientes.get())
+                .then(r => Clientes.all())
                 .then(r =>
                   dispatch({ type: 'CARGAR_CLIENTES_SUCCESS', payload: r.data })
                 )
