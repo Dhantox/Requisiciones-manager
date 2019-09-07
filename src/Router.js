@@ -14,10 +14,8 @@ const Router = () => {
       <Switch>
         <PrivateRoute path="/usuarios" component={UsuariosContainer} />
         <PrivateRoute path="/clientes" component={ClientesContainer} />
-
-        <PrivateRoute path="/timer" component={MainScreenContainer} />
         <Route path="/login" component={LoginContainer} />
-        <Redirect path="/" to="/timer" />
+        <Redirect path="/" to="/clientes" />
       </Switch>
     </BrowserRouter>
   );

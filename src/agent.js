@@ -47,8 +47,8 @@ export const Auth = {
   }
 };
 
-export const Lessons = {
-  all: () => requests.get('lessons/lessons/'),
+export const Clientes = {
+  all: () => requests.get('clientes/clientes/'),
   get: lessonId => requests.get(`lessons/lessons/${lessonId}/`),
   create: lesson => requests.post('lessons/lessons/', lesson),
   update: (lessonId, lesson) =>

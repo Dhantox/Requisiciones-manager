@@ -2,18 +2,23 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Table } from 'semantic-ui-react';
 
-const tableData = [
-  { name: 'John', age: 15, gender: 'Male' },
-  { name: 'Amber', age: 40, gender: 'Female' },
-  { name: 'Leslie', age: 25, gender: 'Other' },
-  { name: 'Ben', age: 70, gender: 'Male' }
-];
+export default class TablaClientes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      column: null,
+      data: props.data,
+      direction: null
+    };
+  }
 
-export default class SortableTable extends Component {
-  state = {
-    column: null,
-    data: tableData,
-    direction: null
+  componentWillReceiveProps(props) {
+    this.setState({ ...this.state, data: props.data });
+  }
+
+  shouldComponentUpdate = (nextProps, nextUpdate) => {
+    console.log(nextProps);
+    return this.state.data !== nextProps.data;
   };
 
   handleSort = clickedColumn => () => {
@@ -37,7 +42,6 @@ export default class SortableTable extends Component {
 
   render() {
     const { column, data, direction } = this.state;
-
     return (
       <Table sortable celled striped fixed>
         <Table.Header>
@@ -46,28 +50,21 @@ export default class SortableTable extends Component {
               sorted={column === 'name' ? direction : null}
               onClick={this.handleSort('name')}
             >
-              Name
+              Nombre
             </Table.HeaderCell>
             <Table.HeaderCell
               sorted={column === 'age' ? direction : null}
               onClick={this.handleSort('age')}
             >
-              Age
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'gender' ? direction : null}
-              onClick={this.handleSort('gender')}
-            >
-              Gender
+              RFC
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {_.map(data, ({ age, gender, name }) => (
-            <Table.Row key={name}>
-              <Table.Cell>{name}</Table.Cell>
-              <Table.Cell>{age}</Table.Cell>
-              <Table.Cell>{gender}</Table.Cell>
+          {_.map(data, ({ rfc, id, nombre }) => (
+            <Table.Row key={id}>
+              <Table.Cell>{nombre}</Table.Cell>
+              <Table.Cell>{rfc}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
