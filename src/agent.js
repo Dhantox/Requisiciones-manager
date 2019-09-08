@@ -85,8 +85,9 @@ export const Requisiciones = {
   tipos: {
     all: () => requests.get('requisiciones/requisiciones/tipos/')
   },
+  create: requisicion =>
+    requests.post('requisiciones/requisiciones/', requisicion),
   get: lessonId => requests.get(`lessons/lessons/${lessonId}/`),
-  create: lesson => requests.post('clientes/clientes/', lesson),
   update: (lessonId, lesson) =>
     requests.put(`lessons/lessons/${lessonId}/`, lesson),
   withConcepts: lessonId =>

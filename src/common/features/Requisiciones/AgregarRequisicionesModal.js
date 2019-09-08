@@ -7,10 +7,10 @@ import moment from 'moment';
 
 const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
   const [form, handleChange, setForm] = useForm({
-    fecha: moment(),
-    cliente: '',
-    tipo: '',
-    notas: ''
+    fecha_correo: moment(),
+    cliente_id: '',
+    tipo_id: '',
+    nota: ''
   });
   const [visible, setVisible] = useState(false);
   return (
@@ -31,43 +31,42 @@ const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
             <Form.Field>
               <label>Fecha y Hora del correo</label>
               <DateTime
-                value={form.fecha}
-                name="fecha"
-                onChange={date => setForm({ ...form, fecha: date })}
+                value={form.fecha_correo}
+                onChange={date => setForm({ ...form, fecha_correo: date })}
               ></DateTime>
             </Form.Field>
             <DropdownInput
               placeholder="Cliente"
               label="Cliente"
-              name="cliente"
+              name="cliente_id"
               onChange={handleChange}
               valuename="nombre"
               fluid
               search
               selection
               options={clientes}
-              value={form.cliente}
+              value={form.cliente_id}
               clearable
             ></DropdownInput>
             <DropdownInput
               placeholder="Tipo"
               label="Tipo"
-              name="tipo"
+              name="tipo_id"
               onChange={handleChange}
               valuename="concepto"
               fluid
               search
               selection
               options={requisicionesTipos}
-              value={form.tipo}
+              value={form.tipo_id}
               clearable
             ></DropdownInput>
             <Form.TextArea
-              name="notas"
+              name="nota"
               label="Notas"
               placeholder="notas"
               onChange={handleChange}
-              value={form.notas}
+              value={form.nota}
             />
           </Form>
         </Modal.Description>
@@ -80,7 +79,9 @@ const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
             positive: true,
             onClick: () => {
               const newForm = { ...form };
-              newForm.fecha = form.fecha.format('YYYY-MM-DD HH:mm');
+              newForm.fecha_correo = form.fecha_correo.format(
+                'YYYY-MM-DD HH:mm'
+              );
               setVisible(false);
               onSubmit(newForm);
             }
