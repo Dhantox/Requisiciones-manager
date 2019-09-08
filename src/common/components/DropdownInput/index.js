@@ -1,18 +1,18 @@
 import React from 'react';
-import { FormInput } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 /**
  * function that add the necesary properties to
  * display a react drodopwn component correctly
  * @param {string} keyName
- * @param {string} valueName
+ * @param {string} valuename
  */
 export default props => {
   const options = props.options.map(option => {
     option.key = option[props.keyName] || option.id;
     option.value = option[props.keyName] || option.id;
-    option.text = option[props.valueName] || option.name;
+    option.text = option[props.valuename] || option.name;
     return option;
   });
-  return <Form.Input {...props} options={options} />;
+  return <Form.Dropdown {...props} options={options} />;
 };

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Button, Header, Image, Modal, Form } from 'semantic-ui-react';
+import DropdownInput from '../../components/DropdownInput';
 import { useForm } from '../../hooks/formHooks';
 
-const AgregarClientesModal = ({ onSubmit }) => {
+const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
   const [form, handleChange] = useForm({
-    nombre: '',
-    rfc: '',
-    contacto: '',
-    telefono: '',
-    correo: ''
+    fecha: '',
+    cliente: '',
+    tipo: '',
+    notas: ''
   });
   const [visible, setVisible] = useState(false);
   return (
@@ -32,31 +32,40 @@ const AgregarClientesModal = ({ onSubmit }) => {
               label="Fecha y Hora"
               placeholder="First name"
               onChange={handleChange}
-              value={form.nombre}
+              value={form.fecha}
             />
-            <Form.Input
-              fluid
-              name="cliente"
-              label="Cliente"
+            <DropdownInput
               placeholder="Cliente"
+              label="Cliente"
+              name="cliente"
               onChange={handleChange}
-              value={form.rfc}
-            />
-            <Form.Input
+              valuename="nombre"
               fluid
-              name="tipo"
-              label="Tipo"
+              search
+              selection
+              options={clientes}
+              value={form.cliente}
+              clearable
+            ></DropdownInput>
+            <DropdownInput
               placeholder="Tipo"
+              label="Tipo"
+              name="tipo"
               onChange={handleChange}
-              value={form.contacto}
-            />
-            <Form.TextArea
+              valuename="concepto"
               fluid
+              search
+              selection
+              options={requisicionesTipos}
+              value={form.tipo}
+              clearable
+            ></DropdownInput>
+            <Form.TextArea
               name="notas"
               label="Notas"
               placeholder="notas"
               onChange={handleChange}
-              value={form.telefono}
+              value={form.notas}
             />
           </Form>
         </Modal.Description>

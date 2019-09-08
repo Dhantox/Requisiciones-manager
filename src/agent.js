@@ -82,6 +82,9 @@ export const Clientes = {
 
 export const Requisiciones = {
   all: () => requests.get('requisiciones/requisiciones/'),
+  tipos: {
+    all: () => requests.get('requisiciones/requisiciones/tipos/')
+  },
   get: lessonId => requests.get(`lessons/lessons/${lessonId}/`),
   create: lesson => requests.post('clientes/clientes/', lesson),
   update: (lessonId, lesson) =>
