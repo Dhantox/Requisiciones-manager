@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Header, Image, Modal, Form } from 'semantic-ui-react';
 import DropdownInput from '../../components/DropdownInput';
+import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
+import moment from 'moment';
 
 const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
-  const [form, handleChange] = useForm({
-    fecha: '',
+  const [form, handleChange, setForm] = useForm({
+    fecha: moment(),
     cliente: '',
     tipo: '',
     notas: ''
@@ -26,14 +28,14 @@ const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
       <Modal.Content>
         <Modal.Description>
           <Form>
-            <Form.Input
-              fluid
-              name="fecha"
-              label="Fecha y Hora"
-              placeholder="First name"
-              onChange={handleChange}
-              value={form.fecha}
-            />
+            <Form.Field>
+              <label>Fecha y Hora del correo</label>
+              <DateTime
+                value={form.fecha}
+                name="fecha"
+                onChange={date => setForm({ ...form, fecha: date })}
+              ></DateTime>
+            </Form.Field>
             <DropdownInput
               placeholder="Cliente"
               label="Cliente"
@@ -77,8 +79,10 @@ const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
             content: 'Agregar Requisición',
             positive: true,
             onClick: () => {
+              const newForm = { ...form };
+              newForm.fecha = form.fecha.format('YYYY-MM-DD HH:mm');
               setVisible(false);
-              onSubmit(form);
+              onSubmit(newForm);
             }
           },
           {

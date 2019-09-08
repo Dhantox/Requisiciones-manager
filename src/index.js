@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import './index.css';
 import 'semantic-ui-css/semantic.min.css';
+import 'react-datetime/css/react-datetime.css';
 import * as serviceWorker from './serviceWorker';
 import Router from './Router';
 import configureStore from './store';
