@@ -10,7 +10,7 @@ const RequisicionesContainer = props => {
   const dispatch = useDispatch();
   useEffect(() => {
     Requisiciones.all().then(r => {
-      dispatch({ type: 'CARGAR_Requisiciones_SUCCESS', payload: r.data });
+      dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
     });
   }, [dispatch]);
   const requesiciones = useSelector(store =>

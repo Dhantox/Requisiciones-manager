@@ -4,8 +4,8 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case 'CARGAR_CLIENTES_SUCCESS':
-      return { ...state, clientes: payload };
+    case 'CARGAR_REQUISICIONES_SUCCESS':
+      return { ...state, requisiciones: payload };
 
     default:
       return state;
