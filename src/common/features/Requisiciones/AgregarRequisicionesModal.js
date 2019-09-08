@@ -14,6 +14,7 @@ const AgregarClientesModal = ({ onSubmit }) => {
   return (
     <Modal
       open={visible}
+      onClose={() => setVisible(false)}
       trigger={
         <Button onClick={() => setVisible(true)} primary>
           Agregar Requisición
@@ -27,55 +28,60 @@ const AgregarClientesModal = ({ onSubmit }) => {
           <Form>
             <Form.Input
               fluid
-              name="nombre"
-              label="Nombre"
+              name="fecha"
+              label="Fecha y Hora"
               placeholder="First name"
               onChange={handleChange}
               value={form.nombre}
             />
             <Form.Input
               fluid
-              name="rfc"
-              label="RFC"
-              placeholder="Last name"
+              name="cliente"
+              label="Cliente"
+              placeholder="Cliente"
               onChange={handleChange}
               value={form.rfc}
             />
             <Form.Input
               fluid
-              name="contacto"
-              label="Contacto"
-              placeholder="Last name"
+              name="tipo"
+              label="Tipo"
+              placeholder="Tipo"
               onChange={handleChange}
               value={form.contacto}
             />
-            <Form.Input
+            <Form.TextArea
               fluid
-              name="telefono"
-              label="Teléfono"
-              placeholder="Last name"
+              name="notas"
+              label="Notas"
+              placeholder="notas"
               onChange={handleChange}
               value={form.telefono}
             />
-            <Form.Input
-              fluid
-              name="correo"
-              label="Correo"
-              placeholder="Last name"
-              onChange={handleChange}
-              value={form.correo}
-            />
-            <Form.Button
-              onClick={() => {
-                setVisible(false);
-                onSubmit(form);
-              }}
-            >
-              Submit
-            </Form.Button>
           </Form>
         </Modal.Description>
       </Modal.Content>
+      <Modal.Actions
+        actions={[
+          {
+            key: 'done',
+            content: 'Agregar Requisición',
+            positive: true,
+            onClick: () => {
+              setVisible(false);
+              onSubmit(form);
+            }
+          },
+          {
+            key: 'cancelar',
+            content: 'Cancelar',
+            positive: false,
+            onClick: () => {
+              setVisible(false);
+            }
+          }
+        ]}
+      ></Modal.Actions>
     </Modal>
   );
 };
