@@ -38,6 +38,15 @@ export default props => {
             <Icon name="users" size="big" />
           </Link>
         </div>
+        <div
+          className={`${
+            location === '/requisiciones' ? styles.selectedItem : styles.item
+          }`}
+        >
+          <Link to="requisiciones">
+            <Icon name="envelope outline" size="big" />
+          </Link>
+        </div>
       </div>
     </div>
   );
