@@ -6,7 +6,6 @@ import NavBar from './common/components/NavBar';
 function App(props) {
   return (
     <>
-      <Loader active>Cargando</Loader>
       <NavBar {...props} />{' '}
     </>
   );
