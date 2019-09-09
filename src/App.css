@@ -31,3 +31,9 @@
     transform: rotate(360deg);
   }
 }
+
+.sidebar{
+  position: relative;
+  background-color: #ffffff;
+  height:35px;
+}
