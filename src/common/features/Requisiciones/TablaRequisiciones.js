@@ -88,8 +88,8 @@ const TablaRequisiciones = props => {
               <Table.Cell>{fecha_correo}</Table.Cell>
               <Table.Cell>{cliente.nombre}</Table.Cell>
               <Table.Cell>{tipo.concepto}</Table.Cell>
-              <Table.Cell>{cotizacion || 'Sin cotizacion'}</Table.Cell>
-              <Table.Cell>{cotizacion || 'Sin cotizacion'}</Table.Cell>
+              <Table.Cell>{cotizacion.folio || 'Sin cotizacion'}</Table.Cell>
+              <Table.Cell>{cotizacion.monto || 'Sin cotizacion'}</Table.Cell>
               <Table.Cell>{estatus.concepto}</Table.Cell>
               <Table.Cell>
                 <Icon
