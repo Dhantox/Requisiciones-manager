@@ -31,7 +31,7 @@ const TablaRequisiciones = props => {
     });
   };
   return (
-    <Table sortable celled striped fixed>
+    <Table sortable celled striped >
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell

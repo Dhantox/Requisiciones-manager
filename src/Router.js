@@ -10,16 +10,16 @@ import RequisicionesContainer from './common/features/Requisiciones/Requisicione
 const Router = () => {
   return (
     <BrowserRouter>
-      <Route path="/" component={App} />
+      <Route path="/main" component={App} />
       <Switch>
-        <PrivateRoute path="/usuarios" component={UsuariosContainer} />
-        <PrivateRoute path="/clientes" component={ClientesContainer} />
+        <PrivateRoute path="/main/usuarios" component={UsuariosContainer} />
+        <PrivateRoute path="/main/clientes" component={ClientesContainer} />
         <PrivateRoute
-          path="/requisiciones"
+          path="/main/requisiciones"
           component={RequisicionesContainer}
         />
         <Route path="/login" component={LoginContainer} />
-        <Redirect path="/" to="/clientes" />
+        <Redirect path="/" to="/main/requisiciones" />
       </Switch>
     </BrowserRouter>
   );

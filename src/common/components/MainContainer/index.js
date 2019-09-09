@@ -5,18 +5,20 @@ import styles from './styles.module.css';
 const MainContainer = ({ children, title, optionsButtons }) => {
   return (
     <div className={styles.mainContainer}>
-      <div className="main-container">
-        <Container fluid>
+      <div>
+        <Container>
           <Grid>
-            <Grid.Row>
-              <Grid.Column width={10}>
+            <Grid.Column>
+              <Grid.Column className={styles.fixedcolumn}>
                 <h1 className={styles.title}>{title}</h1>{' '}
               </Grid.Column>
-              <Grid.Column floated="right" width={6}>
+              <Grid.Column className={styles.fixedcolumn}> 
                 {optionsButtons}
               </Grid.Column>
-            </Grid.Row>
-            {children}
+              <Grid.Column className={styles.fixedcolumn}>
+              {children}
+              </Grid.Column>
+            </Grid.Column>
           </Grid>
         </Container>
       </div>
