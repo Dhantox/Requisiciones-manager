@@ -35,44 +35,44 @@ const TablaRequisiciones = props => {
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell
-            sorted={column === 'name' ? direction : null}
-            onClick={handleSort('name')}
+            sorted={column === 'id' ? direction : null}
+            onClick={handleSort('id')}
           >
             ID
           </Table.HeaderCell>
           <Table.HeaderCell
-            sorted={column === 'age' ? direction : null}
-            onClick={handleSort('age')}
+            sorted={column === 'fecha_correo' ? direction : null}
+            onClick={handleSort('fecha_correo')}
           >
             Fecha correo
           </Table.HeaderCell>
           <Table.HeaderCell
-            sorted={column === 'telefono' ? direction : null}
-            onClick={handleSort('telefono')}
+            sorted={column === 'cliente' ? direction : null}
+            onClick={handleSort('cliente')}
           >
             Cliente
           </Table.HeaderCell>
           <Table.HeaderCell
-            sorted={column === 'telefono' ? direction : null}
-            onClick={handleSort('telefono')}
+            sorted={column === 'tipo' ? direction : null}
+            onClick={handleSort('tipo')}
           >
             Tipo
           </Table.HeaderCell>
           <Table.HeaderCell
-            sorted={column === 'correo' ? direction : null}
-            onClick={handleSort('correo')}
+            sorted={column === 'folio' ? direction : null}
+            onClick={handleSort('folio')}
           >
             Folio
           </Table.HeaderCell>
           <Table.HeaderCell
-            sorted={column === 'correo' ? direction : null}
-            onClick={handleSort('correo')}
+            sorted={column === 'monto' ? direction : null}
+            onClick={handleSort('monto')}
           >
             Monto
           </Table.HeaderCell>
           <Table.HeaderCell
-            sorted={column === 'correo' ? direction : null}
-            onClick={handleSort('correo')}
+            sorted={column === 'estado' ? direction : null}
+            onClick={handleSort('estado')}
           >
             Estado
           </Table.HeaderCell>
@@ -83,17 +83,24 @@ const TablaRequisiciones = props => {
         {_.map(
           data,
           ({ id, fecha_correo, cliente, tipo, estatus, cotizacion }) => (
-            <Table.Row key={id}>
+            <Table.Row onClick={e => props.onSelectRequisicion(id)} key={id}>
               <Table.Cell>{id}</Table.Cell>
               <Table.Cell>{fecha_correo}</Table.Cell>
               <Table.Cell>{cliente.nombre}</Table.Cell>
               <Table.Cell>{tipo.concepto}</Table.Cell>
-              <Table.Cell>{cotizacion.folio || 'Sin cotizacion'}</Table.Cell>
-              <Table.Cell>{cotizacion.monto || 'Sin cotizacion'}</Table.Cell>
+              <Table.Cell>
+                {cotizacion ? cotizacion.folio : 'Sin cotización'}
+              </Table.Cell>
+              <Table.Cell>
+                {cotizacion ? cotizacion.monto : 'Sin cotización'}
+              </Table.Cell>
               <Table.Cell>{estatus.concepto}</Table.Cell>
               <Table.Cell>
                 <Icon
-                  onClick={e => props.onAgregarCotizacionClick(id)}
+                  onClick={e => {
+                    e.persist();
+                    props.onAgregarCotizacionClick(id);
+                  }}
                   color="green"
                   name="add"
                   size="large"
