@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component, useState, useEffect } from 'react';
 import { Table, Icon } from 'semantic-ui-react';
 
-const TablaClientes = props => {
+const TablaRequisiciones = props => {
   const [state, setState] = useState({
     column: null,
     data: props.data,
@@ -88,11 +88,16 @@ const TablaClientes = props => {
               <Table.Cell>{fecha_correo}</Table.Cell>
               <Table.Cell>{cliente.nombre}</Table.Cell>
               <Table.Cell>{tipo.concepto}</Table.Cell>
-              <Table.Cell>{cotizacion || 'Sin cotizacion'}</Table.Cell>
-              <Table.Cell>{cotizacion || 'Sin cotizacion'}</Table.Cell>
+              <Table.Cell>{cotizacion.folio || 'Sin cotizacion'}</Table.Cell>
+              <Table.Cell>{cotizacion.monto || 'Sin cotizacion'}</Table.Cell>
               <Table.Cell>{estatus.concepto}</Table.Cell>
               <Table.Cell>
-                <Icon color="green" name="add" size="large" />
+                <Icon
+                  onClick={e => props.onAgregarCotizacionClick(id)}
+                  color="green"
+                  name="add"
+                  size="large"
+                />
                 <Icon name="" size="large" />
                 <Icon color="green" name="checkmark" size="large" />
               </Table.Cell>
@@ -104,4 +109,4 @@ const TablaClientes = props => {
   );
 };
 
-export default TablaClientes;
+export default TablaRequisiciones;

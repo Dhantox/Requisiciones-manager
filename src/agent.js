@@ -87,14 +87,14 @@ export const Requisiciones = {
   },
   create: requisicion =>
     requests.post('requisiciones/requisiciones/', requisicion),
+  cotizaciones: {
+    create: (cotizacion, requisicionId) =>
+      requests.post(
+        `requisiciones/requisiciones/${requisicionId}/cotizaciones/`,
+        cotizacion
+      )
+  },
   get: lessonId => requests.get(`lessons/lessons/${lessonId}/`),
   update: (lessonId, lesson) =>
-    requests.put(`lessons/lessons/${lessonId}/`, lesson),
-  withConcepts: lessonId =>
-    requests.get(`lessons/lessons/${lessonId}/concepts/`),
-  delete: lessonId => requests.delete(`lessons/lessons/${lessonId}/`),
-  saveTrainingScore: (lessonId, conceptsScore) =>
-    requests.post(`lessons/lessons/${lessonId}/training/`, {
-      concepts: conceptsScore
-    })
+    requests.put(`lessons/lessons/${lessonId}/`, lesson)
 };
