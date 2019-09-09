@@ -61,6 +61,13 @@ const RequisicionesContainer = props => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
               setmodalCotizacionVisible(true);
             }}
+            onSelectRequisicion={id => {
+              dispatch({ type: 'SELECT_REQUISICION', payload: id });
+              dispatch({
+                type: 'MODAL_REQUISICION_MODO_VER'
+              });
+              dispatch({ type: 'MODAL_REQUISICION_' });
+            }}
             data={requesiciones}
           ></TablaRequisiciones>
           <AgregarCotizacionModal
@@ -69,6 +76,7 @@ const RequisicionesContainer = props => {
             onSubmit={form =>
               Requisiciones.cotizaciones
                 .create(form, selectedRequisicion)
+                .then(r => Requisiciones.all())
                 .then(r =>
                   dispatch({
                     type: 'CARGAR_REQUISICIONES_SUCCESS',
