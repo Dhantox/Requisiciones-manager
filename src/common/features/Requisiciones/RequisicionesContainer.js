@@ -8,6 +8,7 @@ import TablaRequisiciones from './TablaRequisiciones';
 import { getClientes } from '../Clientes/selectors';
 import { getRequisicionesTipos, getSelectedRequisicion } from './selectors';
 import AgregarCotizacionModal from './AgregarCotizacionModal';
+import moment from 'moment';
 
 const RequisicionesContainer = props => {
   const [modalCotizacionVisible, setmodalCotizacionVisible] = useState(false);
@@ -27,7 +28,10 @@ const RequisicionesContainer = props => {
 
   const requesiciones = useSelector(store =>
     store.requisiciones.requisiciones.map(cliente => ({ ...cliente }))
-  );
+  ).map(requisicion => {
+    requisicion.fecha_correo = moment(requisicion.fecha_correo);
+    return requisicion;
+  });
   const requisicionesTipos = useSelector(getRequisicionesTipos);
   const clientes = useSelector(getClientes);
   const selectedRequisicion = useSelector(getSelectedRequisicion);

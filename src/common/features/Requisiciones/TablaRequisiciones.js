@@ -31,7 +31,7 @@ const TablaRequisiciones = props => {
     });
   };
   return (
-    <Table sortable celled striped >
+    <Table sortable celled striped>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell
@@ -45,6 +45,12 @@ const TablaRequisiciones = props => {
             onClick={handleSort('fecha_correo')}
           >
             Fecha correo
+          </Table.HeaderCell>
+          <Table.HeaderCell
+            sorted={column === 'tiempo_transcurrido' ? direction : null}
+            onClick={handleSort('tiempo_transcurrido')}
+          >
+            Tiempo transcurrido
           </Table.HeaderCell>
           <Table.HeaderCell
             sorted={column === 'cliente' ? direction : null}
@@ -85,7 +91,8 @@ const TablaRequisiciones = props => {
           ({ id, fecha_correo, cliente, tipo, estatus, cotizacion }) => (
             <Table.Row onClick={e => props.onSelectRequisicion(id)} key={id}>
               <Table.Cell>{id}</Table.Cell>
-              <Table.Cell>{fecha_correo}</Table.Cell>
+              <Table.Cell>{fecha_correo.format('DD/MM/YY')}</Table.Cell>
+              <Table.Cell>{fecha_correo.fromNow()}</Table.Cell>
               <Table.Cell>{cliente.nombre}</Table.Cell>
               <Table.Cell>{tipo.concepto}</Table.Cell>
               <Table.Cell>
