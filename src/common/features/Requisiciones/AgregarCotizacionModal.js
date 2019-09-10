@@ -5,13 +5,7 @@ import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
 import moment from 'moment';
 
-const AgregarCotizacionModal = ({
-  requisicionesTipos,
-  clientes,
-  onSubmit,
-  visible,
-  setVisible
-}) => {
+const AgregarCotizacionModal = ({ onSubmit, visible, setVisible }) => {
   const [form, handleChange, setForm] = useForm({
     fecha: moment(),
     monto: '',

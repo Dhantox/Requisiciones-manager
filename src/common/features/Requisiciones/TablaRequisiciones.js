@@ -116,11 +116,17 @@ const TablaRequisiciones = props => {
                   bordered="square"
                 />
                 <Icon name="" size="large" />
-                <Icon color="green" name="checkmark" size="large" bordered="square" />
-              </Table.Cell >
-              
-              <Table.Cell>
 
+                <Icon
+                  onClick={e => {
+                    e.persist();
+                    props.onCambiarEstatusClick(id);
+                  }}
+                  color="green"
+                  name="checkmark"
+                  size="large"
+                  bordered="square"
+                />
               </Table.Cell>
             </Table.Row>
           )

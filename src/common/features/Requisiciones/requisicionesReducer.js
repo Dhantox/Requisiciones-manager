@@ -1,6 +1,8 @@
 const initialState = {
   requisiciones: [],
   requisicionesTipos: [],
+  requisicionesEstadosCategorias: [],
+  requisicionesEstatus: [],
   selectedRequisicion: null
 };
 
@@ -12,7 +14,10 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, requisicionesTipos: payload };
     case 'SELECT_REQUISICION':
       return { ...state, selectedRequisicion: payload };
-
+    case 'CARGAR_REQUISICIONES_ESTADOS_CATEGORIAS_SUCCESS':
+      return { ...state, requisicionesEstadosCategorias: payload };
+    case 'CARGAR_REQUISICIONES_ESTATUS_SUCCESS':
+      return { ...state, requisicionesEstatus: payload };
     default:
       return state;
   }

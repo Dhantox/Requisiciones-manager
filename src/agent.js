@@ -85,6 +85,15 @@ export const Requisiciones = {
   tipos: {
     all: () => requests.get('requisiciones/requisiciones/tipos/')
   },
+  estatus: {
+    all: () => requests.get('requisiciones/requisiciones/estatus/')
+  },
+  estados: {
+    all: () => requests.get('requisiciones/requisiciones/estados/'),
+    categorias: {
+      all: () => requests.get('requisiciones/requisiciones/categorias/')
+    }
+  },
   create: requisicion =>
     requests.post('requisiciones/requisiciones/', requisicion),
   cotizaciones: {
@@ -94,6 +103,7 @@ export const Requisiciones = {
         cotizacion
       )
   },
+
   get: lessonId => requests.get(`lessons/lessons/${lessonId}/`),
   update: (lessonId, lesson) =>
     requests.put(`lessons/lessons/${lessonId}/`, lesson)
