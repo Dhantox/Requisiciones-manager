@@ -1,7 +1,35 @@
 import _ from 'lodash';
 import React, { Component, useState, useEffect } from 'react';
-import { Table, Icon } from 'semantic-ui-react';
-import styles from './tabla.css';
+import { Table, Icon, Grid, GridRow, GridColumn } from 'semantic-ui-react';
+import styles from './tabla.css'
+import moment from 'moment';
+
+const prioridad = (horaDeCorreo,status) =>{
+  var horaActual = moment();
+  var horaCorreo = moment(horaDeCorreo);
+  var positive = {positive:true} 
+  var negative= {negative:true}
+  var warning= {warning:true}
+  
+  var tiempoTranscurrido = horaActual.diff(horaCorreo,'hours','minutes');
+  console.log(tiempoTranscurrido);
+  if(tiempoTranscurrido<=3){
+    //return positive;
+    //return positive.prioridad;
+    console.log(positive.prioridad);
+    return positive;
+  }
+  else{
+    if(tiempoTranscurrido<=6){
+      console.log(warning.prioridad);
+      return warning;
+    }
+    else{
+      console.log(negative.prioridad);
+      return negative;
+    }
+  }
+}
 
 const TablaRequisiciones = props => {
   const [state, setState] = useState({
@@ -84,16 +112,15 @@ const TablaRequisiciones = props => {
             Estado
           </Table.HeaderCell>
           <Table.HeaderCell></Table.HeaderCell>
-          <Table.HeaderCell></Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
         {_.map(
           data,
           ({ id, fecha_correo, cliente, tipo, estatus, cotizacion }) => (
-            <Table.Row onClick={e => props.onSelectRequisicion(id)} key={id}>
+            <Table.Row {...prioridad(fecha_correo,estatus.concepto)} onClick={e => props.onSelectRequisicion(id)} key={id}>
               <Table.Cell>{id}</Table.Cell>
-              <Table.Cell>{fecha_correo.format('DD/MM/YY')}</Table.Cell>
+              <Table.Cell>{fecha_correo.format('DD/MM/YY:HH:mm')}</Table.Cell>
               <Table.Cell>{fecha_correo.fromNow()}</Table.Cell>
               <Table.Cell>{cliente.nombre}</Table.Cell>
               <Table.Cell>{tipo.concepto}</Table.Cell>
@@ -105,6 +132,7 @@ const TablaRequisiciones = props => {
               </Table.Cell>
               <Table.Cell>{estatus.concepto}</Table.Cell>
               <Table.Cell>
+                <Grid.Row columns={2}>
                 <Icon
                   onClick={e => {
                     e.persist();
@@ -116,7 +144,7 @@ const TablaRequisiciones = props => {
                   bordered="square"
                 />
                 <Icon name="" size="large" />
-
+       
                 <Icon
                   onClick={e => {
                     e.persist();
@@ -127,6 +155,7 @@ const TablaRequisiciones = props => {
                   size="large"
                   bordered="square"
                 />
+                </Grid.Row>
               </Table.Cell>
             </Table.Row>
           )
