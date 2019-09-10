@@ -15,7 +15,7 @@ const AgregarClientesModal = ({ onSubmit }) => {
     <Modal
       open={visible}
       trigger={
-        <Button onClick={() => setVisible(true)} positive>
+        <Button onClick={() => setVisible(true)} primary>
           Agregar cliente
         </Button>
       }
