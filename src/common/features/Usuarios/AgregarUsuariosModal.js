@@ -4,7 +4,7 @@ import { Button, Header, Image, Modal, Form } from "semantic-ui-react";
 const AgregarUsuariosModal = () => {
   const [visible, setVisible] = useState(true);
   return (
-    <Modal trigger={<Button primary>Agregar usuario</Button>} centered={false}>
+    <Modal trigger={<Button positive>Agregar usuario</Button>} centered={false}>
       <Modal.Header>Agregar usuario</Modal.Header>
       <Modal.Content>
         <Modal.Description>

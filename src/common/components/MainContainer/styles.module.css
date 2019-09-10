@@ -6,12 +6,15 @@
 .mainContainer {
   background-color: #f5f5f5;
   align-content: center;
-  padding-left: 117px;
+  padding-left: 131px;
   padding-top: 50px;  
 }
 
 .fixedcolumn{
   padding-bottom: 10px;
+}
+.paddingfix{
+  padding:15px;
 }
 .button {
   margin-top: 1em !important;

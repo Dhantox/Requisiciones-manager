@@ -32,8 +32,22 @@
   }
 }
 
+.fontcolor{
+  color: white;
+}
+.pading{
+  padding-top: 3px;
+}
+
+.borde{
+  border-bottom:2px solid white;
+}
+
 .sidebar{
-  position: relative;
-  background-color: #ffffff;
   height:35px;
+  width: 100%;
+  position: relative;
+  position: absolute;
+  background-color: #212121;
+
 }

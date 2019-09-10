@@ -1,28 +1,29 @@
 .navBarContainer {
   height: 100%;
   position: fixed;
-  width: 120px;
+  width: 135px;
   z-index: 1;
   left: 0;
-  background-color: #ffffff;
-  border-right: 4px solid #f6f6f6;
+  background-color:white;
+  color: white;
+
 }
 
 .navBar{
-  padding-top: 25px;
+  padding-top: 85px;
 }
 
 .menuIcon {
   padding: 1em 0.5em 2em 0.5em;
-  border-left: 3px solid white;
+  border-left: 3px solid #2196f3;
   color: #8492a6;
 }
 
 
 .item {
-  padding: 1em 0.5em;
+  padding: 1.0em 0.5em;
   border-left: 3px solid white;
-  color: #8492a6;
+  color: white ;
   display: inline-block;
 }
 
@@ -30,7 +31,7 @@
   padding: 1em 0.5em;
   border-left: 3px solid #4080b7;
   animation-duration: 200ms;
-  cursor: pointer;
+  cursor: pointer;  
   animation-name: itemHover;
 }
 
@@ -45,6 +46,5 @@
 
 .selectedItem {
   padding: 1em 0.5em;
-  border-left: 3px solid #4080b7;
-  color: #8492a6;
+  color: white;
 }

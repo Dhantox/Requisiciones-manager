@@ -6,7 +6,7 @@ const MainContainer = ({ children, title, optionsButtons }) => {
   return (
     <div className={styles.mainContainer}>
       <div>
-        <Container>
+        <Container fluid className={styles.paddingfix}>
           <Grid>
             <Grid.Column>
               <Grid.Column className={styles.fixedcolumn}>
