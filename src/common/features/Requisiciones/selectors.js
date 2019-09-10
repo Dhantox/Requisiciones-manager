@@ -5,3 +5,11 @@ export const getRequisicionesTipos = store =>
 
 export const getSelectedRequisicion = store =>
   store.requisiciones.selectedRequisicion;
+
+export const getEstadosCategorias = store =>
+  store.requisiciones.requisicionesEstadosCategorias.map(categoria => ({
+    ...categoria
+  }));
+
+export const getRequisicionesEstatus = store =>
+  store.requisiciones.requisicionesEstatus.map(estatus => ({ ...estatus }));
