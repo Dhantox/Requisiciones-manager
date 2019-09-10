@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { Component, useState, useEffect } from 'react';
 import { Table, Icon } from 'semantic-ui-react';
+import styles from './tabla.css';
 
 const TablaRequisiciones = props => {
   const [state, setState] = useState({
@@ -31,7 +32,7 @@ const TablaRequisiciones = props => {
     });
   };
   return (
-    <Table sortable celled striped >
+    <Table sortable celled striped>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell
@@ -77,6 +78,7 @@ const TablaRequisiciones = props => {
             Estado
           </Table.HeaderCell>
           <Table.HeaderCell></Table.HeaderCell>
+          <Table.HeaderCell></Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -104,9 +106,14 @@ const TablaRequisiciones = props => {
                   color="green"
                   name="add"
                   size="large"
+                  bordered="square"
                 />
                 <Icon name="" size="large" />
-                <Icon color="green" name="checkmark" size="large" />
+                <Icon color="green" name="checkmark" size="large" bordered="square" />
+              </Table.Cell >
+              
+              <Table.Cell>
+
               </Table.Cell>
             </Table.Row>
           )

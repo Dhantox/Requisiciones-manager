@@ -18,7 +18,7 @@ const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
       open={visible}
       onClose={() => setVisible(false)}
       trigger={
-        <Button onClick={() => setVisible(true)} primary>
+        <Button onClick={() => setVisible(true)} positive>
           Agregar Requisición
         </Button>
       }

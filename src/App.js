@@ -13,17 +13,25 @@ export default props => {
       <h4></h4>
     </div>
     <div className={styles.navBarContainer}>
+    <div class="sidebar">
+      <h4></h4>
+    </div>
       <div className={styles.navBar}>
-      <div className={styles.item}>
-          Menu
-          </div>
         <div
+          class="fontcolor"
           className={`${
             location === '/requisiciones' ? styles.selectedItem : styles.item
           }`}
         >
           <Link to="requisiciones">
-            Requisiciones
+            <div class="ui grid">
+              <div class="two wide column">
+              <Icon name="file alternate outline" size="large"/>
+              </div>
+              <div class="two wide column">
+              <h5 >Requisiciones</h5>
+              </div>
+            </div>
           </Link>
         </div>
         <div
@@ -32,7 +40,14 @@ export default props => {
           }`}
         >
           <Link to="usuarios">
-            Usuarios
+          <div class="ui grid">
+              <div class="two wide column">
+              <Icon name="user" size="large" colored='white'/>
+              </div>
+              <div class="two wide column">
+              <h5 >Usuarios</h5>
+              </div>
+            </div>
           </Link>
         </div>
         <div
@@ -41,16 +56,14 @@ export default props => {
           }`}
         >
           <Link to="clientes">
-            Clientes
-          </Link>
-        </div>
-        <div
-          className={`${
-            location === '/requisiciones' ? styles.selectedItem : styles.item
-          }`}
-        >
-          <Link to="requisiciones">
-            <Icon name="envelope outline" size="big" />
+          <div class="ui grid">
+              <div class="two wide column">
+              <Icon name="users" size="large" colored='white'/>
+              </div>
+              <div class="two wide column">
+              <h5>Clientes</h5>
+              </div>
+            </div>
           </Link>
         </div>
       </div>
