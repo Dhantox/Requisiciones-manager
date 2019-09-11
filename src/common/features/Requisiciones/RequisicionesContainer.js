@@ -18,7 +18,10 @@ import moment from 'moment';
 import showNotification from '../../utils/notifications';
 
 const RequisicionesContainer = props => {
-  const [modalCotizacionVisible, setmodalCotizacionVisible] = useState(false);
+  const [modalCotizacionState, setModalCotizacionState] = useState({
+    visible: false,
+    mode: 'crear'
+  });
   const [
     modalEstadoRequisicionVisible,
     setModalEstadoRequisicionVisible
@@ -65,7 +68,20 @@ const RequisicionesContainer = props => {
   const estatus = useSelector(getRequisicionesEstatus);
   const estadosCategorias = useSelector(getEstadosCategorias);
   const selectedRequisicion = useSelector(getSelectedRequisicion);
-
+  let defaultFormCotizacion = {
+    fecha: moment(),
+    monto: '',
+    folio: '',
+    orden_proveedor: ''
+  };
+  if (selectedRequisicion && selectedRequisicion.cotizacion) {
+    defaultFormCotizacion = {
+      fecha: moment(selectedRequisicion.cotizacion.fecha),
+      monto: selectedRequisicion.cotizacion.monto,
+      folio: selectedRequisicion.cotizacion.folio,
+      orden_proveedor: selectedRequisicion.cotizacion.orden_proveedor
+    };
+  }
   return (
     <MainContainer
       title="Requisiciones"
@@ -93,7 +109,17 @@ const RequisicionesContainer = props => {
           <TablaRequisiciones
             onAgregarCotizacionClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
-              setmodalCotizacionVisible(true);
+              setModalCotizacionState({
+                ...modalCotizacionState,
+                visible: true
+              });
+            }}
+            onVerCotizacionClick={requisicionId => {
+              dispatch({ type: 'SELECT_REQUISICION', payload: requisicionId });
+              setModalCotizacionState({
+                ...modalCotizacionState,
+                visible: true
+              });
             }}
             onCambiarEstatusClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
@@ -111,8 +137,14 @@ const RequisicionesContainer = props => {
             data={requesiciones}
           ></TablaRequisiciones>
           <AgregarCotizacionModal
-            visible={modalCotizacionVisible}
-            setVisible={setmodalCotizacionVisible}
+            visible={modalCotizacionState.visible}
+            setVisible={visible =>
+              setModalCotizacionState({
+                ...modalCotizacionState,
+                visible: visible
+              })
+            }
+            defaultForm={defaultFormCotizacion}
             onSubmit={form =>
               Requisiciones.cotizaciones
                 .create(form, selectedRequisicion.id)

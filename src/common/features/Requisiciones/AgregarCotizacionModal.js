@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
-import { Button, Header, Image, Modal, Form } from 'semantic-ui-react';
-import DropdownInput from '../../components/DropdownInput';
+import React, { useEffect } from 'react';
+import { Modal, Form } from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
 import moment from 'moment';
 
-const AgregarCotizacionModal = ({ onSubmit, visible, setVisible }) => {
-  const [form, handleChange, setForm] = useForm({
-    fecha: moment(),
-    monto: '',
-    folio: '',
-    orden_proveedor: ''
-  });
+const AgregarCotizacionModal = ({
+  defaultForm,
+  onSubmit,
+  visible,
+  setVisible
+}) => {
+  const [form, handleChange, setForm] = useForm(defaultForm);
+  useEffect(() => {
+    setForm(defaultForm);
+  }, [defaultForm]);
   return (
     <Modal open={visible} onClose={() => setVisible(false)} centered={false}>
       <Modal.Header>Agregar cotización</Modal.Header>
