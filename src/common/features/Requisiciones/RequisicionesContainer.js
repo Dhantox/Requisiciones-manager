@@ -6,6 +6,7 @@ import AgregarRequisicionesModal from './AgregarRequisicionesModal';
 import { Requisiciones, Clientes } from '../../../agent';
 import TablaRequisiciones from './TablaRequisiciones';
 import { getClientes } from '../Clientes/selectors';
+import { store } from 'react-notifications-component';
 import {
   getRequisicionesTipos,
   getSelectedRequisicion,
@@ -111,12 +112,25 @@ const RequisicionesContainer = props => {
               Requisiciones.cotizaciones
                 .create(form, selectedRequisicion.id)
                 .then(r => Requisiciones.all())
-                .then(r =>
+                .then(r => {
                   dispatch({
                     type: 'CARGAR_REQUISICIONES_SUCCESS',
                     payload: r.data
-                  })
-                )
+                  });
+                  store.addNotification({
+                    title: 'Cotización creada!',
+                    message: 'La cotización ha sido creada exitosamente',
+                    type: 'success',
+                    insert: 'top',
+                    container: 'top-right',
+                    animationIn: ['animated', 'fadeIn'],
+                    animationOut: ['animated', 'fadeOut'],
+                    dismiss: {
+                      duration: 2500,
+                      onScreen: true
+                    }
+                  });
+                })
             }
           ></AgregarCotizacionModal>
           <EstadoRequisicionModal
