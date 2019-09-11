@@ -6,13 +6,17 @@
   padding-left:0;
   padding-right:0;
   left: 0;
-  background-color:#f5f5f5;
+  background-color:white;
   color: white;
+  border-right: 1px solid f5f5f5;
+  box-shadow: 0px 0px 20px -16px grey;
 
 }
 
 .navBar{
   padding-top: 85px;
+  padding-left: 3px; 
+  padding-right: 3px;
 }
 
 .menuIcon {
@@ -20,24 +24,38 @@
   border-left: 3px solid #2196f3;
   color: #8492a6;
 }
+.fix{
+  padding-left:2px;
+}
+.paddingfix{
+  padding-bottom: 5px;
+}
 
 
 .item {
   padding: 10px 20px;
-  color:#337ab7 ;
   display: inline-block;
+  font-size: 0.90rem;
+  font-family: sans-serif;
+}
+a{
+  color: grey;  
 }
 
-a => {
-  font-family: sans-serif;
-  color:red ;
-}
+
 .item:hover {
-  padding: 10px 20px;
-  border-left: 3px solid #4080b7;
-  animation-duration: 200ms;
+  padding: 10px 17px; 
   cursor: pointer;  
   animation-name: itemHover;
+  border-radius: 5px;
+  width: 100%;
+  border-left: 3px solid #5094cf;
+  animation-duration: 200ms;
+  background-color: #e3f2fd;
+  font-family: sans-serif;
+}
+.item:hover> a {
+  color: #5094cf;
 }
 
 @keyframes itemHover {
@@ -50,6 +68,16 @@ a => {
 }
 
 .selectedItem {
-  padding: 1em 0.5em;
+  padding: 10px 17px;
   color: white;
+  font-size: 0.90rem;
+  border-radius: 5px; 
+  font-weight:bolder;
+  border-left: 3px solid #5094cf;
+  background-color: #e3f2fd;
+  
+  font-family: sans-serif;
+}
+.selectedItem > a {
+  color: #5094cf;
 }

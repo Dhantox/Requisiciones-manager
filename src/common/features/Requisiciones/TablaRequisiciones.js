@@ -10,22 +10,15 @@ const prioridad = (horaDeCorreo,status) =>{
   var positive = {positive:true} 
   var negative= {negative:true}
   var warning= {warning:true}
-  
   var tiempoTranscurrido = horaActual.diff(horaCorreo,'hours','minutes');
-  console.log(tiempoTranscurrido);
   if(tiempoTranscurrido<=3){
-    //return positive;
-    //return positive.prioridad;
-    console.log(positive.prioridad);
     return positive;
   }
   else{
     if(tiempoTranscurrido<=6){
-      console.log(warning.prioridad);
       return warning;
     }
     else{
-      console.log(negative.prioridad);
       return negative;
     }
   }
@@ -139,7 +132,7 @@ const TablaRequisiciones = props => {
               <Table.Cell>{estatus.concepto}</Table.Cell>
               <Table.Cell textAlign={"center"} >
               <Grid.Row>
-                <Icon
+                <Icon 
                   onClick={e => {
                     e.persist();
                     props.onAgregarCotizacionClick(id);
