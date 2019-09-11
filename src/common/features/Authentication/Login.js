@@ -27,6 +27,7 @@ const Login = ({ onSuccess }) => {
           <Form.Field>
             <Form.Input
               fluid
+              type="password"
               label="Password"
               name="password"
               onChange={handleChange}
