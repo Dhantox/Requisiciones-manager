@@ -12,7 +12,7 @@ export default props => {
     <div class="sidebar">
       <h4></h4>
     </div>
-    <div className={styles.navBarContainer}>
+    <div class="ui vertical borderless fluid text menu" className={styles.navBarContainer}>
     <div class="sidebar">
       <h4></h4>
     </div>
