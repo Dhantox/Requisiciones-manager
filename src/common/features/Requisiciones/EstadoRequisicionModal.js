@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Form } from 'semantic-ui-react';
 import DropdownInput from '../../components/DropdownInput';
 import { useForm } from '../../hooks/formHooks';
@@ -9,13 +9,20 @@ const EstadoRequisicionModal = ({
   visible,
   setVisible,
   estadosCategorias,
-  estatus
+  estatus,
+  defaultForm
 }) => {
   const [form, handleChange, setForm] = useForm({
-    fecha: moment(),
+    estatus_id: defaultForm.estatus_id,
     categoria_id: '',
     razon: ''
   });
+
+  useEffect(() => {
+    setForm(defaultForm);
+    return () => {};
+  }, [defaultForm]);
+
   return (
     <Modal open={visible} onClose={() => setVisible(false)} centered={false}>
       <Modal.Header>Estado requisición</Modal.Header>
@@ -25,20 +32,20 @@ const EstadoRequisicionModal = ({
             <DropdownInput
               placeholder="Estatus"
               label="Estatus"
-              name="estatus"
+              name="estatus_id"
               onChange={handleChange}
               valuename="concepto"
               fluid
               search
               selection
               options={estatus}
-              value={form.estatus}
+              value={form.estatus_id}
               clearable
             ></DropdownInput>
             <DropdownInput
               placeholder="Categoria"
               label="Categoria"
-              name="categoria"
+              name="categoria_id"
               onChange={handleChange}
               valuename="categoria"
               fluid
@@ -63,7 +70,7 @@ const EstadoRequisicionModal = ({
         actions={[
           {
             key: 'done',
-            content: 'Agregar cotización',
+            content: 'Guardar estado',
             positive: true,
             onClick: () => {
               const newForm = { ...form };

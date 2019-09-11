@@ -57,7 +57,6 @@ const RequisicionesContainer = props => {
   const requisicionesTipos = useSelector(getRequisicionesTipos);
   const clientes = useSelector(getClientes);
   const estatus = useSelector(getRequisicionesEstatus);
-  console.log(estatus);
   const estadosCategorias = useSelector(getEstadosCategorias);
   const selectedRequisicion = useSelector(getSelectedRequisicion);
 
@@ -92,6 +91,12 @@ const RequisicionesContainer = props => {
             }}
             onCambiarEstatusClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
+              Requisiciones.estados.get(id).then(r =>
+                dispatch({
+                  type: 'CARGAR_REQUISICION_ESTADO',
+                  payload: r.data
+                })
+              );
               setModalEstadoRequisicionVisible(true);
             }}
             onSelectRequisicion={id => {
@@ -104,7 +109,7 @@ const RequisicionesContainer = props => {
             setVisible={setmodalCotizacionVisible}
             onSubmit={form =>
               Requisiciones.cotizaciones
-                .create(form, selectedRequisicion)
+                .create(form, selectedRequisicion.id)
                 .then(r => Requisiciones.all())
                 .then(r =>
                   dispatch({
@@ -115,13 +120,22 @@ const RequisicionesContainer = props => {
             }
           ></AgregarCotizacionModal>
           <EstadoRequisicionModal
+            defaultForm={{
+              estatus_id: selectedRequisicion
+                ? selectedRequisicion.estatus.id
+                : '',
+              categoria_id: selectedRequisicion
+                ? selectedRequisicion.estado.categoria
+                : '',
+              razon: selectedRequisicion ? selectedRequisicion.estado.razon : ''
+            }}
             estadosCategorias={estadosCategorias}
             estatus={estatus}
             visible={modalEstadoRequisicionVisible}
             setVisible={setModalEstadoRequisicionVisible}
             onSubmit={form =>
               Requisiciones.cotizaciones
-                .create(form, selectedRequisicion)
+                .create(form, selectedRequisicion.id)
                 .then(r => Requisiciones.all())
                 .then(r =>
                   dispatch({

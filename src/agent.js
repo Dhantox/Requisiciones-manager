@@ -89,6 +89,8 @@ export const Requisiciones = {
     all: () => requests.get('requisiciones/requisiciones/estatus/')
   },
   estados: {
+    get: requisicionId =>
+      requests.get(`requisiciones/requisiciones/${requisicionId}/estados/`),
     all: () => requests.get('requisiciones/requisiciones/estados/'),
     categorias: {
       all: () => requests.get('requisiciones/requisiciones/categorias/')
