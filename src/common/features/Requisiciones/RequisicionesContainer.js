@@ -6,7 +6,6 @@ import AgregarRequisicionesModal from './AgregarRequisicionesModal';
 import { Requisiciones, Clientes } from '../../../agent';
 import TablaRequisiciones from './TablaRequisiciones';
 import { getClientes } from '../Clientes/selectors';
-import { store } from 'react-notifications-component';
 import {
   getRequisicionesTipos,
   getSelectedRequisicion,
@@ -16,6 +15,7 @@ import {
 import AgregarCotizacionModal from './AgregarCotizacionModal';
 import EstadoRequisicionModal from './EstadoRequisicionModal';
 import moment from 'moment';
+import showNotification from '../../utils/notifications';
 
 const RequisicionesContainer = props => {
   const [modalCotizacionVisible, setmodalCotizacionVisible] = useState(false);
@@ -26,27 +26,32 @@ const RequisicionesContainer = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    Requisiciones.all().then(r => {
-      dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
-    });
-    Requisiciones.tipos.all().then(r => {
-      dispatch({ type: 'CARGAR_REQUISICIONES_TIPOS_SUCCESS', payload: r.data });
-    });
-    Requisiciones.estados.categorias.all().then(r => {
-      dispatch({
-        type: 'CARGAR_REQUISICIONES_ESTADOS_CATEGORIAS_SUCCESS',
-        payload: r.data
-      });
-    });
-    Requisiciones.estatus.all().then(r => {
-      dispatch({
-        type: 'CARGAR_REQUISICIONES_ESTATUS_SUCCESS',
-        payload: r.data
-      });
-    });
-    Clientes.all().then(r => {
-      dispatch({ type: 'CARGAR_CLIENTES_SUCCESS', payload: r.data });
-    });
+    Promise.all([
+      Requisiciones.all().then(r => {
+        dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
+      }),
+      Requisiciones.tipos.all().then(r => {
+        dispatch({
+          type: 'CARGAR_REQUISICIONES_TIPOS_SUCCESS',
+          payload: r.data
+        });
+      }),
+      Requisiciones.estados.categorias.all().then(r => {
+        dispatch({
+          type: 'CARGAR_REQUISICIONES_ESTADOS_CATEGORIAS_SUCCESS',
+          payload: r.data
+        });
+      }),
+      Requisiciones.estatus.all().then(r => {
+        dispatch({
+          type: 'CARGAR_REQUISICIONES_ESTATUS_SUCCESS',
+          payload: r.data
+        });
+      }),
+      Clientes.all().then(r => {
+        dispatch({ type: 'CARGAR_CLIENTES_SUCCESS', payload: r.data });
+      })
+    ]);
   }, [dispatch]);
 
   const requesiciones = useSelector(store =>
@@ -117,19 +122,10 @@ const RequisicionesContainer = props => {
                     type: 'CARGAR_REQUISICIONES_SUCCESS',
                     payload: r.data
                   });
-                  store.addNotification({
-                    title: 'Cotización creada!',
-                    message: 'La cotización ha sido creada exitosamente',
-                    type: 'success',
-                    insert: 'top',
-                    container: 'top-right',
-                    animationIn: ['animated', 'fadeIn'],
-                    animationOut: ['animated', 'fadeOut'],
-                    dismiss: {
-                      duration: 2500,
-                      onScreen: true
-                    }
-                  });
+                  showNotification.success(
+                    'Cotización creada!',
+                    'La cotización ha sido creada exitosamente'
+                  );
                 })
             }
           ></AgregarCotizacionModal>
