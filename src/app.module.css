@@ -3,15 +3,14 @@
   position: fixed;
   width: 165px;
   z-index: 1;
-  padding-left:0;
-  padding-right:0;
+  padding-left: 0;
+  padding-right: 0;
   left: 0;
-  background-color:#f5f5f5;
+  background-color: #f5f5f5;
   color: white;
-
 }
 
-.navBar{
+.navBar {
   padding-top: 85px;
 }
 
@@ -21,22 +20,21 @@
   color: #8492a6;
 }
 
-
 .item {
   padding: 10px 20px;
-  color:#337ab7 ;
+  color: #337ab7;
   display: inline-block;
 }
 
-a => {
+a = > {
   font-family: sans-serif;
-  color:red ;
+  color: red;
 }
 .item:hover {
   padding: 10px 20px;
   border-left: 3px solid #4080b7;
   animation-duration: 200ms;
-  cursor: pointer;  
+  cursor: pointer;
   animation-name: itemHover;
 }
 
@@ -52,4 +50,11 @@ a => {
 .selectedItem {
   padding: 1em 0.5em;
   color: white;
+}
+
+.loader {
+  position: fixed;
+  z-index: 10;
+  left: 45%;
+  top: 35%;
 }

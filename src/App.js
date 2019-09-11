@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import ReactNotification from 'react-notifications-component';
+import Loader from 'react-loader-spinner';
 import './App.css';
 import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
@@ -7,9 +9,19 @@ import styles from './app.module.css';
 
 export default props => {
   let location = props.history.location.pathname;
+  const loading = useSelector(store => store.authenticationReducer.loading);
   return (
     <>
       <ReactNotification></ReactNotification>
+      <div className={styles.loader}>
+        <Loader
+          type="ThreeDots"
+          color="#2185d0"
+          height={100}
+          width={100}
+          visible={loading}
+        />
+      </div>
       <div class="sidebar">
         <h4></h4>
       </div>
