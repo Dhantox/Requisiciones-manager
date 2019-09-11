@@ -46,8 +46,6 @@
 .sidebar{
   height:35px;
   width: 100%;
-  position: relative;
-  position: absolute;
+  position: fixed;
   background-color: #212121;
-
 }
