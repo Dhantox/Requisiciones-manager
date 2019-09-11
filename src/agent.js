@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
+import showNotificaction from './common/utils/notifications';
 
 const cookies = new Cookies();
 
@@ -12,10 +13,15 @@ const requests = {
   get: url => {
     const promise = axios.get(`${API_ROOT}${url}`);
     promise.catch(e => {
-      if (e.response.status == 401) {
+      if (e.response && e.response.status == 401) {
         Auth.cleanCookies();
         Auth.removeHeaders();
         useDispatch({ type: 'LOGOUT' });
+      } else {
+        showNotificaction.error(
+          'Error de conexion',
+          'Compruebe su conexion a internet'
+        );
       }
     });
     return promise;
