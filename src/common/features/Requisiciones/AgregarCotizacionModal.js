@@ -4,19 +4,51 @@ import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
 import moment from 'moment';
 
+/**
+ *
+ * @param string mode: modo del modal: 'editar', 'agregar', 'ver'
+ */
 const AgregarCotizacionModal = ({
   defaultForm,
   onSubmit,
   visible,
-  setVisible
+  setVisible,
+  mode
 }) => {
   const [form, handleChange, setForm] = useForm(defaultForm);
   useEffect(() => {
     setForm(defaultForm);
   }, [defaultForm]);
+
+  const modal = {};
+  switch (mode) {
+    case 'ver':
+      modal.title = 'Ver';
+      modal.buttons = [];
+      break;
+    case 'editar':
+      modal.title = 'Agregar';
+      break;
+    default:
+      modal.title = 'Agregar';
+      modal.buttons = [
+        {
+          key: 'done',
+          content: 'Agregar cotización',
+          positive: true,
+          onClick: () => {
+            const newForm = { ...form };
+            newForm.fecha = form.fecha.format('YYYY-MM-DD HH:mm');
+            setVisible(false);
+            onSubmit(newForm);
+          }
+        }
+      ];
+  }
+
   return (
     <Modal open={visible} onClose={() => setVisible(false)} centered={false}>
-      <Modal.Header>Agregar cotización</Modal.Header>
+      <Modal.Header>{modal.title} cotización</Modal.Header>
       <Modal.Content>
         <Modal.Description>
           <Form>
@@ -59,17 +91,7 @@ const AgregarCotizacionModal = ({
       </Modal.Content>
       <Modal.Actions
         actions={[
-          {
-            key: 'done',
-            content: 'Agregar cotización',
-            positive: true,
-            onClick: () => {
-              const newForm = { ...form };
-              newForm.fecha = form.fecha.format('YYYY-MM-DD HH:mm');
-              setVisible(false);
-              onSubmit(newForm);
-            }
-          },
+          ...modal.buttons,
           {
             key: 'cancelar',
             content: 'Cancelar',

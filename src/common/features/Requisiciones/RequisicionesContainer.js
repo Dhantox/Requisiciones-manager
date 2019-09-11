@@ -110,14 +110,14 @@ const RequisicionesContainer = props => {
             onAgregarCotizacionClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
               setModalCotizacionState({
-                ...modalCotizacionState,
+                mode: 'agregar',
                 visible: true
               });
             }}
             onVerCotizacionClick={requisicionId => {
               dispatch({ type: 'SELECT_REQUISICION', payload: requisicionId });
               setModalCotizacionState({
-                ...modalCotizacionState,
+                mode: 'ver',
                 visible: true
               });
             }}
@@ -138,6 +138,7 @@ const RequisicionesContainer = props => {
           ></TablaRequisiciones>
           <AgregarCotizacionModal
             visible={modalCotizacionState.visible}
+            mode={modalCotizacionState.mode}
             setVisible={visible =>
               setModalCotizacionState({
                 ...modalCotizacionState,
