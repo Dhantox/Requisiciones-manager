@@ -1,6 +1,7 @@
 .title {
   margin-top: 1em !important;
   color: black;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .mainContainer {
@@ -32,6 +33,5 @@
   padding: 10px;
 }
 .bordeBottom {
-  border-bottom: 2px solid grey;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
