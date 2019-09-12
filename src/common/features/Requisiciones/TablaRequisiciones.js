@@ -1,28 +1,33 @@
 import _ from 'lodash';
 import React, { Component, useState, useEffect } from 'react';
-import { Table, Icon, Grid, GridRow, GridColumn,TableCell } from 'semantic-ui-react';
-import styles from './tabla.css'
+import {
+  Table,
+  Icon,
+  Grid,
+  GridRow,
+  GridColumn,
+  TableCell
+} from 'semantic-ui-react';
+import styles from './tabla.css';
 import moment from 'moment';
 
-const prioridad = (horaDeCorreo,status) =>{
+const prioridad = (horaDeCorreo, status) => {
   var horaActual = moment();
   var horaCorreo = moment(horaDeCorreo);
-  var positive = {positive:true} 
-  var negative= {negative:true}
-  var warning= {warning:true}
-  var tiempoTranscurrido = horaActual.diff(horaCorreo,'hours','minutes');
-  if(tiempoTranscurrido<=3){
+  var positive = { positive: true };
+  var negative = { negative: true };
+  var warning = { warning: true };
+  var tiempoTranscurrido = horaActual.diff(horaCorreo, 'hours', 'minutes');
+  if (tiempoTranscurrido <= 3) {
     return positive;
-  }
-  else{
-    if(tiempoTranscurrido<=6){
+  } else {
+    if (tiempoTranscurrido <= 6) {
       return warning;
-    }
-    else{
+    } else {
       return negative;
     }
   }
-}
+};
 
 const TablaRequisiciones = props => {
   const [state, setState] = useState({
@@ -55,7 +60,7 @@ const TablaRequisiciones = props => {
   return (
     <Table sortable celled striped>
       <Table.Header>
-        <Table.Row textAlign={"center"}>
+        <Table.Row textAlign={'center'}>
           <Table.HeaderCell
             sorted={column === 'id' ? direction : null}
             onClick={handleSort('id')}
@@ -104,10 +109,9 @@ const TablaRequisiciones = props => {
           >
             Estado
           </Table.HeaderCell>
-          <Table.HeaderCell 
-        
-          sorted={column === 'cotizaciones' ? direction : null}
-          onClick={handleSort('cotizaciones')}
+          <Table.HeaderCell
+            sorted={column === 'cotizaciones' ? direction : null}
+            onClick={handleSort('cotizaciones')}
           >
             Cotizaciones
           </Table.HeaderCell>
@@ -117,9 +121,13 @@ const TablaRequisiciones = props => {
         {_.map(
           data,
           ({ id, fecha_correo, cliente, tipo, estatus, cotizacion }) => (
-            <Table.Row {...prioridad(fecha_correo,estatus.concepto)} onClick={e => props.onSelectRequisicion(id)} key={id}>
-              <Table.Cell textAlign={"center"}>{id}</Table.Cell>
-              <Table.Cell >{fecha_correo.format('DD/MM/YY:HH:mm')}</Table.Cell>
+            <Table.Row
+              {...prioridad(fecha_correo, estatus.concepto)}
+              onClick={e => props.onSelectRequisicion(id)}
+              key={id}
+            >
+              <Table.Cell textAlign={'center'}>{id}</Table.Cell>
+              <Table.Cell>{fecha_correo.format('DD/MM/YY:HH:mm')}</Table.Cell>
               <Table.Cell>{fecha_correo.fromNow()}</Table.Cell>
               <Table.Cell>{cliente.nombre}</Table.Cell>
               <Table.Cell>{tipo.concepto}</Table.Cell>
@@ -130,33 +138,47 @@ const TablaRequisiciones = props => {
                 {cotizacion ? cotizacion.monto : 'Sin cotización'}
               </Table.Cell>
               <Table.Cell>{estatus.concepto}</Table.Cell>
-              <Table.Cell textAlign={"center"} >
-              <Grid.Row>
-                <Icon 
-                  onClick={e => {
-                    e.persist();
-                    props.onAgregarCotizacionClick(id);
-                  }}
-                  color="green"
-                  name="add"
-                  size="small"
-                  bordered="square"
-                  inverted
-                />
-            
-                <Icon
-                  onClick={e => {
-                    e.persist();
-                    props.onCambiarEstatusClick(id);
-                  }}
-                  color="green"
-                  name="checkmark"
-                  size="small"
-                  bordered="square"
-                  inverted
-                />
-  
-                   </Grid.Row>
+
+              <Table.Cell textAlign={'center'}>
+                <Grid.Row>
+                  {cotizacion ? (
+                    <Icon
+                      onClick={e => {
+                        e.persist();
+                        props.onVerCotizacionClick(id);
+                      }}
+                      color="green"
+                      name="eye"
+                      size="small"
+                      bordered="square"
+                      inverted
+                    />
+                  ) : (
+                    <Icon
+                      onClick={e => {
+                        e.persist();
+                        props.onAgregarCotizacionClick(id);
+                      }}
+                      color="green"
+                      name="add"
+                      size="small"
+                      bordered="square"
+                      inverted
+                    />
+                  )}
+
+                  <Icon
+                    onClick={e => {
+                      e.persist();
+                      props.onCambiarEstatusClick(id);
+                    }}
+                    color="green"
+                    name="checkmark"
+                    size="small"
+                    bordered="square"
+                    inverted
+                  />
+                </Grid.Row>
               </Table.Cell>
             </Table.Row>
           )

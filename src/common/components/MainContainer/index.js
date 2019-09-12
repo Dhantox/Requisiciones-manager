@@ -12,11 +12,15 @@ const MainContainer = ({ children, title, optionsButtons }) => {
               <Grid.Column className={styles.fixedcolumn}>
                 <h1 className={styles.title}>{title}</h1>{' '}
               </Grid.Column>
-              <Grid.Column className={styles.fixedcolumn}> 
-                {optionsButtons}
-              </Grid.Column>
-              <Grid.Column className={styles.fixedcolumn}>
-              {children}
+              <Grid.Column className={styles.tableCard}>
+                <Grid.Row className={styles.tablePadd}>
+                  <Grid.Column className={styles.fixedcolumn}>
+                    {optionsButtons}
+                  </Grid.Column>
+                  <Grid.Column className={styles.fixedcolumn}>
+                    {children}
+                  </Grid.Column>
+                </Grid.Row>
               </Grid.Column>
             </Grid.Column>
           </Grid>

@@ -15,9 +15,13 @@ import {
 import AgregarCotizacionModal from './AgregarCotizacionModal';
 import EstadoRequisicionModal from './EstadoRequisicionModal';
 import moment from 'moment';
+import showNotification from '../../utils/notifications';
 
 const RequisicionesContainer = props => {
-  const [modalCotizacionVisible, setmodalCotizacionVisible] = useState(false);
+  const [modalCotizacionState, setModalCotizacionState] = useState({
+    visible: false,
+    mode: 'crear'
+  });
   const [
     modalEstadoRequisicionVisible,
     setModalEstadoRequisicionVisible
@@ -25,27 +29,32 @@ const RequisicionesContainer = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    Requisiciones.all().then(r => {
-      dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
-    });
-    Requisiciones.tipos.all().then(r => {
-      dispatch({ type: 'CARGAR_REQUISICIONES_TIPOS_SUCCESS', payload: r.data });
-    });
-    Requisiciones.estados.categorias.all().then(r => {
-      dispatch({
-        type: 'CARGAR_REQUISICIONES_ESTADOS_CATEGORIAS_SUCCESS',
-        payload: r.data
-      });
-    });
-    Requisiciones.estatus.all().then(r => {
-      dispatch({
-        type: 'CARGAR_REQUISICIONES_ESTATUS_SUCCESS',
-        payload: r.data
-      });
-    });
-    Clientes.all().then(r => {
-      dispatch({ type: 'CARGAR_CLIENTES_SUCCESS', payload: r.data });
-    });
+    Promise.all([
+      Requisiciones.all().then(r => {
+        dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
+      }),
+      Requisiciones.tipos.all().then(r => {
+        dispatch({
+          type: 'CARGAR_REQUISICIONES_TIPOS_SUCCESS',
+          payload: r.data
+        });
+      }),
+      Requisiciones.estados.categorias.all().then(r => {
+        dispatch({
+          type: 'CARGAR_REQUISICIONES_ESTADOS_CATEGORIAS_SUCCESS',
+          payload: r.data
+        });
+      }),
+      Requisiciones.estatus.all().then(r => {
+        dispatch({
+          type: 'CARGAR_REQUISICIONES_ESTATUS_SUCCESS',
+          payload: r.data
+        });
+      }),
+      Clientes.all().then(r => {
+        dispatch({ type: 'CARGAR_CLIENTES_SUCCESS', payload: r.data });
+      })
+    ]);
   }, [dispatch]);
 
   const requesiciones = useSelector(store =>
@@ -57,10 +66,22 @@ const RequisicionesContainer = props => {
   const requisicionesTipos = useSelector(getRequisicionesTipos);
   const clientes = useSelector(getClientes);
   const estatus = useSelector(getRequisicionesEstatus);
-  console.log(estatus);
   const estadosCategorias = useSelector(getEstadosCategorias);
   const selectedRequisicion = useSelector(getSelectedRequisicion);
-
+  let defaultFormCotizacion = {
+    fecha: moment(),
+    monto: '',
+    folio: '',
+    orden_proveedor: ''
+  };
+  if (selectedRequisicion && selectedRequisicion.cotizacion) {
+    defaultFormCotizacion = {
+      fecha: moment(selectedRequisicion.cotizacion.fecha),
+      monto: selectedRequisicion.cotizacion.monto,
+      folio: selectedRequisicion.cotizacion.folio,
+      orden_proveedor: selectedRequisicion.cotizacion.orden_proveedor
+    };
+  }
   return (
     <MainContainer
       title="Requisiciones"
@@ -88,10 +109,26 @@ const RequisicionesContainer = props => {
           <TablaRequisiciones
             onAgregarCotizacionClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
-              setmodalCotizacionVisible(true);
+              setModalCotizacionState({
+                mode: 'agregar',
+                visible: true
+              });
+            }}
+            onVerCotizacionClick={requisicionId => {
+              dispatch({ type: 'SELECT_REQUISICION', payload: requisicionId });
+              setModalCotizacionState({
+                mode: 'ver',
+                visible: true
+              });
             }}
             onCambiarEstatusClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
+              Requisiciones.estados.get(id).then(r =>
+                dispatch({
+                  type: 'CARGAR_REQUISICION_ESTADO',
+                  payload: r.data
+                })
+              );
               setModalEstadoRequisicionVisible(true);
             }}
             onSelectRequisicion={id => {
@@ -100,28 +137,54 @@ const RequisicionesContainer = props => {
             data={requesiciones}
           ></TablaRequisiciones>
           <AgregarCotizacionModal
-            visible={modalCotizacionVisible}
-            setVisible={setmodalCotizacionVisible}
+            visible={modalCotizacionState.visible}
+            mode={modalCotizacionState.mode}
+            setVisible={visible =>
+              setModalCotizacionState({
+                ...modalCotizacionState,
+                visible: visible
+              })
+            }
+            defaultForm={defaultFormCotizacion}
             onSubmit={form =>
               Requisiciones.cotizaciones
-                .create(form, selectedRequisicion)
+                .create(form, selectedRequisicion.id)
                 .then(r => Requisiciones.all())
-                .then(r =>
+                .then(r => {
                   dispatch({
                     type: 'CARGAR_REQUISICIONES_SUCCESS',
                     payload: r.data
-                  })
+                  });
+                  showNotification.success(
+                    'Cotización creada!',
+                    'La cotización ha sido creada exitosamente'
+                  );
+                })
+                .catch(
+                  showNotification.error(
+                    'Registro fallido',
+                    'Ha ocurrido un problema al crear la cotización'
+                  )
                 )
             }
           ></AgregarCotizacionModal>
           <EstadoRequisicionModal
+            defaultForm={{
+              estatus_id: selectedRequisicion
+                ? selectedRequisicion.estatus.id
+                : '',
+              categoria_id: selectedRequisicion
+                ? selectedRequisicion.estado.categoria
+                : '',
+              razon: selectedRequisicion ? selectedRequisicion.estado.razon : ''
+            }}
             estadosCategorias={estadosCategorias}
             estatus={estatus}
             visible={modalEstadoRequisicionVisible}
             setVisible={setModalEstadoRequisicionVisible}
             onSubmit={form =>
               Requisiciones.cotizaciones
-                .create(form, selectedRequisicion)
+                .create(form, selectedRequisicion.id)
                 .then(r => Requisiciones.all())
                 .then(r =>
                   dispatch({

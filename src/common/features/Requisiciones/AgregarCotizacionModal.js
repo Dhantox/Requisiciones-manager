@@ -1,20 +1,54 @@
-import React, { useState } from 'react';
-import { Button, Header, Image, Modal, Form } from 'semantic-ui-react';
-import DropdownInput from '../../components/DropdownInput';
+import React, { useEffect } from 'react';
+import { Modal, Form } from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
 import moment from 'moment';
 
-const AgregarCotizacionModal = ({ onSubmit, visible, setVisible }) => {
-  const [form, handleChange, setForm] = useForm({
-    fecha: moment(),
-    monto: '',
-    folio: '',
-    orden_proveedor: ''
-  });
+/**
+ *
+ * @param string mode: modo del modal: 'editar', 'agregar', 'ver'
+ */
+const AgregarCotizacionModal = ({
+  defaultForm,
+  onSubmit,
+  visible,
+  setVisible,
+  mode
+}) => {
+  const [form, handleChange, setForm] = useForm(defaultForm);
+  useEffect(() => {
+    setForm(defaultForm);
+  }, [defaultForm]);
+
+  const modal = {};
+  switch (mode) {
+    case 'ver':
+      modal.title = 'Ver';
+      modal.buttons = [];
+      break;
+    case 'editar':
+      modal.title = 'Agregar';
+      break;
+    default:
+      modal.title = 'Agregar';
+      modal.buttons = [
+        {
+          key: 'done',
+          content: 'Agregar cotización',
+          positive: true,
+          onClick: () => {
+            const newForm = { ...form };
+            newForm.fecha = form.fecha.format('YYYY-MM-DD HH:mm');
+            setVisible(false);
+            onSubmit(newForm);
+          }
+        }
+      ];
+  }
+
   return (
     <Modal open={visible} onClose={() => setVisible(false)} centered={false}>
-      <Modal.Header>Agregar cotización</Modal.Header>
+      <Modal.Header>{modal.title} cotización</Modal.Header>
       <Modal.Content>
         <Modal.Description>
           <Form>
@@ -57,17 +91,7 @@ const AgregarCotizacionModal = ({ onSubmit, visible, setVisible }) => {
       </Modal.Content>
       <Modal.Actions
         actions={[
-          {
-            key: 'done',
-            content: 'Agregar cotización',
-            positive: true,
-            onClick: () => {
-              const newForm = { ...form };
-              newForm.fecha = form.fecha.format('YYYY-MM-DD HH:mm');
-              setVisible(false);
-              onSubmit(newForm);
-            }
-          },
+          ...modal.buttons,
           {
             key: 'cancelar',
             content: 'Cancelar',

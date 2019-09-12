@@ -3,19 +3,18 @@
   position: fixed;
   width: 165px;
   z-index: 1;
-  padding-left:0;
-  padding-right:0;
+  padding-left: 0;
+  padding-right: 0;
   left: 0;
-  background-color:white;
+  background-color: white;
   color: white;
-  border-right: 1px solid f5f5f5;
+  border-right: 1px solid #f5f5f5;
   box-shadow: 0px 0px 20px -16px grey;
-
 }
 
-.navBar{
+.navBar {
   padding-top: 85px;
-  padding-left: 3px; 
+  padding-left: 3px;
   padding-right: 3px;
 }
 
@@ -24,28 +23,31 @@
   border-left: 3px solid #2196f3;
   color: #8492a6;
 }
-.fix{
-  padding-left:2px;
+.fix {
+  padding-left: 2px;
 }
-.paddingfix{
+.paddingfix {
   padding-bottom: 5px;
 }
-
 
 .item {
   padding: 10px 20px;
   display: inline-block;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-family: sans-serif;
-}
-a{
-  color: grey;  
+  color: #337ab7;
+  display: inline-block;
 }
 
+a {
+  color: grey;
+}
 
 .item:hover {
-  padding: 10px 17px; 
-  cursor: pointer;  
+  padding: 10px 17px;
+  border-left: 3px solid #4080b7;
+  animation-duration: 200ms;
+  cursor: pointer;
   animation-name: itemHover;
   border-radius: 5px;
   width: 100%;
@@ -54,7 +56,7 @@ a{
   background-color: #e3f2fd;
   font-family: sans-serif;
 }
-.item:hover> a {
+.item:hover > a {
   color: #5094cf;
 }
 
@@ -70,14 +72,25 @@ a{
 .selectedItem {
   padding: 10px 17px;
   color: white;
-  font-size: 0.90rem;
-  border-radius: 5px; 
-  font-weight:bolder;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  font-weight: bolder;
   border-left: 3px solid #5094cf;
   background-color: #e3f2fd;
-  
+
   font-family: sans-serif;
 }
 .selectedItem > a {
   color: #5094cf;
+}
+
+.loader {
+  position: fixed;
+  z-index: 10;
+  left: 45%;
+  top: 35%;
+}
+
+.breakWord {
+  hyphens: auto;
 }
