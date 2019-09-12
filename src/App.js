@@ -1,15 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ReactNotification from 'react-notifications-component';
 import Loader from 'react-loader-spinner';
 import './App.css';
 import { Link } from 'react-router-dom';
 import { Icon, Grid, GridColumn, GridRow } from 'semantic-ui-react';
 import styles from './app.module.css';
+import { Auth } from './agent';
 
 export default props => {
   let location = props.history.location.pathname;
   const loading = useSelector(store => store.authenticationReducer.loading);
+  const dispatch = useDispatch();
   return (
     <>
       <ReactNotification></ReactNotification>
@@ -26,7 +28,7 @@ export default props => {
         <Grid columns={2} verticalAlign={'middle'}>
           <Grid.Row>
             <Grid.Column>
-              <h2>LOGO REQUIS</h2>
+              <h2>LOGO</h2>
             </Grid.Column>
             <Grid.Column>
               <Grid columns={3} divided>
@@ -35,8 +37,16 @@ export default props => {
                   <Grid.Column width={6}>
                     <p>Daniel Humberto Martinez Torres</p>
                   </Grid.Column>
-                  <Grid.Column width={1}>
-                    <Icon onClick={'/logout'} name="triangle down"></Icon>
+                  <Grid.Column width={3}>
+                    <p
+                      onClick={() => {
+                        Auth.cleanCookies();
+                        dispatch({ type: 'LOGOUT' });
+                      }}
+                      name="triangle down"
+                    >
+                      Cerrar sesión
+                    </p>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

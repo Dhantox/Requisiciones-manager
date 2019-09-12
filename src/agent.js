@@ -84,8 +84,8 @@ export const Auth = {
     delete axios.defaults.headers.common.Authorization;
   },
   cleanCookies: () => {
-    cookies.remove('csrftoken');
-    cookies.remove('token');
+    cookies.remove('csrftoken', { path: '/' });
+    cookies.remove('token', { path: '/' });
   },
   configCookies: data => {
     cookies.set('csrftoken', data['csrf'], { path: '/' });

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Auth } from '../../agent';
 
 export const PrivateRoute = props => {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector(
     state => state.authenticationReducer.isAuthenticated
   );
@@ -13,6 +14,7 @@ export const PrivateRoute = props => {
       componentToRender = <Redirect to="/login" />;
     } else {
       Auth.configHeaders();
+      dispatch({ type: 'LOGIN_SUCCESS' });
     }
   }
   return componentToRender;
