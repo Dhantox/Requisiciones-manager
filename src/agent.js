@@ -98,7 +98,11 @@ export const Auth = {
       return true;
     }
     return false;
-  }
+  },
+  saveUser: user => {
+    localStorage.user = JSON.stringify(user);
+  },
+  loadUser: () => JSON.parse(localStorage.user)
 };
 
 export const Clientes = {

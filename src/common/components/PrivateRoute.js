@@ -14,7 +14,8 @@ export const PrivateRoute = props => {
       componentToRender = <Redirect to="/login" />;
     } else {
       Auth.configHeaders();
-      dispatch({ type: 'LOGIN_SUCCESS' });
+      const user = Auth.loadUser();
+      dispatch({ type: 'LOGIN_SUCCESS', payload: user });
     }
   }
   return componentToRender;

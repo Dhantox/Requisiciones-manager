@@ -20,6 +20,7 @@ const LoginContainer = () => {
               .then(r => {
                 Auth.configCookies({ csrf: r.data.csrf, token: r.data.token });
                 Auth.configHeaders();
+                Auth.saveUser(r.data.user);
                 dispatch({ type: 'LOGIN_SUCCESS', payload: r.data.user });
               })
               .catch(e => console.log('Error login'))
