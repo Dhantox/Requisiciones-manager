@@ -1,12 +1,13 @@
 const initialState = {
   isAuthenticated: false,
-  loading: false
+  loading: false,
+  user: ''
 };
 
 const authenticationReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case 'LOGIN_SUCCESS':
-      return { ...state, isAuthenticated: true };
+      return { ...state, isAuthenticated: true, user: payload };
     case 'LOGOUT':
       return { ...state, isAuthenticated: false };
     case 'LOADING':

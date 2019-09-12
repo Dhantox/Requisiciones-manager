@@ -12,6 +12,7 @@ export default props => {
   let location = props.history.location.pathname;
   const loading = useSelector(store => store.authenticationReducer.loading);
   const dispatch = useDispatch();
+  const username = useSelector(store => store.authenticationReducer.user);
   return (
     <>
       <ReactNotification></ReactNotification>
@@ -35,7 +36,7 @@ export default props => {
                 <Grid.Row>
                   <Grid.Column></Grid.Column>
                   <Grid.Column width={6}>
-                    <p>Daniel Humberto Martinez Torres</p>
+                    <p>{username}</p>
                   </Grid.Column>
                   <Grid.Column width={3}>
                     <p
