@@ -160,7 +160,7 @@ const RequisicionesContainer = props => {
                     'La cotización ha sido creada exitosamente'
                   );
                 })
-                .catch(
+                .catch(e =>
                   showNotification.error(
                     'Registro fallido',
                     'Ha ocurrido un problema al crear la cotización'
