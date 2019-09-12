@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Header, Image, Modal, Form } from "semantic-ui-react";
+import React, { useState } from 'react';
+import { Button, Modal, Form } from 'semantic-ui-react';
 
 const AgregarUsuariosModal = () => {
   const [visible, setVisible] = useState(true);
@@ -12,13 +12,8 @@ const AgregarUsuariosModal = () => {
             <Form.Group widths="equal">
               <Form.Input fluid label="Nombre" placeholder="First name" />
               <Form.Input fluid label="Last name" placeholder="Last name" />
-              <Form.Select fluid label="Gender" placeholder="Gender" />
+              <Form.Input fluid label="Gender" placeholder="Gender" />
             </Form.Group>
-            <Form.TextArea
-              label="About"
-              placeholder="Tell us more about you..."
-            />
-            <Form.Checkbox label="I agree to the Terms and Conditions" />
             <Form.Button onClick={() => setVisible(false)}>Submit</Form.Button>
           </Form>
         </Modal.Description>
