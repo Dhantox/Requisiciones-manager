@@ -26,8 +26,38 @@ const requests = {
     });
     return promise;
   },
-  post: (url, body) => axios.post(`${API_ROOT}${url}`, body),
-  put: (url, body) => axios.put(`${API_ROOT}${url}`, body),
+  post: (url, body) => {
+    const promise = axios.post(`${API_ROOT}${url}`, body);
+    promise.catch(e => {
+      if (e.response && e.response.status == 401) {
+        Auth.cleanCookies();
+        Auth.removeHeaders();
+        useDispatch({ type: 'LOGOUT' });
+      } else {
+        showNotificaction.error(
+          'Error de conexion',
+          'Compruebe su conexion a internet'
+        );
+      }
+    });
+    return promise;
+  },
+  put: (url, body) => {
+    const promise = axios.put(`${API_ROOT}${url}`, body);
+    promise.catch(e => {
+      if (e.response && e.response.status == 401) {
+        Auth.cleanCookies();
+        Auth.removeHeaders();
+        useDispatch({ type: 'LOGOUT' });
+      } else {
+        showNotificaction.error(
+          'Error de conexion',
+          'Compruebe su conexion a internet'
+        );
+      }
+    });
+    return promise;
+  },
   delete: url => axios.delete(`${API_ROOT}${url}`)
 };
 
@@ -95,6 +125,11 @@ export const Requisiciones = {
     all: () => requests.get('requisiciones/requisiciones/estatus/')
   },
   estados: {
+    update: (requisicionId, nuevoEstado) =>
+      requests.put(
+        `requisiciones/requisiciones/${requisicionId}/estados/`,
+        nuevoEstado
+      ),
     get: requisicionId =>
       requests.get(`requisiciones/requisiciones/${requisicionId}/estados/`),
     all: () => requests.get('requisiciones/requisiciones/estados/'),
