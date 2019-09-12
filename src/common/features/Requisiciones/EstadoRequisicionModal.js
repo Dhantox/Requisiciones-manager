@@ -74,7 +74,6 @@ const EstadoRequisicionModal = ({
             positive: true,
             onClick: () => {
               const newForm = { ...form };
-              newForm.fecha = form.fecha.format('YYYY-MM-DD HH:mm');
               setVisible(false);
               onSubmit(newForm);
             }

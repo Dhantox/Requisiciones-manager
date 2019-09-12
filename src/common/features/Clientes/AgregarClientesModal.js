@@ -30,7 +30,7 @@ const AgregarClientesModal = ({ onSubmit }) => {
               fluid
               name="nombre"
               label="Nombre"
-              placeholder="First name"
+              placeholder="Nombre"
               onChange={handleChange}
               value={form.nombre}
             />
@@ -38,7 +38,7 @@ const AgregarClientesModal = ({ onSubmit }) => {
               fluid
               name="rfc"
               label="RFC"
-              placeholder="Last name"
+              placeholder="RFC"
               onChange={handleChange}
               value={form.rfc}
             />
@@ -46,7 +46,7 @@ const AgregarClientesModal = ({ onSubmit }) => {
               fluid
               name="contacto"
               label="Contacto"
-              placeholder="Last name"
+              placeholder="Contacto"
               onChange={handleChange}
               value={form.contacto}
             />
@@ -54,7 +54,7 @@ const AgregarClientesModal = ({ onSubmit }) => {
               fluid
               name="telefono"
               label="Teléfono"
-              placeholder="Last name"
+              placeholder="Teléfono"
               onChange={handleChange}
               value={form.telefono}
             />
@@ -62,21 +62,26 @@ const AgregarClientesModal = ({ onSubmit }) => {
               fluid
               name="correo"
               label="Correo"
-              placeholder="Last name"
+              placeholder="Correo"
               onChange={handleChange}
               value={form.correo}
             />
-            <Form.Button
-              onClick={() => {
-                setVisible(false);
-                onSubmit(form);
-              }}
-            >
-              Submit
-            </Form.Button>
           </Form>
         </Modal.Description>
       </Modal.Content>
+      <Modal.Actions
+        actions={[
+          {
+            key: 'done',
+            content: 'Agregar Cliente',
+            positive: true,
+            onClick: () => {
+              setVisible(false);
+              onSubmit(form);
+            }
+          }
+        ]}
+      ></Modal.Actions>
     </Modal>
   );
 };

@@ -160,7 +160,7 @@ const RequisicionesContainer = props => {
                     'La cotización ha sido creada exitosamente'
                   );
                 })
-                .catch(
+                .catch(e =>
                   showNotification.error(
                     'Registro fallido',
                     'Ha ocurrido un problema al crear la cotización'
@@ -182,17 +182,26 @@ const RequisicionesContainer = props => {
             estatus={estatus}
             visible={modalEstadoRequisicionVisible}
             setVisible={setModalEstadoRequisicionVisible}
-            onSubmit={form =>
-              Requisiciones.cotizaciones
-                .create(form, selectedRequisicion.id)
-                .then(r => Requisiciones.all())
-                .then(r =>
+            onSubmit={form => {
+              dispatch({ type: 'LOADING' });
+
+              Requisiciones.estados
+                .update(selectedRequisicion.id, form)
+                .then(r => {
+                  showNotification.success(
+                    'Exito!',
+                    'Estado de cotizacion guardado'
+                  );
+                  return Requisiciones.all();
+                })
+                .then(r => {
                   dispatch({
                     type: 'CARGAR_REQUISICIONES_SUCCESS',
                     payload: r.data
-                  })
-                )
-            }
+                  });
+                })
+                .finally(e => dispatch({ type: 'STOP_LOADING' }));
+            }}
           ></EstadoRequisicionModal>
         </Grid.Column>
       </Grid.Row>

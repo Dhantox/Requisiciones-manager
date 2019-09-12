@@ -24,7 +24,7 @@ const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
       }
       centered={false}
     >
-      <Modal.Header>Agregar cliente</Modal.Header>
+      <Modal.Header>Agregar Requisición</Modal.Header>
       <Modal.Content>
         <Modal.Description>
           <Form>
