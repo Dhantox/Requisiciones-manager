@@ -12,7 +12,7 @@ export default props => {
   let location = props.history.location.pathname;
   const loading = useSelector(store => store.authenticationReducer.loading);
   const dispatch = useDispatch();
-  const username = useSelector(store => store.authenticationReducer.user);
+  const username = useSelector(store => store.authenticationReducer.user.user);
   return (
     <>
       <ReactNotification></ReactNotification>
