@@ -6,25 +6,29 @@ import {
   Grid,
   GridRow,
   GridColumn,
-  TableCell
+  TableCell,
+  Button,
+  Popup,
+  Visibility
 } from 'semantic-ui-react';
-import styles from './tabla.css';
+import styles from './tabla.module.css';
 import moment from 'moment';
 
 const prioridad = (horaDeCorreo, status) => {
   var horaActual = moment();
   var horaCorreo = moment(horaDeCorreo);
-  var positive = { positive: true };
-  var negative = { negative: true };
-  var warning = { warning: true };
+  var positive = { positive: styles.colorPositive };
+  var negative = { negative: styles.colorWarning };
+  var warning = { warning: styles.colorNegative };
   var tiempoTranscurrido = horaActual.diff(horaCorreo, 'hours', 'minutes');
-  if (tiempoTranscurrido <= 3) {
-    return positive;
+  if (tiempoTranscurrido <= 24) {
+    console.log(positive.className);
+    return positive.positive;
   } else {
-    if (tiempoTranscurrido <= 6) {
-      return warning;
+    if (tiempoTranscurrido <= 48) {
+      return negative.negative;
     } else {
-      return negative;
+      return warning.warning;
     }
   }
 };
@@ -58,7 +62,7 @@ const TablaRequisiciones = props => {
     });
   };
   return (
-    <Table sortable celled striped>
+    <Table sortable celled striped compact>
       <Table.Header>
         <Table.Row textAlign={'center'}>
           <Table.HeaderCell
@@ -89,7 +93,7 @@ const TablaRequisiciones = props => {
             sorted={column === 'tipo' ? direction : null}
             onClick={handleSort('tipo')}
           >
-            Tipo
+            Nota
           </Table.HeaderCell>
           <Table.HeaderCell
             sorted={column === 'folio' ? direction : null}
@@ -120,17 +124,24 @@ const TablaRequisiciones = props => {
       <Table.Body>
         {_.map(
           data,
-          ({ id, fecha_correo, cliente, tipo, estatus, cotizacion }) => (
+          ({ id, fecha_correo, cliente, tipo, estatus, cotizacion, nota }) => (
             <Table.Row
-              {...prioridad(fecha_correo, estatus.concepto)}
+              className={prioridad(fecha_correo, estatus.concepto)}
               onClick={e => props.onSelectRequisicion(id)}
               key={id}
             >
-              <Table.Cell textAlign={'center'}>{id}</Table.Cell>
+              <Table.Cell block textAlign={'center'}>
+                {id}
+              </Table.Cell>
               <Table.Cell>{fecha_correo.format('DD/MM/YY:HH:mm')}</Table.Cell>
               <Table.Cell>{fecha_correo.fromNow()}</Table.Cell>
               <Table.Cell>{cliente.nombre}</Table.Cell>
-              <Table.Cell>{tipo.concepto}</Table.Cell>
+              <Popup
+                content={`${'Tipo:'} ${tipo.concepto} ${'Nota:'} ${nota}`}
+                trigger={
+                  <Table.Cell className={styles.visibility}>{nota}</Table.Cell>
+                }
+              ></Popup>
               <Table.Cell>
                 {cotizacion ? cotizacion.folio : 'Sin cotización'}
               </Table.Cell>
@@ -152,6 +163,7 @@ const TablaRequisiciones = props => {
                       size="small"
                       bordered="square"
                       inverted
+                      button
                     />
                   ) : (
                     <Icon
