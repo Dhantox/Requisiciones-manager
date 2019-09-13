@@ -12,6 +12,8 @@ import {
   Visibility
 } from 'semantic-ui-react';
 import styles from './tabla.module.css';
+import React, { useState, useEffect } from 'react';
+import { Table, Icon, Grid } from 'semantic-ui-react';
 import moment from 'moment';
 
 const prioridad = (horaDeCorreo, status) => {

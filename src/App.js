@@ -4,7 +4,7 @@ import ReactNotification from 'react-notifications-component';
 import Loader from 'react-loader-spinner';
 import './App.css';
 import { Link } from 'react-router-dom';
-import { Icon, Grid, GridColumn, GridRow } from 'semantic-ui-react';
+import { Icon, Grid } from 'semantic-ui-react';
 import styles from './app.module.css';
 import { Auth } from './agent';
 import AccessContainer from './common/features/Authentication/AccessContainer';
@@ -26,7 +26,7 @@ export default props => {
           visible={loading}
         />
       </div>
-      <div class="sidebar">
+      <div className="sidebar">
         <Grid columns={2} verticalAlign={'middle'}>
           <Grid.Row>
             <Grid.Column>
@@ -57,7 +57,7 @@ export default props => {
         </Grid>
       </div>
       <div
-        class="ui vertical borderless fluid text menu"
+        className="ui vertical borderless fluid text menu"
         className={styles.navBarContainer}
       >
         <div className={styles.navBar}>
@@ -70,11 +70,11 @@ export default props => {
               } `}
             >
               <Link to="requisiciones">
-                <div class="ui grid">
-                  <div class="two wide column">
+                <div className="ui grid">
+                  <div className="two wide column">
                     <Icon name="file alternate outline" size="large" />
                   </div>
-                  <div class="two wide column">
+                  <div className="two wide column">
                     <p>Requisiciones</p>
                   </div>
                 </div>
@@ -91,11 +91,11 @@ export default props => {
                 }`}
               >
                 <Link to="usuarios">
-                  <div class="ui grid">
-                    <div class="two wide column">
+                  <div className="ui grid">
+                    <div className="two wide column">
                       <Icon name="user" size="large" />
                     </div>
-                    <div class="two wide column">
+                    <div className="two wide column">
                       <p>Usuarios</p>
                     </div>
                   </div>
@@ -112,11 +112,11 @@ export default props => {
               }`}
             >
               <Link to="clientes">
-                <div class="ui grid">
-                  <div class="two wide column">
+                <div className="ui grid">
+                  <div className="two wide column">
                     <Icon name="users" size="large" />
                   </div>
-                  <div class="two wide column">
+                  <div className="two wide column">
                     <p>Clientes</p>
                   </div>
                 </div>

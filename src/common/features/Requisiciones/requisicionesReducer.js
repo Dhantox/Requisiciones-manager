@@ -16,7 +16,7 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, requisicionesTipos: payload };
     case 'SELECT_REQUISICION':
       requisicion = state.requisiciones.find(
-        requisicion => requisicion.id == payload
+        requisicion => requisicion.id === payload
       );
       requisicion = JSON.parse(JSON.stringify(requisicion));
       return { ...state, selectedRequisicion: requisicion };

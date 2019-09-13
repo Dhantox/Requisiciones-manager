@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Modal, Form } from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
-import moment from 'moment';
 
 /**
  *

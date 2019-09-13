@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import MainContainer from '../../components/MainContainer';
 import { Grid } from 'semantic-ui-react';

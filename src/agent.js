@@ -13,7 +13,7 @@ const requests = {
   get: url => {
     const promise = axios.get(`${API_ROOT}${url}`);
     promise.catch(e => {
-      if (e.response && e.response.status == 401) {
+      if (e.response && e.response.status === 401) {
         Auth.cleanCookies();
         Auth.removeHeaders();
         useDispatch({ type: 'LOGOUT' });
@@ -29,7 +29,7 @@ const requests = {
   post: (url, body) => {
     const promise = axios.post(`${API_ROOT}${url}`, body);
     promise.catch(e => {
-      if (e.response && e.response.status == 401) {
+      if (e.response && e.response.status === 401) {
         Auth.cleanCookies();
         Auth.removeHeaders();
         useDispatch({ type: 'LOGOUT' });
@@ -45,7 +45,7 @@ const requests = {
   put: (url, body) => {
     const promise = axios.put(`${API_ROOT}${url}`, body);
     promise.catch(e => {
-      if (e.response && e.response.status == 401) {
+      if (e.response && e.response.status === 401) {
         Auth.cleanCookies();
         Auth.removeHeaders();
         useDispatch({ type: 'LOGOUT' });
@@ -104,34 +104,15 @@ export const Auth = {
   },
   loadUser: () => JSON.parse(localStorage.user)
 };
+
 export const Usuarios = {
   all: () => requests.get('usuarios/usuarios/'),
-  get: lessonId => requests.get(`lessons/lessons/${lessonId}/`),
-  create: lesson => requests.post('usuarios/usuarios/', lesson),
-  update: (lessonId, lesson) =>
-    requests.put(`lessons/lessons/${lessonId}/`, lesson),
-  withConcepts: lessonId =>
-    requests.get(`lessons/lessons/${lessonId}/concepts/`),
-  delete: lessonId => requests.delete(`lessons/lessons/${lessonId}/`),
-  saveTrainingScore: (lessonId, conceptsScore) =>
-    requests.post(`lessons/lessons/${lessonId}/training/`, {
-      concepts: conceptsScore
-    })
+  create: lesson => requests.post('usuarios/usuarios/', lesson)
 };
 
 export const Clientes = {
   all: () => requests.get('clientes/clientes/'),
-  get: lessonId => requests.get(`lessons/lessons/${lessonId}/`),
-  create: lesson => requests.post('clientes/clientes/', lesson),
-  update: (lessonId, lesson) =>
-    requests.put(`lessons/lessons/${lessonId}/`, lesson),
-  withConcepts: lessonId =>
-    requests.get(`lessons/lessons/${lessonId}/concepts/`),
-  delete: lessonId => requests.delete(`lessons/lessons/${lessonId}/`),
-  saveTrainingScore: (lessonId, conceptsScore) =>
-    requests.post(`lessons/lessons/${lessonId}/training/`, {
-      concepts: conceptsScore
-    })
+  create: cliente => requests.post('clientes/clientes/', cliente)
 };
 
 export const Requisiciones = {
@@ -163,9 +144,5 @@ export const Requisiciones = {
         `requisiciones/requisiciones/${requisicionId}/cotizaciones/`,
         cotizacion
       )
-  },
-
-  get: lessonId => requests.get(`lessons/lessons/${lessonId}/`),
-  update: (lessonId, lesson) =>
-    requests.put(`lessons/lessons/${lessonId}/`, lesson)
+  }
 };
