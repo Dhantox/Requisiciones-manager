@@ -1,23 +1,44 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import MainContainer from '../../components/MainContainer';
 import { Grid } from 'semantic-ui-react';
-import SortableTable from '../../components/SortableTable';
 import AgregarUsuariosModal from './AgregarUsuariosModal';
+import { Usuarios } from '../../../agent';
+import { useDispatch, useSelector } from 'react-redux';
+import TablaUsuarios from './TablaUsuarios';
+import { getUsuarios } from '../Usuarios/selectors';
 
 const UsuariosContainer = props => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    Usuarios.all();
+    Usuarios.all().then(r => {
+      dispatch({ type: 'CARGAR_USUARIOS_SUCCESS', payload: r.data });
+    });
+  }, [dispatch]);
+  const usuarios = useSelector(store =>
+    store.usuarios.usuarios.map(usuario => ({ ...usuario }))
+  );
   return (
     <MainContainer
       title="Usuarios"
       optionsButtons={
         <>
-          <AgregarUsuariosModal></AgregarUsuariosModal>
+          <AgregarUsuariosModal
+            onSubmit={usuario =>
+              Usuarios.create(usuario)
+                .then(r => Usuarios.all())
+                .then(r =>
+                  dispatch({ type: 'CARGAR_USUARIOS_SUCCESS', payload: r.data })
+                )
+            }
+          ></AgregarUsuariosModal>
         </>
       }
     >
       <Grid.Row>
         <Grid.Column>
-          <SortableTable></SortableTable>
+          <TablaUsuarios data={usuarios}></TablaUsuarios>
         </Grid.Column>
       </Grid.Row>
     </MainContainer>
