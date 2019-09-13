@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Icon, Grid, GridColumn, GridRow } from 'semantic-ui-react';
 import styles from './app.module.css';
 import { Auth } from './agent';
+import AccessContainer from './common/features/Authentication/AccessContainer';
 
 export default props => {
   let location = props.history.location.pathname;
@@ -80,26 +81,28 @@ export default props => {
               </Link>
             </div>
           </div>
-          <div className={styles.paddingfix}>
-            <div
-              className={`${
-                location === '/main/usuarios'
-                  ? styles.selectedItem
-                  : styles.item
-              }`}
-            >
-              <Link to="usuarios">
-                <div class="ui grid">
-                  <div class="two wide column">
-                    <Icon name="user" size="large" />
+          <AccessContainer access={['vendedor']}>
+            <div className={styles.paddingfix}>
+              <div
+                className={`${
+                  location === '/main/usuarios'
+                    ? styles.selectedItem
+                    : styles.item
+                }`}
+              >
+                <Link to="usuarios">
+                  <div class="ui grid">
+                    <div class="two wide column">
+                      <Icon name="user" size="large" />
+                    </div>
+                    <div class="two wide column">
+                      <p>Usuarios</p>
+                    </div>
                   </div>
-                  <div class="two wide column">
-                    <p>Usuarios</p>
-                  </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
             </div>
-          </div>
+          </AccessContainer>
           <div className={styles.paddingfix}>
             <div
               className={`${
