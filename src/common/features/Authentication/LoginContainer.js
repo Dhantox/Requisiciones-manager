@@ -21,7 +21,7 @@ const LoginContainer = () => {
                 Auth.configCookies(r.data.credentials);
                 Auth.configHeaders();
                 Auth.saveUser(r.data.user_data);
-                dispatch({ type: 'LOGIN_SUCCESS', payload: r.data.user });
+                dispatch({ type: 'LOGIN_SUCCESS', payload: r.data.user_data });
               })
               .catch(e => console.log('Error login'))
           }
