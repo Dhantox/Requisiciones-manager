@@ -104,6 +104,20 @@ export const Auth = {
   },
   loadUser: () => JSON.parse(localStorage.user)
 };
+export const Usuarios = {
+  all: () => requests.get('usuarios/usuarios/'),
+  get: lessonId => requests.get(`lessons/lessons/${lessonId}/`),
+  create: lesson => requests.post('usuarios/usuarios/', lesson),
+  update: (lessonId, lesson) =>
+    requests.put(`lessons/lessons/${lessonId}/`, lesson),
+  withConcepts: lessonId =>
+    requests.get(`lessons/lessons/${lessonId}/concepts/`),
+  delete: lessonId => requests.delete(`lessons/lessons/${lessonId}/`),
+  saveTrainingScore: (lessonId, conceptsScore) =>
+    requests.post(`lessons/lessons/${lessonId}/training/`, {
+      concepts: conceptsScore
+    })
+};
 
 export const Clientes = {
   all: () => requests.get('clientes/clientes/'),

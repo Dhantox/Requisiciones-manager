@@ -1,23 +1,78 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form } from 'semantic-ui-react';
+import { Button, Modal, Form, ModalActions } from 'semantic-ui-react';
+import { useForm } from '../../hooks/formHooks';
 
-const AgregarUsuariosModal = () => {
-  const [visible, setVisible] = useState(true);
+const AgregarUsuariosModal = ({ onSubmit }) => {
+  const [form, handleChange] = useForm({
+    usuario: '',
+    correo: '',
+    nombre: '',
+    apellido: ''
+  });
+  const [visible, setVisible] = useState(false);
   return (
-    <Modal trigger={<Button primary>Agregar usuario</Button>} centered={false}>
+    <Modal
+      open={visible}
+      onClose={() => setVisible(false)}
+      trigger={
+        <Button onClick={() => setVisible(true)} primary>
+          Agregar usuario
+        </Button>
+      }
+      centered={false}
+    >
       <Modal.Header>Agregar usuario</Modal.Header>
       <Modal.Content>
         <Modal.Description>
           <Form>
-            <Form.Group widths="equal">
-              <Form.Input fluid label="Nombre" placeholder="First name" />
-              <Form.Input fluid label="Last name" placeholder="Last name" />
-              <Form.Input fluid label="Gender" placeholder="Gender" />
-            </Form.Group>
-            <Form.Button onClick={() => setVisible(false)}>Submit</Form.Button>
+            <Form.Input
+              fluid
+              name="usuario"
+              label="Usuario"
+              placeholder="Usuario"
+              onChange={handleChange}
+              value={form.usuario}
+            />
+            <Form.Input
+              fluid
+              name="correo"
+              label="Correo"
+              placeholder="Correo"
+              onChange={handleChange}
+              value={form.correo}
+            />
+            <Form.Input
+              fluid
+              name="nombre"
+              label="Nombre"
+              placeholder="Nombre"
+              onChange={handleChange}
+              value={form.nombre}
+            />
+            <Form.Input
+              fluid
+              name="apellido"
+              label="Apellido"
+              placeholder="Apellido"
+              onChange={handleChange}
+              value={form.apellido}
+            />
           </Form>
         </Modal.Description>
       </Modal.Content>
+      <ModalActions
+        actions={[
+          {
+            key: 'done',
+            content: 'Agregar Usuario',
+            positive: true,
+            onClick: () => {
+              setVisible(false);
+              onSubmit(form);
+            }
+          }
+        ]}
+      ></ModalActions>
     </Modal>
   );
 };
