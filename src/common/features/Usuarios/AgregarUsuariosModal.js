@@ -5,6 +5,7 @@ import { useForm } from '../../hooks/formHooks';
 const AgregarUsuariosModal = ({ onSubmit }) => {
   const [form, handleChange] = useForm({
     usuario: '',
+    password: '',
     correo: '',
     nombre: '',
     apellido: ''
@@ -32,6 +33,15 @@ const AgregarUsuariosModal = ({ onSubmit }) => {
               placeholder="Usuario"
               onChange={handleChange}
               value={form.usuario}
+            />
+            <Form.Input
+              type="password"
+              fluid
+              name="contraseña"
+              label="Contraseña"
+              placeholder="Contraseña"
+              onChange={handleChange}
+              value={form.contraseña}
             />
             <Form.Input
               fluid
