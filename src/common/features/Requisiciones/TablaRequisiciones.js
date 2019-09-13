@@ -1,14 +1,6 @@
 import _ from 'lodash';
-import React, { Component, useState, useEffect } from 'react';
-import {
-  Table,
-  Icon,
-  Grid,
-  GridRow,
-  GridColumn,
-  TableCell
-} from 'semantic-ui-react';
-import styles from './tabla.css';
+import React, { useState, useEffect } from 'react';
+import { Table, Icon, Grid } from 'semantic-ui-react';
 import moment from 'moment';
 
 const prioridad = (horaDeCorreo, status) => {

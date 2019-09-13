@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Header, Image, Modal, Form } from 'semantic-ui-react';
+import { Button, Modal, Form } from 'semantic-ui-react';
 import DropdownInput from '../../components/DropdownInput';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Header, Image, Modal, Form } from 'semantic-ui-react';
+import { Button, Modal, Form } from 'semantic-ui-react';
 import { useForm } from '../../hooks/formHooks';
 
 const AgregarClientesModal = ({ onSubmit }) => {

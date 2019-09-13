@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table } from 'semantic-ui-react';
 
 const TablaUsuarios = props => {

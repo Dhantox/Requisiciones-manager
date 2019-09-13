@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Modal, Form } from 'semantic-ui-react';
 import DropdownInput from '../../components/DropdownInput';
 import { useForm } from '../../hooks/formHooks';
-import moment from 'moment';
 
 const EstadoRequisicionModal = ({
   onSubmit,

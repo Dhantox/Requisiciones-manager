@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MainContainer from '../../components/MainContainer';
 import { Grid } from 'semantic-ui-react';
 import AgregarRequisicionesModal from './AgregarRequisicionesModal';
-import { Requisiciones, Clientes, Usuarios } from '../../../agent';
+import { Requisiciones, Clientes } from '../../../agent';
 import TablaRequisiciones from './TablaRequisiciones';
 import { getClientes } from '../Clientes/selectors';
 import {

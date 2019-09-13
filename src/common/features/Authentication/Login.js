@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Form, Grid, Button } from 'semantic-ui-react';
+import { Form, Grid, Button } from 'semantic-ui-react';
 
 const Login = ({ onSuccess }) => {
   const [credentials, setCredentials] = useState({
