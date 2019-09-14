@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form, ModalActions } from 'semantic-ui-react';
+import { Button, Modal, Form, ModalActions, Dropdown } from 'semantic-ui-react';
 import { useForm } from '../../hooks/formHooks';
 
 const AgregarUsuariosModal = ({ onSubmit }) => {
@@ -8,7 +8,8 @@ const AgregarUsuariosModal = ({ onSubmit }) => {
     password: '',
     correo: '',
     nombre: '',
-    apellido: ''
+    apellido: '',
+    grupo: ''
   });
   const [visible, setVisible] = useState(false);
   return (
@@ -67,6 +68,7 @@ const AgregarUsuariosModal = ({ onSubmit }) => {
               onChange={handleChange}
               value={form.apellido}
             />
+            <Dropdown placeholder="Tipo" fluid search selection options />
           </Form>
         </Modal.Description>
       </Modal.Content>

@@ -12,8 +12,6 @@ import {
   Visibility
 } from 'semantic-ui-react';
 import styles from './tabla.module.css';
-import React, { useState, useEffect } from 'react';
-import { Table, Icon, Grid } from 'semantic-ui-react';
 import moment from 'moment';
 
 const prioridad = (horaDeCorreo, status) => {
@@ -155,43 +153,47 @@ const TablaRequisiciones = props => {
               <Table.Cell textAlign={'center'}>
                 <Grid.Row>
                   {cotizacion ? (
-                    <Icon
-                      onClick={e => {
-                        e.persist();
-                        props.onVerCotizacionClick(id);
-                      }}
-                      color="green"
-                      name="eye"
-                      size="small"
-                      bordered="square"
-                      inverted
-                      button
-                    />
+                    <Button compact size={'mini'} circular color={'blue'}>
+                      <Button.Content>
+                        <Icon
+                          onClick={e => {
+                            e.persist();
+                            props.onVerCotizacionClick(id);
+                          }}
+                          color="white"
+                          name="folder"
+                          size="large"
+                        />
+                      </Button.Content>
+                    </Button>
                   ) : (
-                    <Icon
-                      onClick={e => {
-                        e.persist();
-                        props.onAgregarCotizacionClick(id);
-                      }}
-                      color="green"
-                      name="add"
-                      size="small"
-                      bordered="square"
-                      inverted
-                    />
+                    <Button compact size={'mini'} circular color={'blue'}>
+                      <Button.Content>
+                        <Icon
+                          onClick={e => {
+                            e.persist();
+                            props.onAgregarCotizacionClick(id);
+                          }}
+                          color="white"
+                          name="file alternate outline"
+                          size="large"
+                        />
+                      </Button.Content>
+                    </Button>
                   )}
-
-                  <Icon
-                    onClick={e => {
-                      e.persist();
-                      props.onCambiarEstatusClick(id);
-                    }}
-                    color="green"
-                    name="checkmark"
-                    size="small"
-                    bordered="square"
-                    inverted
-                  />
+                  <Button compact size={'mini'} circular color={'blue'}>
+                    <Button.Content>
+                      <Icon
+                        onClick={e => {
+                          e.persist();
+                          props.onCambiarEstatusClick(id);
+                        }}
+                        color="white"
+                        name="clipboard check"
+                        size="large"
+                      />
+                    </Button.Content>
+                  </Button>
                 </Grid.Row>
               </Table.Cell>
             </Table.Row>
