@@ -117,6 +117,11 @@ export const Clientes = {
   create: cliente => requests.post('clientes/clientes/', cliente)
 };
 
+export const Proveedores = {
+  all: () => requests.get('proveedores/proveedores/'),
+  create: proveedor => requests.post('proveedores/proveedores/', proveedor)
+};
+
 export const Requisiciones = {
   all: () => requests.get('requisiciones/requisiciones/'),
   tipos: {

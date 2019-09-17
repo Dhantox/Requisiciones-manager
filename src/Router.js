@@ -6,6 +6,7 @@ import LoginContainer from './common/features/Authentication/LoginContainer';
 import UsuariosContainer from './common/features/Usuarios/UsuariosContainer';
 import ClientesContainer from './common/features/Clientes/ClientesContainer';
 import RequisicionesContainer from './common/features/Requisiciones/RequisicionesContainer';
+import ProveedoresContainer from './common/features/Proveedores/ProveedoresContainer';
 
 const Router = () => {
   return (
@@ -14,6 +15,10 @@ const Router = () => {
       <Switch>
         <PrivateRoute path="/main/usuarios" component={UsuariosContainer} />
         <PrivateRoute path="/main/clientes" component={ClientesContainer} />
+        <PrivateRoute
+          path="/main/proveedores"
+          component={ProveedoresContainer}
+        />
         <PrivateRoute
           path="/main/requisiciones"
           component={RequisicionesContainer}

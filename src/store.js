@@ -3,6 +3,7 @@ import authenticationReducer from './common/features/Authentication/authenticati
 import clientesReducer from './common/features/Clientes/clientesReducer';
 import requisiciones from './common/features/Requisiciones/requisicionesReducer';
 import usuarios from './common/features/Usuarios/UsuariosReducer';
+import proveedores from './common/features/Proveedores/proveedoresReducer';
 
 export default function configureStore(initialState) {
   const store = createStore(
@@ -10,7 +11,8 @@ export default function configureStore(initialState) {
       authenticationReducer,
       clientes: clientesReducer,
       requisiciones,
-      usuarios
+      usuarios,
+      proveedores
     }),
     initialState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

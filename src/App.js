@@ -102,6 +102,26 @@ export default props => {
                 </Link>
               </div>
             </div>
+            <div className={styles.paddingfix}>
+              <div
+                className={`${
+                  location === '/main/proveedores'
+                    ? styles.selectedItem
+                    : styles.item
+                }`}
+              >
+                <Link to="proveedores">
+                  <div className="ui grid">
+                    <div className="two wide column">
+                      <Icon name="truck" size="large" />
+                    </div>
+                    <div className="two wide column">
+                      <p>Proveeedores</p>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div>
           </AccessContainer>
           <div className={styles.paddingfix}>
             <div
