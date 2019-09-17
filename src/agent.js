@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
 import showNotificaction from './common/utils/notifications';
+import { request } from 'https';
 
 const cookies = new Cookies();
 
@@ -107,7 +108,8 @@ export const Auth = {
 
 export const Usuarios = {
   all: () => requests.get('usuarios/usuarios/'),
-  create: lesson => requests.post('usuarios/usuarios/', lesson)
+  create: lesson => requests.post('usuarios/usuarios/', lesson),
+  groups: () => requests.get('usuarios/usuarios/groups/')
 };
 
 export const Clientes = {

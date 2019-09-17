@@ -68,7 +68,13 @@ const AgregarUsuariosModal = ({ onSubmit }) => {
               onChange={handleChange}
               value={form.apellido}
             />
-            <Dropdown placeholder="Tipo" fluid search selection options />
+            <Dropdown
+              placeholder="Tipo"
+              label="Tipo de usuario"
+              fluid
+              selection
+              options={[]}
+            />
           </Form>
         </Modal.Description>
       </Modal.Content>

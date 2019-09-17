@@ -81,7 +81,7 @@ export default props => {
               </Link>
             </div>
           </div>
-          <AccessContainer access={['vendedor']}>
+          <AccessContainer access={['admin']}>
             <div className={styles.paddingfix}>
               <div
                 className={`${

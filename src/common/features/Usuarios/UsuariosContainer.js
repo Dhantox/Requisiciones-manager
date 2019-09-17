@@ -5,15 +5,14 @@ import AgregarUsuariosModal from './AgregarUsuariosModal';
 import { Usuarios } from '../../../agent';
 import { useDispatch, useSelector } from 'react-redux';
 import TablaUsuarios from './TablaUsuarios';
-import { getUsuarios } from '../Usuarios/selectors';
 
 const UsuariosContainer = props => {
   const dispatch = useDispatch();
   useEffect(() => {
-    Usuarios.all();
     Usuarios.all().then(r => {
       dispatch({ type: 'CARGAR_USUARIOS_SUCCESS', payload: r.data });
     });
+    Usuarios.groups();
   }, [dispatch]);
   const usuarios = useSelector(store =>
     store.usuarios.usuarios.map(usuario => ({ ...usuario }))
