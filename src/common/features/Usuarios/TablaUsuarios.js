@@ -58,17 +58,27 @@ const TablaUsuarios = props => {
           >
             Apellido
           </Table.HeaderCell>
+          <Table.HeaderCell
+            sorted={column === 'Tipo de usuario' ? direction : null}
+            onClick={handleSort('Tipo de usuario')}
+          >
+            Tipo de usuario
+          </Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {_.map(data, ({ username, email, first_name, last_name, id }) => (
-          <Table.Row key={id}>
-            <Table.Cell>{username}</Table.Cell>
-            <Table.Cell>{email}</Table.Cell>
-            <Table.Cell>{first_name}</Table.Cell>
-            <Table.Cell>{last_name}</Table.Cell>
-          </Table.Row>
-        ))}
+        {_.map(
+          data,
+          ({ username, email, first_name, last_name, id, groups }) => (
+            <Table.Row key={id}>
+              <Table.Cell>{username}</Table.Cell>
+              <Table.Cell>{email}</Table.Cell>
+              <Table.Cell>{first_name}</Table.Cell>
+              <Table.Cell>{last_name}</Table.Cell>
+              <Table.Cell>{groups}</Table.Cell>
+            </Table.Row>
+          )
+        )}
       </Table.Body>
     </Table>
   );
