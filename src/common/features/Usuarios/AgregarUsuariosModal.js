@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form, ModalActions, Dropdown } from 'semantic-ui-react';
+import { Button, Modal, Form, ModalActions } from 'semantic-ui-react';
+import DropdownInput from '../../components/DropdownInput';
 import { useForm } from '../../hooks/formHooks';
 
-const AgregarUsuariosModal = ({ onSubmit }) => {
+const AgregarUsuariosModal = ({ onSubmit, grupos }) => {
   const [form, handleChange] = useForm({
     usuario: '',
     password: '',
@@ -68,13 +69,19 @@ const AgregarUsuariosModal = ({ onSubmit }) => {
               onChange={handleChange}
               value={form.apellido}
             />
-            <Dropdown
-              placeholder="Tipo"
+            <DropdownInput
+              placeholder="Tipo de usuario"
               label="Tipo de usuario"
+              name="grupo"
+              onChange={handleChange}
+              valuename="name"
               fluid
+              search
               selection
-              options={[]}
-            />
+              options={grupos}
+              value={form.grupo}
+              clearable
+            ></DropdownInput>
           </Form>
         </Modal.Description>
       </Modal.Content>

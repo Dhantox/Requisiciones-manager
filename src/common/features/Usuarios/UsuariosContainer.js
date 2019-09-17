@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import MainContainer from '../../components/MainContainer';
 import { Grid } from 'semantic-ui-react';
 import AgregarUsuariosModal from './AgregarUsuariosModal';
@@ -8,11 +8,14 @@ import TablaUsuarios from './TablaUsuarios';
 
 const UsuariosContainer = props => {
   const dispatch = useDispatch();
+  const [grupos, setGrupos] = useState([]);
   useEffect(() => {
     Usuarios.all().then(r => {
       dispatch({ type: 'CARGAR_USUARIOS_SUCCESS', payload: r.data });
     });
-    Usuarios.groups();
+    Usuarios.groups().then(r => {
+      setGrupos(r.data);
+    });
   }, [dispatch]);
   const usuarios = useSelector(store =>
     store.usuarios.usuarios.map(usuario => ({ ...usuario }))
@@ -23,6 +26,7 @@ const UsuariosContainer = props => {
       optionsButtons={
         <>
           <AgregarUsuariosModal
+            grupos={grupos}
             onSubmit={usuario =>
               Usuarios.create(usuario)
                 .then(r => Usuarios.all())
