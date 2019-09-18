@@ -154,3 +154,7 @@ export const Requisiciones = {
   },
   filtrados: () => requests.get('requisiciones/requisiciones/filtrados/')
 };
+
+export const Compras = {
+  all: () => requests.get('requisiciones/requisiciones/reportes')
+};
