@@ -32,7 +32,7 @@ const RequisicionesContainer = props => {
 
   useEffect(() => {
     Promise.all([
-      Requisiciones.all().then(r => {
+      Requisiciones.filtrados().then(r => {
         dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
       }),
       Requisiciones.tipos.all().then(r => {
@@ -86,26 +86,10 @@ const RequisicionesContainer = props => {
   }
   return (
     <MainContainer
-      title="Requisiciones"
+      title="Compras"
       optionsButtons={
         <>
           <Grid columns={4} textAlign={'left'}>
-            <Grid.Column verticalAlign={'bottom'} width={3}>
-              <AgregarRequisicionesModal
-                clientes={clientes}
-                requisicionesTipos={requisicionesTipos}
-                onSubmit={cliente =>
-                  Requisiciones.create(cliente)
-                    .then(r => Requisiciones.all())
-                    .then(r =>
-                      dispatch({
-                        type: 'CARGAR_REQUISICIONES_SUCCESS',
-                        payload: r.data
-                      })
-                    )
-                }
-              ></AgregarRequisicionesModal>
-            </Grid.Column>
             <Grid.Column widht={3}>
               <DropdownInput
                 placeholder="Estatus"

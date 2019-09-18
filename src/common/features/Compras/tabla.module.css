@@ -1,0 +1,19 @@
+.colorWarning {
+  background-color: rgba(230, 126, 34, 0.15) !important;
+  color: #7e5109 !important;
+}
+.colorNegative {
+  background-color: rgba(231, 76, 60, 0.25) !important;
+  color: #641e16 !important;
+}
+.colorPositive {
+  background-color: rgba(88, 214, 141, 0.15) !important;
+  color: #145a32 !important;
+}
+
+.visibility {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -81,6 +81,29 @@ export default props => {
               </Link>
             </div>
           </div>
+
+          <AccessContainer access={['compras', 'admin']}>
+            <div className={styles.paddingfix}>
+              <div
+                className={`${
+                  location === '/main/compras'
+                    ? styles.selectedItem
+                    : styles.item
+                } `}
+              >
+                <Link to="compras">
+                  <div className="ui grid">
+                    <div className="two wide column">
+                      <Icon name="box" size="large" />
+                    </div>
+                    <div className="two wide column">
+                      <p>Compras</p>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </AccessContainer>
           <AccessContainer access={['admin']}>
             <div className={styles.paddingfix}>
               <div

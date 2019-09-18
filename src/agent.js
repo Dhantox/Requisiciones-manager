@@ -151,5 +151,6 @@ export const Requisiciones = {
         `requisiciones/requisiciones/${requisicionId}/cotizaciones/`,
         cotizacion
       )
-  }
+  },
+  filtrados: () => requests.get('requisiciones/requisiciones/filtrados/')
 };

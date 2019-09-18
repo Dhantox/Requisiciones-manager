@@ -13,7 +13,7 @@
 }
 
 .fixedcolumn {
-  padding-bottom: 10px;
+  padding-top: 10px;
 }
 .paddingfix {
   padding: 15px;
@@ -34,4 +34,8 @@
 }
 .bordeBottom {
   padding-bottom: 20px;
+}
+
+.colorPrueba {
+  background-color: aqua;
 }

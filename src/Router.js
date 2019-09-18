@@ -7,6 +7,7 @@ import UsuariosContainer from './common/features/Usuarios/UsuariosContainer';
 import ClientesContainer from './common/features/Clientes/ClientesContainer';
 import RequisicionesContainer from './common/features/Requisiciones/RequisicionesContainer';
 import ProveedoresContainer from './common/features/Proveedores/ProveedoresContainer';
+import ComprasContainer from './common/features/Compras/ComprasContainer';
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
           path="/main/requisiciones"
           component={RequisicionesContainer}
         />
+        <PrivateRoute path="/main/Compras" component={ComprasContainer} />
         <Route path="/login" component={LoginContainer} />
         <Redirect path="/" to="/main/requisiciones" />
       </Switch>

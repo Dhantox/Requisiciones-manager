@@ -14,7 +14,7 @@ const MainContainer = ({ children, title, optionsButtons }) => {
               </Grid.Column>
               <Grid.Column className={styles.tableCard}>
                 <Grid.Row className={styles.tablePadd}>
-                  <Grid.Column className={styles.fixedcolumn}>
+                  <Grid.Column className={`${styles.fixedcolumn}`}>
                     {optionsButtons}
                   </Grid.Column>
                   <Grid.Column className={styles.fixedcolumn}>
