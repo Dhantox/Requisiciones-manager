@@ -10,11 +10,11 @@ const MainContainer = ({ children, title, optionsButtons }) => {
           <Grid>
             <Grid.Column>
               <Grid.Column className={styles.bordeBottom}>
-                <h1 className={styles.title}>{title}</h1>{' '}
+                <h1 className={styles.title}>{title}</h1>
               </Grid.Column>
               <Grid.Column className={styles.tableCard}>
                 <Grid.Row className={styles.tablePadd}>
-                  <Grid.Column className={`${styles.fixedcolumn}`}>
+                  <Grid.Column className={styles.fixedcolumn}>
                     {optionsButtons}
                   </Grid.Column>
                   <Grid.Column className={styles.fixedcolumn}>

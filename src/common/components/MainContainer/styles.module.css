@@ -13,7 +13,7 @@
 }
 
 .fixedcolumn {
-  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .paddingfix {
   padding: 15px;
@@ -23,6 +23,7 @@
 }
 
 .tableCard {
+  position: relative;
   height: 100%;
   background-color: white;
   box-shadow: 0px 5px 15px -10px grey;
@@ -34,8 +35,4 @@
 }
 .bordeBottom {
   padding-bottom: 20px;
-}
-
-.colorPrueba {
-  background-color: aqua;
 }
