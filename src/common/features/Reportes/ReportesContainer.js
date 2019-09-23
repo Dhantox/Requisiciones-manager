@@ -3,15 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import MainContainer from '../../components/MainContainer';
 import { Grid, Form, Container } from 'semantic-ui-react';
 import AgregarRequisicionesModal from './AgregarRequisicionesModal';
-import { Requisiciones, Clientes } from '../../../agent';
-import TablaRequisiciones from './TablaRequisiciones';
+import { Reportes, Clientes } from '../../../agent';
+import TablaReportes from './TablaReportes';
 import { getClientes } from '../Clientes/selectors';
-import {
-  getRequisicionesTipos,
-  getSelectedRequisicion,
-  getEstadosCategorias,
-  getRequisicionesEstatus
-} from './selectors';
+import { getSelectedReporte } from './selectors';
 import AgregarCotizacionModal from './AgregarCotizacionModal';
 import EstadoRequisicionModal from './EstadoRequisicionModal';
 import moment from 'moment';
@@ -19,7 +14,7 @@ import showNotification from '../../utils/notifications';
 import DropdownInput from '../../components/DropdownInput';
 import { useForm } from '../../hooks/formHooks';
 
-const RequisicionesContainer = props => {
+const ReportesContainer = props => {
   const [modalCotizacionState, setModalCotizacionState] = useState({
     visible: false,
     mode: 'crear'
@@ -32,26 +27,8 @@ const RequisicionesContainer = props => {
 
   useEffect(() => {
     Promise.all([
-      Requisiciones.filtrados().then(r => {
-        dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
-      }),
-      Requisiciones.tipos.all().then(r => {
-        dispatch({
-          type: 'CARGAR_REQUISICIONES_TIPOS_SUCCESS',
-          payload: r.data
-        });
-      }),
-      Requisiciones.estados.categorias.all().then(r => {
-        dispatch({
-          type: 'CARGAR_REQUISICIONES_ESTADOS_CATEGORIAS_SUCCESS',
-          payload: r.data
-        });
-      }),
-      Requisiciones.estatus.all().then(r => {
-        dispatch({
-          type: 'CARGAR_REQUISICIONES_ESTATUS_SUCCESS',
-          payload: r.data
-        });
+      Reportes.all().then(r => {
+        dispatch({ type: 'CARGAR_REPORTES_SUCCESS', payload: r.data });
       }),
       Clientes.all().then(r => {
         dispatch({ type: 'CARGAR_CLIENTES_SUCCESS', payload: r.data });
@@ -59,63 +36,23 @@ const RequisicionesContainer = props => {
     ]);
   }, [dispatch]);
 
-  const requesiciones = useSelector(store =>
-    store.requisiciones.requisiciones.map(cliente => ({ ...cliente }))
-  ).map(requisicion => {
-    requisicion.fecha_correo = moment(requisicion.fecha_correo);
-    return requisicion;
-  });
+  const reportes = useSelector(store =>
+    store.reportes.reportes.map(reporte => ({ ...reporte }))
+  );
 
-  const requisicionesTipos = useSelector(getRequisicionesTipos);
-  const clientes = useSelector(getClientes);
-  const estatus = useSelector(getRequisicionesEstatus);
-  const estadosCategorias = useSelector(getEstadosCategorias);
-  const selectedRequisicion = useSelector(getSelectedRequisicion);
-
+  console.log(reportes);
+  const selectedReporte = useSelector(getSelectedReporte);
   let defaultFormCotizacion = {
     fecha: moment(),
     monto: '',
     folio: '',
     orden_proveedor: ''
   };
-  if (selectedRequisicion && selectedRequisicion.cotizacion_compras) {
-    defaultFormCotizacion = {
-      fecha: moment(selectedRequisicion.cotizacion_compras.fecha),
-      monto: selectedRequisicion.cotizacion_compras.monto,
-      folio: selectedRequisicion.cotizacion_compras.folio,
-      orden_proveedor: selectedRequisicion.cotizacion_compras.orden_proveedor
-    };
-  }
   return (
-    <MainContainer
-      title="Compras"
-      optionsButtons={
-        <>
-          <Grid columns={4} textAlign={'left'}>
-            <Grid.Column widht={3}>
-              <DropdownInput
-                placeholder="Estatus"
-                label="Estatus"
-                name="estatus_id"
-                valuename="concepto"
-                fluid
-                onChange={handleChange}
-                search
-                selection
-                options={estatus}
-                value={estatus}
-                clearable
-              ></DropdownInput>
-            </Grid.Column>
-            <Grid.Column></Grid.Column>
-            <Grid.Column></Grid.Column>
-          </Grid>
-        </>
-      }
-    >
+    <MainContainer title="Reportes  " optionsButtons={<></>}>
       <Grid.Row>
         <Grid.Column>
-          <TablaRequisiciones
+          <TablaReportes
             onAgregarCotizacionClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
               setModalCotizacionState({
@@ -132,7 +69,7 @@ const RequisicionesContainer = props => {
             }}
             onCambiarEstatusClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
-              Requisiciones.estados.get(id).then(r =>
+              Reportes.estados.get(id).then(r =>
                 dispatch({
                   type: 'CARGAR_REQUISICION_ESTADO',
                   payload: r.data
@@ -143,8 +80,8 @@ const RequisicionesContainer = props => {
             onSelectRequisicion={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
             }}
-            data={requesiciones}
-          ></TablaRequisiciones>
+            data={reportes}
+          ></TablaReportes>
           <AgregarCotizacionModal
             visible={modalCotizacionState.visible}
             mode={modalCotizacionState.mode}
@@ -156,9 +93,9 @@ const RequisicionesContainer = props => {
             }
             defaultForm={defaultFormCotizacion}
             onSubmit={form =>
-              Requisiciones.cotizacion_compras
-                .create(form, selectedRequisicion.id)
-                .then(r => Requisiciones.filtrados())
+              Reportes.requisiciones
+                .create(form, selectedReporte.id)
+                .then(r => Reportes.all())
                 .then(r => {
                   dispatch({
                     type: 'CARGAR_REQUISICIONES_SUCCESS',
@@ -179,29 +116,25 @@ const RequisicionesContainer = props => {
           ></AgregarCotizacionModal>
           <EstadoRequisicionModal
             defaultForm={{
-              estatus_id: selectedRequisicion
-                ? selectedRequisicion.estatus.id
+              estatus_id: selectedReporte ? selectedReporte.estatus.id : '',
+              categoria_id: selectedReporte
+                ? selectedReporte.estado.categoria
                 : '',
-              categoria_id: selectedRequisicion
-                ? selectedRequisicion.estado.categoria
-                : '',
-              razon: selectedRequisicion ? selectedRequisicion.estado.razon : ''
+              razon: selectedReporte ? selectedReporte.estado.razon : ''
             }}
-            estadosCategorias={estadosCategorias}
-            estatus={estatus}
             visible={modalEstadoRequisicionVisible}
             setVisible={setModalEstadoRequisicionVisible}
             onSubmit={form => {
               dispatch({ type: 'LOADING' });
 
-              Requisiciones.estados
-                .update(selectedRequisicion.id, form)
+              Reportes.estados
+                .update(selectedReporte.id, form)
                 .then(r => {
                   showNotification.success(
                     'Exito!',
                     'Estado de cotizacion guardado'
                   );
-                  return Requisiciones.filtrados();
+                  return Reportes.all();
                 })
                 .then(r => {
                   dispatch({
@@ -218,6 +151,6 @@ const RequisicionesContainer = props => {
   );
 };
 
-RequisicionesContainer.propTypes = {};
+ReportesContainer.propTypes = {};
 
-export default RequisicionesContainer;
+export default ReportesContainer;

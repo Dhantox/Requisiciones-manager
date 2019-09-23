@@ -4,6 +4,7 @@ import DropdownInput from '../../components/DropdownInput';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
 import moment from 'moment';
+import styles from './tabla.module.css';
 
 const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
   const [form, handleChange, setForm] = useForm({
@@ -18,7 +19,7 @@ const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
       open={visible}
       onClose={() => setVisible(false)}
       trigger={
-        <Button onClick={() => setVisible(true)} primary>
+        <Button styles={'button'} onClick={() => setVisible(true)} primary>
           Agregar Requisición
         </Button>
       }

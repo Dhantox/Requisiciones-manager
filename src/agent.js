@@ -152,9 +152,25 @@ export const Requisiciones = {
         cotizacion
       )
   },
-  filtrados: () => requests.get('requisiciones/requisiciones/filtrados/')
+  create: requisicion =>
+    requests.post('requisiciones/requisiciones/', requisicion),
+  cotizaciones_compras: {
+    create: (cotizacion_compras, requisicionId) =>
+      request.post(
+        `requisiciones/requisiciones/${requisicionId}/cotizaciones_compras/`,
+        cotizacion_compras
+      )
+  },
+  filtrados: requisicionId =>
+    requests.get('requisiciones/requisiciones/filtrados/', requisicionId)
 };
 
 export const Compras = {
   all: () => requests.get('requisiciones/requisiciones/reportes')
+};
+
+export const Reportes = {
+  all: () => requests.get('requisiciones/requisiciones/reportes'),
+  create: requisicion =>
+    requests.post('requisiciones/requisiciones/reportes', requisicion)
 };

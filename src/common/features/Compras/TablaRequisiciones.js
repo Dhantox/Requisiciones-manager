@@ -22,7 +22,6 @@ const prioridad = (horaDeCorreo, status) => {
   var warning = { warning: styles.colorNegative };
   var tiempoTranscurrido = horaActual.diff(horaCorreo, 'hours', 'minutes');
   if (tiempoTranscurrido <= 24) {
-    console.log(positive.className);
     return positive.positive;
   } else {
     if (tiempoTranscurrido <= 48) {
@@ -75,19 +74,19 @@ const TablaRequisiciones = props => {
             sorted={column === 'fecha_correo' ? direction : null}
             onClick={handleSort('fecha_correo')}
           >
-            Fecha correo
+            Tiempo transcurrido
           </Table.HeaderCell>
           <Table.HeaderCell
             sorted={column === 'tiempo_transcurrido' ? direction : null}
             onClick={handleSort('tiempo_transcurrido')}
           >
-            Tiempo transcurrido
+            proveedores
           </Table.HeaderCell>
           <Table.HeaderCell
             sorted={column === 'cliente' ? direction : null}
             onClick={handleSort('cliente')}
           >
-            Cliente
+            Vendedor
           </Table.HeaderCell>
           <Table.HeaderCell
             sorted={column === 'tipo' ? direction : null}
@@ -124,7 +123,17 @@ const TablaRequisiciones = props => {
       <Table.Body>
         {_.map(
           data,
-          ({ id, fecha_correo, cliente, tipo, estatus, cotizacion, nota }) => (
+          ({
+            id,
+            fecha_correo,
+            cliente,
+            tipo,
+            estatus,
+            cotizacion,
+            folio,
+            nota,
+            usuario_creacion
+          }) => (
             <Table.Row
               className={prioridad(fecha_correo, estatus.concepto)}
               onClick={e => props.onSelectRequisicion(id)}
@@ -133,9 +142,12 @@ const TablaRequisiciones = props => {
               <Table.Cell block textAlign={'center'}>
                 {id}
               </Table.Cell>
-              <Table.Cell>{fecha_correo.format('DD/MM/YY:HH:mm')}</Table.Cell>
               <Table.Cell>{fecha_correo.fromNow()}</Table.Cell>
-              <Table.Cell>{cliente.nombre}</Table.Cell>
+              <Table.Cell>
+                {cotizacion ? cotizacion.orden_proveedor : 'Sin proveedor'}
+              </Table.Cell>
+
+              <Table.Cell>{usuario_creacion.first_name}</Table.Cell>
               <Popup
                 content={`${'Tipo:'} ${tipo.concepto} ${'Nota:'} ${nota}`}
                 trigger={
@@ -143,7 +155,7 @@ const TablaRequisiciones = props => {
                 }
               ></Popup>
               <Table.Cell>
-                {cotizacion ? cotizacion.folio : 'Sin cotización'}
+                {cotizacion ? cotizacion.folio : 'Sin folio'}
               </Table.Cell>
               <Table.Cell>
                 {cotizacion ? cotizacion.monto : 'Sin cotización'}

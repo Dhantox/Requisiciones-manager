@@ -4,7 +4,6 @@ import DropdownInput from '../../components/DropdownInput';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
 import moment from 'moment';
-import styles from './tabla.module.css';
 
 const AgregarClientesModal = ({ requisicionesTipos, clientes, onSubmit }) => {
   const [form, handleChange, setForm] = useForm({

@@ -6,22 +6,26 @@
   padding-left: 0;
   padding-right: 0;
   left: 0;
-  background-color: white;
+  background-color: rgb(1, 40, 99);
   color: white;
   border-right: 1px solid #f5f5f5;
   box-shadow: 0px 0px 20px -16px grey;
+  padding-top: 45px;
 }
 
 .navBar {
-  padding-top: 85px;
+  padding-top: 5px;
   padding-left: 3px;
   padding-right: 3px;
+}
+.logoMain {
+  background-image: url(./common/img/CMNVisa.png);
 }
 
 .menuIcon {
   padding: 1em 0.5em 2em 0.5em;
   border-left: 3px solid #2196f3;
-  color: #8492a6;
+  color: white;
 }
 .fix {
   padding-left: 2px;
@@ -40,24 +44,23 @@
 }
 
 a {
-  color: grey;
+  color: white;
 }
 
 .item:hover {
   padding: 10px 17px;
-  border-left: 3px solid #4080b7;
   animation-duration: 200ms;
   cursor: pointer;
   animation-name: itemHover;
   border-radius: 5px;
   width: 100%;
-  border-left: 3px solid #5094cf;
+  border-left: 3px solid #43a2a7;
   animation-duration: 200ms;
   background-color: #e3f2fd;
   font-family: sans-serif;
 }
 .item:hover > a {
-  color: #5094cf;
+  color: #43a2a7;
 }
 
 @keyframes itemHover {
@@ -75,13 +78,13 @@ a {
   font-size: 0.9rem;
   border-radius: 5px;
   font-weight: bolder;
-  border-left: 3px solid #5094cf;
-  background-color: #e3f2fd;
+  border-left: 3px solid white;
+  background-color: #43a2a7;
 
   font-family: sans-serif;
 }
 .selectedItem > a {
-  color: #5094cf;
+  color: white;
 }
 
 .loader {

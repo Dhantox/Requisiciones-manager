@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Component } from 'react';
 import { Modal, Form } from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
-
+import AccordionReportes from './ActivateAcordion';
 /**
  *
  * @param string mode: modo del modal: 'editar', 'agregar', 'ver'
  */
+
 const AgregarCotizacionModal = ({
   defaultForm,
   onSubmit,
@@ -44,7 +45,6 @@ const AgregarCotizacionModal = ({
         }
       ];
   }
-
   return (
     <Modal open={visible} onClose={() => setVisible(false)} centered={false}>
       <Modal.Header>{modal.title} cotización</Modal.Header>
@@ -64,7 +64,7 @@ const AgregarCotizacionModal = ({
               type="number"
               fluid
               name="monto"
-              label="Monto"
+              label="Costo"
               placeholder="Monto"
               onChange={handleChange}
               value={form.monto}
@@ -80,14 +80,18 @@ const AgregarCotizacionModal = ({
             <Form.Input
               fluid
               name="orden_proveedor"
-              label="Orden proveedor"
+              label="Proveedores"
               placeholder="Orden proveedor"
               onChange={handleChange}
               value={form.orden_proveedor}
             />
           </Form>
         </Modal.Description>
+        <Modal.Description>
+          <AccordionReportes></AccordionReportes>
+        </Modal.Description>
       </Modal.Content>
+
       <Modal.Actions
         actions={[
           ...modal.buttons,

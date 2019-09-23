@@ -34,7 +34,7 @@ const AgregarCotizacionModal = ({
         {
           key: 'done',
           content: 'Agregar cotización',
-          primary: true,
+          positive: true,
           onClick: () => {
             const newForm = { ...form };
             newForm.fecha = form.fecha.format('YYYY-MM-DD HH:mm');

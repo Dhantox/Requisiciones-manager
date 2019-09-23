@@ -43,13 +43,15 @@
   border-bottom: 2px solid white;
 }
 
-.sidebar {
-  height: 35px;
-  width: 100%;
-  position: fixed;
-  z-index: 100;
-  word-break: break-all;
-  hyphens: auto;
-  background-color: white;
-  box-shadow: 0px -16px 14px 7px grey;
+.sidebars {
+  margin: 0 !important;
+  background-color: #43a2a7 !important;
+  box-shadow: 0px 10px 0px -10px grey !important;
+}
+
+.itemMenu {
+  color: white !important;
+}
+.itemMenu:hover {
+  color: black !important;
 }

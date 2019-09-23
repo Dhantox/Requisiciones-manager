@@ -9,10 +9,12 @@ const MainContainer = ({ children, title, optionsButtons }) => {
         <Container fluid className={styles.paddingfix}>
           <Grid>
             <Grid.Column>
-              <Grid.Column className={styles.bordeBottom}>
-                <h1 className={styles.title}>{title}</h1>
-              </Grid.Column>
-              <Grid.Column className={styles.tableCard}>
+              <Grid.Column className={`${styles.tableCard}  `}>
+                <Grid.Column
+                  className={`${styles.bordeBottom} ${styles.colorTop} ${styles.tablePadd} ${styles.borderTop}`}
+                >
+                  <h1 className={styles.title}>{title}</h1>
+                </Grid.Column>
                 <Grid.Row className={styles.tablePadd}>
                   <Grid.Column className={styles.fixedcolumn}>
                     {optionsButtons}

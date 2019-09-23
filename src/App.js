@@ -4,13 +4,15 @@ import ReactNotification from 'react-notifications-component';
 import Loader from 'react-loader-spinner';
 import './App.css';
 import { Link } from 'react-router-dom';
-import { Icon, Grid } from 'semantic-ui-react';
+import { Icon, Grid, Menu, Image } from 'semantic-ui-react';
 import styles from './app.module.css';
 import { Auth } from './agent';
 import AccessContainer from './common/features/Authentication/AccessContainer';
-
+import logo from './common/img/CMNVisa.png';
 export default props => {
   let location = props.history.location.pathname;
+  const activeItem = null;
+  const handleItemClick = console.log;
   const loading = useSelector(store => store.authenticationReducer.loading);
   const dispatch = useDispatch();
   const username = useSelector(store => store.authenticationReducer.user.user);
@@ -26,40 +28,35 @@ export default props => {
           visible={loading}
         />
       </div>
-      <div className="sidebar">
-        <Grid columns={2} verticalAlign={'middle'}>
-          <Grid.Row>
-            <Grid.Column>
-              <h2>LOGO</h2>
-            </Grid.Column>
-            <Grid.Column>
-              <Grid columns={3} divided>
-                <Grid.Row>
-                  <Grid.Column></Grid.Column>
-                  <Grid.Column width={6}>
-                    <p>{username}</p>
-                  </Grid.Column>
-                  <Grid.Column width={3}>
-                    <p
-                      onClick={() => {
-                        Auth.cleanCookies();
-                        dispatch({ type: 'LOGOUT' });
-                      }}
-                      name="triangle down"
-                    >
-                      Cerrar sesión
-                    </p>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
+      <Menu color={'blue'} secondary fixed={'top'} fluid className={'sidebars'}>
+        <Menu.Item
+          className={'itemMenu'}
+          active={activeItem === 'home'}
+          onClick={handleItemClick}
+        >
+          <Icon name="bars" size="large"></Icon>
+        </Menu.Item>
+        <Menu.Item />
+        <Menu.Item />
+        <Menu.Menu position="right">
+          <Menu.Item name={username} className={'itemMenu'}></Menu.Item>
+          <Menu.Item
+            className={'itemMenu'}
+            name="Cerrar sesion"
+            active={activeItem === 'logout'}
+            onClick={() => {
+              Auth.cleanCookies();
+              dispatch({ type: 'LOGOUT' });
+            }}
+          />
+        </Menu.Menu>
+      </Menu>
+
       <div
         className="ui vertical borderless fluid text menu"
         className={styles.navBarContainer}
       >
+        <Image src={logo} size="large" />
         <div className={styles.navBar}>
           <div className={styles.paddingfix}>
             <div
