@@ -76,14 +76,14 @@ const RequisicionesContainer = props => {
     fecha: moment(),
     monto: '',
     folio: '',
-    orden_proveedor: ''
+    proveedores: ''
   };
   if (selectedRequisicion && selectedRequisicion.cotizacion_compras) {
     defaultFormCotizacion = {
       fecha: moment(selectedRequisicion.cotizacion_compras.fecha),
       monto: selectedRequisicion.cotizacion_compras.monto,
       folio: selectedRequisicion.cotizacion_compras.folio,
-      orden_proveedor: selectedRequisicion.cotizacion_compras.orden_proveedor
+      proveedores: selectedRequisicion.cotizacion_compras.proveedores
     };
   }
   return (
@@ -156,7 +156,7 @@ const RequisicionesContainer = props => {
             }
             defaultForm={defaultFormCotizacion}
             onSubmit={form =>
-              Requisiciones.cotizacion_compras
+              Requisiciones.cotizacionesCompras
                 .create(form, selectedRequisicion.id)
                 .then(r => Requisiciones.filtrados())
                 .then(r => {

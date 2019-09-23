@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Modal, Form } from 'semantic-ui-react';
 import DropdownInput from '../../components/DropdownInput';
 import { useForm } from '../../hooks/formHooks';
+import AccordionReportes from './ActivateAcordion';
 
 const EstadoRequisicionModal = ({
   onSubmit,
@@ -63,6 +64,9 @@ const EstadoRequisicionModal = ({
               value={form.razon}
             />
           </Form>
+        </Modal.Description>
+        <Modal.Description>
+          <AccordionReportes></AccordionReportes>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions

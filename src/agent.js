@@ -152,13 +152,11 @@ export const Requisiciones = {
         cotizacion
       )
   },
-  create: requisicion =>
-    requests.post('requisiciones/requisiciones/', requisicion),
-  cotizaciones_compras: {
-    create: (cotizacion_compras, requisicionId) =>
-      request.post(
+  cotizacionesCompras: {
+    create: (cotizacionCompras, requisicionId) =>
+      requests.post(
         `requisiciones/requisiciones/${requisicionId}/cotizaciones_compras/`,
-        cotizacion_compras
+        cotizacionCompras
       )
   },
   filtrados: requisicionId =>
