@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { Modal, Form } from 'semantic-ui-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Modal, Form, Divider } from 'semantic-ui-react';
 import DropdownInput from '../../components/DropdownInput';
+import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
-import AccordionReportes from './ActivateAcordion';
+import ReportesContainer from '../Reportes/ReportesContainer';
 
 const EstadoRequisicionModal = ({
   onSubmit,
@@ -13,15 +15,12 @@ const EstadoRequisicionModal = ({
   defaultForm
 }) => {
   const [form, handleChange, setForm] = useForm({
-    estatus_id: defaultForm.estatus_id,
-    categoria_id: '',
-    razon: ''
+    fecha_creacion: '',
+    costo: '',
+    proveedores: '',
+    rastreo: '',
+    paqueteria: ''
   });
-
-  useEffect(() => {
-    setForm(defaultForm);
-    return () => {};
-  }, [defaultForm]);
 
   return (
     <Modal open={visible} onClose={() => setVisible(false)} centered={false}>
@@ -29,58 +28,75 @@ const EstadoRequisicionModal = ({
       <Modal.Content>
         <Modal.Description>
           <Form>
-            <DropdownInput
-              placeholder="Estatus"
-              label="Estatus"
-              name="estatus_id"
-              onChange={handleChange}
-              valuename="concepto"
-              fluid
-              search
-              selection
-              options={estatus}
-              value={form.estatus_id}
-              clearable
-            ></DropdownInput>
-            <DropdownInput
-              placeholder="Categoria"
-              label="Categoria"
-              name="categoria_id"
-              onChange={handleChange}
-              valuename="categoria"
-              fluid
-              search
-              selection
-              options={estadosCategorias}
-              value={form.categoria_id}
-              clearable
-            ></DropdownInput>
-            <Form.TextArea
+            <Form.Field>
+              <label>Fecha de entrega</label>
+              <DateTime
+                dateFormat="YYYY-DD-MM"
+                timeFormat={false}
+                value={form.fecha_creacion}
+                onChange={date => setForm({ ...form, fecha_creacion: date })}
+              ></DateTime>
+            </Form.Field>
+            <Form.Input
               type="number"
-              name="razon"
-              label="Razón"
-              placeholder="Razón"
+              fluid
+              name="costo"
+              label="Precio"
+              placeholder="Precio"
               onChange={handleChange}
-              value={form.razon}
+              value={form.costo}
+            />
+            <Form.Input
+              fluid
+              name="proveedores"
+              label="Proveedores"
+              placeholder="Provedoores"
+              onChange={handleChange}
+              value={form.proveedores}
+            />
+            <Form.Input
+              fluid
+              name="paqueteria"
+              label="Paqueteria"
+              placeholder="Paqueteria"
+              onChange={handleChange}
+              value={form.paqueteria}
+            />
+            <Form.Input
+              fluid
+              name="rastreo"
+              label="Numero de guia"
+              placeholder="Numero de guia"
+              onChange={handleChange}
+              value={form.rastreo}
             />
           </Form>
         </Modal.Description>
+        <Divider />
+        <Modal.Actions
+          actions={[
+            {
+              key: 'done',
+              content: 'Agregar compra',
+              positive: true,
+              onClick: () => {
+                const newForm = { ...form };
+                newForm.fecha_creacion = form.fecha_creacion.format(
+                  'YYYY-MM-DD HH:mm'
+                );
+                setVisible(true);
+                onSubmit(newForm);
+              }
+            }
+          ]}
+        ></Modal.Actions>
+        <Divider />
         <Modal.Description>
-          <AccordionReportes></AccordionReportes>
+          <ReportesContainer></ReportesContainer>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions
         actions={[
-          {
-            key: 'done',
-            content: 'Guardar estado',
-            positive: true,
-            onClick: () => {
-              const newForm = { ...form };
-              setVisible(false);
-              onSubmit(newForm);
-            }
-          },
           {
             key: 'cancelar',
             content: 'Cancelar',

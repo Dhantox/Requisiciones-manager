@@ -1,9 +1,8 @@
 import React, { useEffect, useState, handleChange } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainContainer from '../../components/MainContainer';
-import { Grid, Form, Container } from 'semantic-ui-react';
-import AgregarRequisicionesModal from './AgregarRequisicionesModal';
-import { Requisiciones, Clientes } from '../../../agent';
+import { Grid } from 'semantic-ui-react';
+import { Requisiciones, Clientes, Reportes } from '../../../agent';
 import TablaRequisiciones from './TablaRequisiciones';
 import { getClientes } from '../Clientes/selectors';
 import {
@@ -12,12 +11,12 @@ import {
   getEstadosCategorias,
   getRequisicionesEstatus
 } from './selectors';
+import { getSelectedReporte } from '../Reportes/selectors';
 import AgregarCotizacionModal from './AgregarCotizacionModal';
 import EstadoRequisicionModal from './EstadoRequisicionModal';
 import moment from 'moment';
 import showNotification from '../../utils/notifications';
 import DropdownInput from '../../components/DropdownInput';
-import { useForm } from '../../hooks/formHooks';
 
 const RequisicionesContainer = props => {
   const [modalCotizacionState, setModalCotizacionState] = useState({
@@ -30,6 +29,11 @@ const RequisicionesContainer = props => {
   ] = useState(false);
   const dispatch = useDispatch();
 
+  const cotizacionCompraId = useSelector(store => {
+    if (store.requisiciones.selectedRequisicion != null) {
+      return store.requisiciones.selectedRequisicion.cotizacion_compras.id;
+    }
+  });
   useEffect(() => {
     Promise.all([
       Requisiciones.filtrados().then(r => {
@@ -58,7 +62,6 @@ const RequisicionesContainer = props => {
       })
     ]);
   }, [dispatch]);
-
   const requesiciones = useSelector(store =>
     store.requisiciones.requisiciones.map(cliente => ({ ...cliente }))
   ).map(requisicion => {
@@ -66,18 +69,15 @@ const RequisicionesContainer = props => {
     return requisicion;
   });
 
-  const requisicionesTipos = useSelector(getRequisicionesTipos);
-  const clientes = useSelector(getClientes);
   const estatus = useSelector(getRequisicionesEstatus);
-  const estadosCategorias = useSelector(getEstadosCategorias);
   const selectedRequisicion = useSelector(getSelectedRequisicion);
-
   let defaultFormCotizacion = {
     fecha: moment(),
     monto: '',
     folio: '',
     proveedores: ''
   };
+
   if (selectedRequisicion && selectedRequisicion.cotizacion_compras) {
     defaultFormCotizacion = {
       fecha: moment(selectedRequisicion.cotizacion_compras.fecha),
@@ -178,34 +178,22 @@ const RequisicionesContainer = props => {
             }
           ></AgregarCotizacionModal>
           <EstadoRequisicionModal
-            defaultForm={{
-              estatus_id: selectedRequisicion
-                ? selectedRequisicion.estatus.id
-                : '',
-              categoria_id: selectedRequisicion
-                ? selectedRequisicion.estado.categoria
-                : '',
-              razon: selectedRequisicion ? selectedRequisicion.estado.razon : ''
-            }}
-            estadosCategorias={estadosCategorias}
-            estatus={estatus}
             visible={modalEstadoRequisicionVisible}
             setVisible={setModalEstadoRequisicionVisible}
             onSubmit={form => {
               dispatch({ type: 'LOADING' });
-
-              Requisiciones.estados
-                .update(selectedRequisicion.id, form)
+              console.log(form);
+              Reportes.create(form, cotizacionCompraId)
                 .then(r => {
                   showNotification.success(
                     'Exito!',
                     'Estado de cotizacion guardado'
                   );
-                  return Requisiciones.filtrados();
+                  return Reportes.get(cotizacionCompraId);
                 })
                 .then(r => {
                   dispatch({
-                    type: 'CARGAR_REQUISICIONES_SUCCESS',
+                    type: 'CARGAR_REPORTES_SUCCESS  ',
                     payload: r.data
                   });
                 })

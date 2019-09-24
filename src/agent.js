@@ -169,6 +169,11 @@ export const Compras = {
 
 export const Reportes = {
   all: () => requests.get('requisiciones/requisiciones/reportes'),
-  create: requisicion =>
-    requests.post('requisiciones/requisiciones/reportes', requisicion)
+  get: cotizacionCompraId =>
+    requests.get(`requisiciones/requisiciones/${cotizacionCompraId}/reportes/`),
+  create: (Reporte, cotizacionCompraId) =>
+    requests.post(
+      `requisiciones/requisiciones/${cotizacionCompraId}/create_reporte/`,
+      Reporte
+    )
 };

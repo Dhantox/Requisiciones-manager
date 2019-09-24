@@ -152,47 +152,35 @@ const TablaRequisiciones = props => {
               <Table.Cell textAlign={'center'}>
                 <Grid.Row>
                   {cotizacion ? (
-                    <Button compact size={'mini'} circular color={'blue'}>
-                      <Button.Content>
-                        <Icon
-                          onClick={e => {
-                            e.persist();
-                            props.onVerCotizacionClick(id);
-                          }}
-                          color="white"
-                          name="folder"
-                          size="large"
-                        />
-                      </Button.Content>
-                    </Button>
+                    <Button
+                      circular
+                      color="green"
+                      icon="folder"
+                      onClick={e => {
+                        e.persist();
+                        props.onVerCotizacionClick(id);
+                      }}
+                    />
                   ) : (
-                    <Button compact size={'mini'} circular color={'blue'}>
-                      <Button.Content>
-                        <Icon
-                          onClick={e => {
-                            e.persist();
-                            props.onAgregarCotizacionClick(id);
-                          }}
-                          color="white"
-                          name="file alternate outline"
-                          size="large"
-                        />
-                      </Button.Content>
-                    </Button>
+                    <Button
+                      circular
+                      color="orange"
+                      icon="file alternate outline"
+                      onClick={e => {
+                        e.persist();
+                        props.onAgregarCotizacionClick(id);
+                      }}
+                    />
                   )}
-                  <Button compact size={'mini'} circular color={'blue'}>
-                    <Button.Content>
-                      <Icon
-                        onClick={e => {
-                          e.persist();
-                          props.onCambiarEstatusClick(id);
-                        }}
-                        color="white"
-                        name="clipboard check"
-                        size="large"
-                      />
-                    </Button.Content>
-                  </Button>
+                  <Button
+                    circular
+                    color="orange"
+                    icon="clipboard check"
+                    onClick={e => {
+                      e.persist();
+                      props.onCambiarEstatusClick(id);
+                    }}
+                  />
                 </Grid.Row>
               </Table.Cell>
             </Table.Row>

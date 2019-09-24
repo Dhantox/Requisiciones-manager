@@ -1,6 +1,16 @@
 import _ from 'lodash';
-import React, { useState, useEffect } from 'react';
-import { Table } from 'semantic-ui-react';
+import React, { Component, useState, useEffect } from 'react';
+import {
+  Table,
+  Icon,
+  Grid,
+  GridRow,
+  GridColumn,
+  TableCell,
+  Button,
+  Popup,
+  Visibility
+} from 'semantic-ui-react';
 import styles from './tabla.module.css';
 import moment from 'moment';
 
@@ -22,6 +32,35 @@ const prioridad = (horaDeCorreo, status) => {
     }
   }
 };
+
+useEffect(() => {
+  Promise.all([
+    Requisiciones.filtrados().then(r => {
+      dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
+    }),
+    Requisiciones.tipos.all().then(r => {
+      dispatch({
+        type: 'CARGAR_REQUISICIONES_TIPOS_SUCCESS',
+        payload: r.data
+      });
+    }),
+    Requisiciones.estados.categorias.all().then(r => {
+      dispatch({
+        type: 'CARGAR_REQUISICIONES_ESTADOS_CATEGORIAS_SUCCESS',
+        payload: r.data
+      });
+    }),
+    Requisiciones.estatus.all().then(r => {
+      dispatch({
+        type: 'CARGAR_REQUISICIONES_ESTATUS_SUCCESS',
+        payload: r.data
+      });
+    }),
+    Clientes.all().then(r => {
+      dispatch({ type: 'CARGAR_CLIENTES_SUCCESS', payload: r.data });
+    })
+  ]);
+}, [dispatch]);
 
 const TablaReportes = props => {
   const [state, setState] = useState({
@@ -71,7 +110,13 @@ const TablaReportes = props => {
             sorted={column === 'tiempo_transcurrido' ? direction : null}
             onClick={handleSort('tiempo_transcurrido')}
           >
-            Precio
+            Rastreo
+          </Table.HeaderCell>
+          <Table.HeaderCell
+            sorted={column === 'cliente' ? direction : null}
+            onClick={handleSort('cliente')}
+          >
+            Costo
           </Table.HeaderCell>
           <Table.HeaderCell
             sorted={column === 'tipo' ? direction : null}
@@ -82,18 +127,6 @@ const TablaReportes = props => {
           <Table.HeaderCell
             sorted={column === 'folio' ? direction : null}
             onClick={handleSort('folio')}
-          >
-            Paqueteria
-          </Table.HeaderCell>
-          <Table.HeaderCell
-            sorted={column === 'cliente' ? direction : null}
-            onClick={handleSort('cliente')}
-          >
-            Numero de guia
-          </Table.HeaderCell>
-          <Table.HeaderCell
-            sorted={column === 'cliente' ? direction : null}
-            onClick={handleSort('cliente')}
           >
             Estado de compra
           </Table.HeaderCell>
@@ -108,16 +141,14 @@ const TablaReportes = props => {
             rastreo,
             costo,
             proveedores,
-            fecha_creacion,
-            paqueteria
+            fecha_creacion
           }) => (
             <Table.Row onClick={e => props.onSelectRequisicion(id)} key={id}>
               <Table.Cell textAlign={'center'}>{id}</Table.Cell>
               <Table.Cell>{fecha_creacion}</Table.Cell>
+              <Table.Cell>{rastreo}</Table.Cell>
               <Table.Cell>{costo}</Table.Cell>
               <Table.Cell>{proveedores}</Table.Cell>
-              <Table.Cell>{paqueteria}</Table.Cell>
-              <Table.Cell>{rastreo}</Table.Cell>
               <Table.Cell>{estado_compra}</Table.Cell>
             </Table.Row>
           )
