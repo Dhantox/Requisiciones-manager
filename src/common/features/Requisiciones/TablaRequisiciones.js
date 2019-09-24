@@ -1,16 +1,6 @@
 import _ from 'lodash';
-import React, { Component, useState, useEffect } from 'react';
-import {
-  Table,
-  Icon,
-  Grid,
-  GridRow,
-  GridColumn,
-  TableCell,
-  Button,
-  Popup,
-  Visibility
-} from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Table, Grid, Button, Popup } from 'semantic-ui-react';
 import styles from './tabla.module.css';
 import moment from 'moment';
 
@@ -45,6 +35,7 @@ const TablaRequisiciones = props => {
     return () => {};
   }, [props]);
 
+  console.log(data);
   const handleSort = clickedColumn => () => {
     if (column !== clickedColumn) {
       setState({
@@ -123,7 +114,16 @@ const TablaRequisiciones = props => {
       <Table.Body>
         {_.map(
           data,
-          ({ id, fecha_correo, cliente, tipo, estatus, cotizacion, nota }) => (
+          ({
+            id,
+            fecha_correo,
+            cliente,
+            tipo,
+            estatus,
+            cotizacion,
+            nota,
+            cotizacion_compras
+          }) => (
             <Table.Row
               className={prioridad(fecha_correo, estatus.concepto)}
               onClick={e => props.onSelectRequisicion(id)}
@@ -155,7 +155,7 @@ const TablaRequisiciones = props => {
                     <Button
                       circular
                       color="green"
-                      icon="folder"
+                      icon="file text"
                       onClick={e => {
                         e.persist();
                         props.onVerCotizacionClick(id);
@@ -164,23 +164,48 @@ const TablaRequisiciones = props => {
                   ) : (
                     <Button
                       circular
-                      color="orange"
-                      icon="file alternate outline"
+                      color="yellow"
+                      icon="edit"
                       onClick={e => {
                         e.persist();
                         props.onAgregarCotizacionClick(id);
                       }}
                     />
                   )}
-                  <Button
-                    circular
-                    color="orange"
-                    icon="clipboard check"
-                    onClick={e => {
-                      e.persist();
-                      props.onCambiarEstatusClick(id);
-                    }}
-                  />
+                  {estatus.concepto != 'Aceptada' ? (
+                    <Button
+                      circular
+                      color="orange"
+                      icon="clipboard"
+                      onClick={e => {
+                        e.persist();
+                        props.onCambiarEstatusClick(id);
+                      }}
+                    />
+                  ) : (
+                    <Button
+                      circular
+                      color="green"
+                      icon="clipboard check"
+                      onClick={e => {
+                        e.persist();
+                        props.onCambiarEstatusClick(id);
+                      }}
+                    />
+                  )}
+                  {cotizacion_compras ? (
+                    <Button
+                      circular
+                      color="green"
+                      icon="box"
+                      onClick={e => {
+                        e.persist();
+                        props.onCambiarEstatusClick(id);
+                      }}
+                    />
+                  ) : (
+                    <Button circular color="blue" icon="box" />
+                  )}
                 </Grid.Row>
               </Table.Cell>
             </Table.Row>
