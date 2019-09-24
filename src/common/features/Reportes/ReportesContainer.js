@@ -20,18 +20,22 @@ const ReportesContainer = props => {
   );
 
   const cotizacionCompraId = useSelector(store => {
-    if (store.requisiciones.selectedRequisicion != null) {
+    if (
+      store.requisiciones.selectedRequisicion != null &&
+      store.requisiciones.selectedRequisicion.cotizacion_compras
+    ) {
       return store.requisiciones.selectedRequisicion.cotizacion_compras.id;
     }
   });
 
   useEffect(() => {
-    console.log(cotizacionCompraId);
-    Promise.all([
-      Reportes.get(cotizacionCompraId).then(r => {
-        dispatch({ type: 'CARGAR_REPORTES_SUCCESS', payload: r.data });
-      })
-    ]);
+    if (cotizacionCompraId) {
+      Promise.all([
+        Reportes.get(cotizacionCompraId).then(r => {
+          dispatch({ type: 'CARGAR_REPORTES_SUCCESS', payload: r.data });
+        })
+      ]);
+    }
   }, [dispatch]);
 
   return (

@@ -1,16 +1,6 @@
 import _ from 'lodash';
-import React, { Component, useState, useEffect } from 'react';
-import {
-  Table,
-  Icon,
-  Grid,
-  GridRow,
-  GridColumn,
-  TableCell,
-  Button,
-  Popup,
-  Visibility
-} from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Table, Grid, Button, Popup } from 'semantic-ui-react';
 import styles from './tabla.module.css';
 import moment from 'moment';
 
@@ -126,12 +116,10 @@ const TablaRequisiciones = props => {
           ({
             id,
             fecha_correo,
-            cliente,
             tipo,
             estatus,
             cotizacion,
             cotizacion_compras,
-            folio,
             nota,
             usuario_creacion
           }) => (
@@ -172,7 +160,7 @@ const TablaRequisiciones = props => {
                       icon="folder"
                       onClick={e => {
                         e.persist();
-                        props.onVerCotizacionClick(id);
+                        props.onVerCotizacionComprasClick(id);
                       }}
                     />
                   ) : (
@@ -182,7 +170,7 @@ const TablaRequisiciones = props => {
                       icon="file alternate outline"
                       onClick={e => {
                         e.persist();
-                        props.onAgregarCotizacionClick(id);
+                        props.onAgregarCotizacionComprasClick(id);
                       }}
                     />
                   )}
@@ -192,7 +180,7 @@ const TablaRequisiciones = props => {
                     icon="clipboard check"
                     onClick={e => {
                       e.persist();
-                      props.onCambiarEstatusClick(id);
+                      props.onAgregarReporteClick(id);
                     }}
                   />
                 </Grid.Row>

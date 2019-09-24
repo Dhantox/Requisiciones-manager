@@ -3,17 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import MainContainer from '../../components/MainContainer';
 import { Grid } from 'semantic-ui-react';
 import { Requisiciones, Clientes, Reportes } from '../../../agent';
-import TablaRequisiciones from './TablaRequisiciones';
-import { getClientes } from '../Clientes/selectors';
-import {
-  getRequisicionesTipos,
-  getSelectedRequisicion,
-  getEstadosCategorias,
-  getRequisicionesEstatus
-} from './selectors';
-import { getSelectedReporte } from '../Reportes/selectors';
+import TablaCotizacionesCompras from './TablaCotizacionesCompras';
+import { getSelectedRequisicion, getRequisicionesEstatus } from './selectors';
 import AgregarCotizacionModal from './AgregarCotizacionModal';
-import EstadoRequisicionModal from './EstadoRequisicionModal';
+import AgregarReportesModal from './AgregarReportesModal';
 import moment from 'moment';
 import showNotification from '../../utils/notifications';
 import DropdownInput from '../../components/DropdownInput';
@@ -30,10 +23,14 @@ const RequisicionesContainer = props => {
   const dispatch = useDispatch();
 
   const cotizacionCompraId = useSelector(store => {
-    if (store.requisiciones.selectedRequisicion != null) {
+    if (
+      store.requisiciones.selectedRequisicion != null &&
+      store.requisiciones.selectedRequisicion.cotizacion_compra
+    ) {
       return store.requisiciones.selectedRequisicion.cotizacion_compras.id;
     }
   });
+
   useEffect(() => {
     Promise.all([
       Requisiciones.filtrados().then(r => {
@@ -115,22 +112,22 @@ const RequisicionesContainer = props => {
     >
       <Grid.Row>
         <Grid.Column>
-          <TablaRequisiciones
-            onAgregarCotizacionClick={id => {
+          <TablaCotizacionesCompras
+            onAgregarCotizacionComprasClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
               setModalCotizacionState({
                 mode: 'agregar',
                 visible: true
               });
             }}
-            onVerCotizacionClick={requisicionId => {
+            onVerCotizacionComprasClick={requisicionId => {
               dispatch({ type: 'SELECT_REQUISICION', payload: requisicionId });
               setModalCotizacionState({
                 mode: 'ver',
                 visible: true
               });
             }}
-            onCambiarEstatusClick={id => {
+            onAgregarReporteClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
               Requisiciones.estados.get(id).then(r =>
                 dispatch({
@@ -144,7 +141,7 @@ const RequisicionesContainer = props => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
             }}
             data={requesiciones}
-          ></TablaRequisiciones>
+          ></TablaCotizacionesCompras>
           <AgregarCotizacionModal
             visible={modalCotizacionState.visible}
             mode={modalCotizacionState.mode}
@@ -177,7 +174,7 @@ const RequisicionesContainer = props => {
                 )
             }
           ></AgregarCotizacionModal>
-          <EstadoRequisicionModal
+          <AgregarReportesModal
             visible={modalEstadoRequisicionVisible}
             setVisible={setModalEstadoRequisicionVisible}
             onSubmit={form => {
@@ -199,7 +196,7 @@ const RequisicionesContainer = props => {
                 })
                 .finally(e => dispatch({ type: 'STOP_LOADING' }));
             }}
-          ></EstadoRequisicionModal>
+          ></AgregarReportesModal>
         </Grid.Column>
       </Grid.Row>
     </MainContainer>
