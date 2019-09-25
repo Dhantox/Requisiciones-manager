@@ -12,6 +12,8 @@ export default (state = initialState, { type, payload }) => {
       reporte = state.reportes.find(reporte => reporte.id === payload);
       reporte = JSON.parse(JSON.stringify(reporte));
       return { ...state, selectedReporte: reporte };
+    case 'FLUSH_REPORTES':
+      return { ...state, reportes: [] };
     default:
       return state;
   }

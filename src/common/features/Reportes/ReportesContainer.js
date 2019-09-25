@@ -1,7 +1,7 @@
-import React, { useEffect, useState, handleChange } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Form, Container } from 'semantic-ui-react';
-import { Reportes, Clientes } from '../../../agent';
+import { Grid } from 'semantic-ui-react';
+import { Reportes } from '../../../agent';
 import TablaReportes from './TablaReportes';
 
 const ReportesContainer = props => {
@@ -27,7 +27,6 @@ const ReportesContainer = props => {
       return store.requisiciones.selectedRequisicion.cotizacion_compras.id;
     }
   });
-
   useEffect(() => {
     if (cotizacionCompraId) {
       Promise.all([
@@ -36,7 +35,7 @@ const ReportesContainer = props => {
         })
       ]);
     }
-  }, [dispatch]);
+  }, [dispatch, cotizacionCompraId]);
 
   return (
     <Grid.Column title="Reportes" optionsButtons={<></>}>

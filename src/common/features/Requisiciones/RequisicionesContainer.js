@@ -1,7 +1,7 @@
 import React, { useEffect, useState, handleChange } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainContainer from '../../components/MainContainer';
-import { Grid, Form, Container } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import AgregarRequisicionesModal from './AgregarRequisicionesModal';
 import { Requisiciones, Clientes } from '../../../agent';
 import TablaRequisiciones from './TablaRequisiciones';
@@ -14,16 +14,24 @@ import {
 } from './selectors';
 import AgregarCotizacionModal from './AgregarCotizacionModal';
 import EstadoRequisicionModal from './EstadoRequisicionModal';
+import ComprasModal from './ComprasModal';
 import moment from 'moment';
 import showNotification from '../../utils/notifications';
 import DropdownInput from '../../components/DropdownInput';
-import { useForm } from '../../hooks/formHooks';
 
 const RequisicionesContainer = props => {
   const [modalCotizacionState, setModalCotizacionState] = useState({
     visible: false,
     mode: 'crear'
   });
+  const [
+    modalCotizacionComprasState,
+    setModalCotizacionComprasState
+  ] = useState({
+    visible: false,
+    mode: 'crear'
+  });
+
   const [
     modalEstadoRequisicionVisible,
     setModalEstadoRequisicionVisible
@@ -69,6 +77,7 @@ const RequisicionesContainer = props => {
   const clientes = useSelector(getClientes);
   const estatus = useSelector(getRequisicionesEstatus);
   const estadosCategorias = useSelector(getEstadosCategorias);
+
   const selectedRequisicion = useSelector(getSelectedRequisicion);
   let defaultFormCotizacion = {
     fecha: moment(),
@@ -141,6 +150,23 @@ const RequisicionesContainer = props => {
             mode: 'ver',
             visible: true
           });
+        }}
+        onVerCotizacionComprasClick={requisicionId => {
+          dispatch({ type: 'SELECT_REQUISICION', payload: requisicionId });
+          setModalCotizacionComprasState({
+            mode: 'ver',
+            visible: true
+          });
+        }}
+        onCambiarEstatusClick={id => {
+          dispatch({ type: 'SELECT_REQUISICION', payload: id });
+          Requisiciones.estados.get(id).then(r =>
+            dispatch({
+              type: 'CARGAR_REQUISICION_ESTADO',
+              payload: r.data
+            })
+          );
+          setModalEstadoRequisicionVisible(true);
         }}
         onCambiarEstatusClick={id => {
           dispatch({ type: 'SELECT_REQUISICION', payload: id });
@@ -222,6 +248,16 @@ const RequisicionesContainer = props => {
             .finally(e => dispatch({ type: 'STOP_LOADING' }));
         }}
       ></EstadoRequisicionModal>
+      <ComprasModal
+        visible={modalCotizacionComprasState.visible}
+        mode={modalCotizacionComprasState.mode}
+        setVisible={visible =>
+          setModalCotizacionComprasState({
+            ...modalCotizacionComprasState,
+            visible: visible
+          })
+        }
+      ></ComprasModal>
     </MainContainer>
   );
 };

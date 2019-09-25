@@ -12,7 +12,6 @@ const prioridad = (horaDeCorreo, status) => {
   var warning = { warning: styles.colorNegative };
   var tiempoTranscurrido = horaActual.diff(horaCorreo, 'hours', 'minutes');
   if (tiempoTranscurrido <= 24) {
-    console.log(positive.className);
     return positive.positive;
   } else {
     if (tiempoTranscurrido <= 48) {

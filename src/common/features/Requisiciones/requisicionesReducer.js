@@ -26,6 +26,7 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, requisicionesEstatus: payload };
     case 'CARGAR_REQUISICION_ESTADO':
       return { ...state, requisicionEstado: payload };
+
     default:
       return state;
   }

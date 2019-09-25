@@ -4,7 +4,6 @@ import clientesReducer from './common/features/Clientes/clientesReducer';
 import requisiciones from './common/features/Requisiciones/requisicionesReducer';
 import usuarios from './common/features/Usuarios/UsuariosReducer';
 import proveedores from './common/features/Proveedores/proveedoresReducer';
-import compras from './common/features/Compras/comprasReducer';
 import reportes from './common/features/Reportes/reportesReducer';
 
 export default function configureStore(initialState) {
@@ -15,7 +14,6 @@ export default function configureStore(initialState) {
       requisiciones,
       usuarios,
       proveedores,
-      compras,
       reportes
     }),
     initialState,

@@ -200,7 +200,7 @@ const TablaRequisiciones = props => {
                       icon="box"
                       onClick={e => {
                         e.persist();
-                        props.onCambiarEstatusClick(id);
+                        props.onVerCotizacionComprasClick(id);
                       }}
                     />
                   ) : (

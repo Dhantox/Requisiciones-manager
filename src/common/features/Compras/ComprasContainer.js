@@ -129,12 +129,15 @@ const RequisicionesContainer = props => {
             }}
             onAgregarReporteClick={id => {
               dispatch({ type: 'SELECT_REQUISICION', payload: id });
-              Requisiciones.estados.get(id).then(r =>
+              Requisiciones.estados.get(id).then(r => {
                 dispatch({
                   type: 'CARGAR_REQUISICION_ESTADO',
                   payload: r.data
-                })
-              );
+                });
+                dispatch({
+                  type: 'FLUSH_REPORTES'
+                });
+              });
               setModalEstadoRequisicionVisible(true);
             }}
             onSelectRequisicion={id => {
@@ -179,7 +182,6 @@ const RequisicionesContainer = props => {
             setVisible={setModalEstadoRequisicionVisible}
             onSubmit={form => {
               dispatch({ type: 'LOADING' });
-              console.log(form);
               Reportes.create(form, cotizacionCompraId)
                 .then(r => {
                   showNotification.success(
