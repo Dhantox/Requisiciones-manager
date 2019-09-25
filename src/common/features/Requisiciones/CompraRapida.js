@@ -1,31 +1,21 @@
 import React, { Component } from 'react';
-import { Accordion, Icon } from 'semantic-ui-react';
+import { Accordion, Icon, Checkbox } from 'semantic-ui-react';
 import { Modal, Form } from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 export default class AccordionReportes extends Component {
-  state = { activeIndex: -1 };
-
-  handleClick = (e, titleProps) => {
-    const { index } = titleProps;
-    const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
-
-    this.setState({ activeIndex: newIndex });
-  };
-
   render() {
-    const { activeIndex } = this.state;
-
+    // pasarle una funcion a compra rapida que se llame activar compra rapida onclisk
+    // esa funcion va a tener el estado de activo o inactivo y ese se lo pasare a compra rapida
     return (
       <Accordion>
-        <Accordion.Title
-          active={activeIndex === 0}
-          index={0}
-          onClick={this.handleClick}
-        >
-          Agregar Compra <Icon name="add" bordered />
+        <Accordion.Title>
+          <Checkbox
+            label={'Compra Rapida'}
+            value={this.props.visible}
+            onClick={this.props.setVisible}
+          />
         </Accordion.Title>
-        <Accordion.Content active={activeIndex === 0}>
+        <Accordion.Content active={this.props.visible}>
           <Form>
             <Form.Field>
               <label>Fecha de entrega</label>

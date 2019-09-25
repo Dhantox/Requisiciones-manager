@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import { Modal, Form } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
+import { Modal, Form, Divider } from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
+import CompraRapida from './CompraRapida';
 
 /**
  *
@@ -18,7 +19,6 @@ const AgregarCotizacionModal = ({
   useEffect(() => {
     setForm(defaultForm);
   }, [defaultForm]);
-
   const modal = {};
   switch (mode) {
     case 'ver':
@@ -44,6 +44,7 @@ const AgregarCotizacionModal = ({
         }
       ];
   }
+  const [compraRapidaVisible, setCompraRapidaVisible] = useState(false);
 
   return (
     <Modal open={visible} onClose={() => setVisible(false)} centered={false}>
@@ -86,6 +87,13 @@ const AgregarCotizacionModal = ({
               value={form.orden_proveedor}
             />
           </Form>
+        </Modal.Description>
+        <Divider></Divider>
+        <Modal.Description>
+          <CompraRapida
+            visible={compraRapidaVisible}
+            setVisible={() => setCompraRapidaVisible(!compraRapidaVisible)}
+          ></CompraRapida>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions
