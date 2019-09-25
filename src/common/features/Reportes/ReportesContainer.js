@@ -5,37 +5,26 @@ import { Reportes } from '../../../agent';
 import TablaReportes from './TablaReportes';
 
 const ReportesContainer = props => {
-  const [modalCotizacionState, setModalCotizacionState] = useState({
-    visible: false,
-    mode: 'crear'
-  });
-  const [
-    modalEstadoRequisicionVisible,
-    setModalEstadoRequisicionVisible
-  ] = useState(false);
   const dispatch = useDispatch();
 
   const reportes = useSelector(store =>
     store.reportes.reportes.map(reporte => ({ ...reporte }))
   );
 
-  const cotizacionCompraId = useSelector(store => {
-    if (
-      store.requisiciones.selectedRequisicion != null &&
-      store.requisiciones.selectedRequisicion.cotizacion_compras
-    ) {
-      return store.requisiciones.selectedRequisicion.cotizacion_compras.id;
+  const requisicionId = useSelector(store => {
+    if (store.requisiciones.selectedRequisicion != null) {
+      return store.requisiciones.selectedRequisicion.id;
     }
   });
   useEffect(() => {
-    if (cotizacionCompraId) {
+    if (requisicionId) {
       Promise.all([
-        Reportes.get(cotizacionCompraId).then(r => {
+        Reportes.get(requisicionId).then(r => {
           dispatch({ type: 'CARGAR_REPORTES_SUCCESS', payload: r.data });
         })
       ]);
     }
-  }, [dispatch, cotizacionCompraId]);
+  }, [dispatch, requisicionId]);
 
   return (
     <Grid.Column title="Reportes" optionsButtons={<></>}>

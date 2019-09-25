@@ -22,15 +22,11 @@ const RequisicionesContainer = props => {
   ] = useState(false);
   const dispatch = useDispatch();
 
-  const cotizacionCompraId = useSelector(store => {
-    if (
-      store.requisiciones.selectedRequisicion != null &&
-      store.requisiciones.selectedRequisicion.cotizacion_compra
-    ) {
-      return store.requisiciones.selectedRequisicion.cotizacion_compras.id;
+  const requisicionReporteId = useSelector(store => {
+    if (store.requisiciones.selectedRequisicion != null) {
+      return store.requisiciones.selectedRequisicion.id;
     }
   });
-
   useEffect(() => {
     Promise.all([
       Requisiciones.filtrados().then(r => {
@@ -134,9 +130,6 @@ const RequisicionesContainer = props => {
                   type: 'CARGAR_REQUISICION_ESTADO',
                   payload: r.data
                 });
-                dispatch({
-                  type: 'FLUSH_REPORTES'
-                });
               });
               setModalEstadoRequisicionVisible(true);
             }}
@@ -182,17 +175,17 @@ const RequisicionesContainer = props => {
             setVisible={setModalEstadoRequisicionVisible}
             onSubmit={form => {
               dispatch({ type: 'LOADING' });
-              Reportes.create(form, cotizacionCompraId)
+              Reportes.create(form, requisicionReporteId)
                 .then(r => {
                   showNotification.success(
                     'Exito!',
                     'Estado de cotizacion guardado'
                   );
-                  return Reportes.get(cotizacionCompraId);
+                  return Reportes.get(requisicionReporteId);
                 })
                 .then(r => {
                   dispatch({
-                    type: 'CARGAR_REPORTES_SUCCESS  ',
+                    type: 'CARGAR_REPORTES_SUCCESS',
                     payload: r.data
                   });
                 })

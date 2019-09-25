@@ -1,19 +1,10 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Form, Divider } from 'semantic-ui-react';
-import DropdownInput from '../../components/DropdownInput';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
 import ReportesContainer from '../Reportes/ReportesContainer';
 
-const EstadoRequisicionModal = ({
-  onSubmit,
-  visible,
-  setVisible,
-  estadosCategorias,
-  estatus,
-  defaultForm
-}) => {
+const EstadoRequisicionModal = ({ onSubmit, visible, setVisible }) => {
   const [form, handleChange, setForm] = useForm({
     fecha_creacion: '',
     costo: '',
