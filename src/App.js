@@ -8,7 +8,7 @@ import { Icon, Grid, Menu, Image } from 'semantic-ui-react';
 import styles from './app.module.css';
 import { Auth } from './agent';
 import AccessContainer from './common/features/Authentication/AccessContainer';
-import logo from './common/img/CMNVisa.png';
+import logo from './common/img/CMN-transparentl.png';
 export default props => {
   let location = props.history.location.pathname;
   const activeItem = null;
@@ -28,7 +28,7 @@ export default props => {
           visible={loading}
         />
       </div>
-      <Menu color={'blue'} secondary fixed={'top'} fluid className={'sidebars'}>
+      <Menu secondary fixed={'top'} fluid className={'sidebars'}>
         <Menu.Item
           className={'itemMenu'}
           active={activeItem === 'home'}
@@ -69,7 +69,7 @@ export default props => {
               <Link to="requisiciones">
                 <div className="ui grid">
                   <div className="two wide column">
-                    <Icon name="file alternate outline" size="large" />
+                    <Icon name="file" size="large" />
                   </div>
                   <div className="two wide column">
                     <p>Requisiciones</p>
