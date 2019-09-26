@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Form, Divider } from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
 import CompraRapida from './CompraRapida';
+import { Requisiciones, Clientes, Reportes } from '../../../agent';
+import showNotification from '../../utils/notifications';
 
 /**
  *
@@ -15,6 +18,12 @@ const AgregarCotizacionModal = ({
   setVisible,
   mode
 }) => {
+  const dispatch = useDispatch();
+  const requisicionReporteId = useSelector(store => {
+    if (store.requisiciones.selectedRequisicion != null) {
+      return store.requisiciones.selectedRequisicion.id;
+    }
+  });
   const [form, handleChange, setForm] = useForm(defaultForm);
   useEffect(() => {
     setForm(defaultForm);
@@ -88,12 +97,34 @@ const AgregarCotizacionModal = ({
             />
           </Form>
         </Modal.Description>
-        <Divider></Divider>
         <Modal.Description>
-          <CompraRapida
-            visible={compraRapidaVisible}
-            setVisible={() => setCompraRapidaVisible(!compraRapidaVisible)}
-          ></CompraRapida>
+          {mode != 'ver' && (
+            <>
+              <Divider></Divider>
+              <CompraRapida
+                visible={compraRapidaVisible}
+                setVisible={() => setCompraRapidaVisible(!compraRapidaVisible)}
+                onSubmit={form => {
+                  dispatch({ type: 'LOADING' });
+                  Reportes.create(form, requisicionReporteId)
+                    .then(r => {
+                      showNotification.success(
+                        'Exito!',
+                        'Estado de cotizacion guardado'
+                      );
+                      return Reportes.get(requisicionReporteId);
+                    })
+                    .then(r => {
+                      dispatch({
+                        type: 'CARGAR_REPORTES_SUCCESS',
+                        payload: r.data
+                      });
+                    })
+                    .finally(e => dispatch({ type: 'STOP_LOADING' }));
+                }}
+              ></CompraRapida>
+            </>
+          )}
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions
