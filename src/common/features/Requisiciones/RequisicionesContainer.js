@@ -1,7 +1,7 @@
-import React, { useEffect, useState, handleChange } from 'react';
+import React, { useEffect, useState, handleChange, Component } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainContainer from '../../components/MainContainer';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Input, Menu, Segment } from 'semantic-ui-react';
 import AgregarRequisicionesModal from './AgregarRequisicionesModal';
 import { Requisiciones, Clientes } from '../../../agent';
 import TablaRequisiciones from './TablaRequisiciones';
@@ -37,7 +37,8 @@ const RequisicionesContainer = props => {
     setModalEstadoRequisicionVisible
   ] = useState(false);
   const dispatch = useDispatch();
-
+  const [tipoFiltradoRequisicion, setTipoFiltradoRequisicion] = useState({});
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     Promise.all([
       Requisiciones.all().then(r => {
@@ -66,6 +67,12 @@ const RequisicionesContainer = props => {
       })
     ]);
   }, [dispatch]);
+
+  useEffect(() => {
+    Requisiciones.requisicionFiltrada(tipoFiltradoRequisicion).then(r => {
+      dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
+    });
+  }, [dispatch, tipoFiltradoRequisicion]);
 
   const requesiciones = useSelector(store =>
     store.requisiciones.requisiciones.map(cliente => ({ ...cliente }))
@@ -115,7 +122,7 @@ const RequisicionesContainer = props => {
                 }
               ></AgregarRequisicionesModal>
             </Grid.Column>
-            <Grid.Column widht={3}>
+            {/* <Grid.Column widht={3}>
               <DropdownInput
                 placeholder="Estatus"
                 label="Estatus"
@@ -131,58 +138,95 @@ const RequisicionesContainer = props => {
               ></DropdownInput>
             </Grid.Column>
             <Grid.Column></Grid.Column>
-            <Grid.Column></Grid.Column>
+            <Grid.Column></Grid.Column> */}
           </Grid>
         </>
       }
     >
-      <TablaRequisiciones
-        onAgregarCotizacionClick={id => {
-          dispatch({ type: 'SELECT_REQUISICION', payload: id });
-          setModalCotizacionState({
-            mode: 'agregar',
-            visible: true
-          });
-        }}
-        onVerCotizacionClick={requisicionId => {
-          dispatch({ type: 'SELECT_REQUISICION', payload: requisicionId });
-          setModalCotizacionState({
-            mode: 'ver',
-            visible: true
-          });
-        }}
-        onVerCotizacionComprasClick={requisicionId => {
-          dispatch({ type: 'SELECT_REQUISICION', payload: requisicionId });
-          setModalCotizacionComprasState({
-            mode: 'ver',
-            visible: true
-          });
-        }}
-        onCambiarEstatusClick={id => {
-          dispatch({ type: 'SELECT_REQUISICION', payload: id });
-          Requisiciones.estados.get(id).then(r =>
-            dispatch({
-              type: 'CARGAR_REQUISICION_ESTADO',
-              payload: r.data
-            })
-          );
-          setModalEstadoRequisicionVisible(true);
-        }}
-        onCambiarEstatusClick={id => {
-          dispatch({ type: 'SELECT_REQUISICION', payload: id });
-          Requisiciones.estados.get(id).then(r =>
-            dispatch({
-              type: 'CARGAR_REQUISICION_ESTADO',
-              payload: r.data
-            })
-          );
-          setModalEstadoRequisicionVisible(true);
-        }}
-        onSelectRequisicion={id => {
-          dispatch({ type: 'SELECT_REQUISICION', payload: id });
-        }}
-        data={requesiciones}
-      ></TablaRequisiciones>
+      <Menu attached="top" tabular>
+        <Menu.Item
+          name="Todas"
+          setVisible={() => setVisible(true)}
+          active={true}
+          onClick={setVisible}
+        />
+        <Menu.Item
+          name="Pendientes"
+          setVisible={() => setVisible(!visible)}
+          active={false}
+          onClick={setVisible}
+        />
+        <Menu.Item
+          name="Cotizadas"
+          setVisible={() => setVisible(!visible)}
+          active={false}
+          onClick={setVisible}
+        />
+        <Menu.Item
+          name="Aceptadas"
+          setVisible={() => setVisible(!visible)}
+          active={false}
+          onClick={setVisible}
+        />
+        <Menu.Menu position="right">
+          <Menu.Item position="right">
+            <Input
+              transparent
+              icon={{ name: 'search', link: true }}
+              placeholder="Search users..."
+            />
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+      <Segment attached="bottom">
+        <TablaRequisiciones
+          onAgregarCotizacionClick={id => {
+            dispatch({ type: 'SELECT_REQUISICION', payload: id });
+            setModalCotizacionState({
+              mode: 'agregar',
+              visible: true
+            });
+          }}
+          onVerCotizacionClick={requisicionId => {
+            dispatch({ type: 'SELECT_REQUISICION', payload: requisicionId });
+            setModalCotizacionState({
+              mode: 'ver',
+              visible: true
+            });
+          }}
+          onVerCotizacionComprasClick={requisicionId => {
+            dispatch({ type: 'SELECT_REQUISICION', payload: requisicionId });
+            setModalCotizacionComprasState({
+              mode: 'ver',
+              visible: true
+            });
+          }}
+          onCambiarEstatusClick={id => {
+            dispatch({ type: 'SELECT_REQUISICION', payload: id });
+            Requisiciones.estados.get(id).then(r =>
+              dispatch({
+                type: 'CARGAR_REQUISICION_ESTADO',
+                payload: r.data
+              })
+            );
+            setModalEstadoRequisicionVisible(true);
+          }}
+          onCambiarEstatusClick={id => {
+            dispatch({ type: 'SELECT_REQUISICION', payload: id });
+            Requisiciones.estados.get(id).then(r =>
+              dispatch({
+                type: 'CARGAR_REQUISICION_ESTADO',
+                payload: r.data
+              })
+            );
+            setModalEstadoRequisicionVisible(true);
+          }}
+          onSelectRequisicion={id => {
+            dispatch({ type: 'SELECT_REQUISICION', payload: id });
+          }}
+          data={requesiciones}
+        ></TablaRequisiciones>
+      </Segment>
       <AgregarCotizacionModal
         visible={modalCotizacionState.visible}
         mode={modalCotizacionState.mode}

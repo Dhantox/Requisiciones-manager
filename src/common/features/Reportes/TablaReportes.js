@@ -64,7 +64,7 @@ const TablaReportes = props => {
             sorted={column === 'fecha_correo' ? direction : null}
             onClick={handleSort('fecha_correo')}
           >
-            Fecha
+            Fecha de entrega
           </Table.HeaderCell>
           <Table.HeaderCell
             sorted={column === 'tiempo_transcurrido' ? direction : null}

@@ -4,7 +4,7 @@ import { Modal, Form, Divider } from 'semantic-ui-react';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
 import CompraRapida from './CompraRapida';
-import { Requisiciones, Clientes, Reportes } from '../../../agent';
+import { Reportes, Requisiciones, ComprasRapidas } from '../../../agent';
 import showNotification from '../../utils/notifications';
 
 /**
@@ -74,7 +74,7 @@ const AgregarCotizacionModal = ({
               type="number"
               fluid
               name="monto"
-              label="Monto"
+              label="Monto sin iva"
               placeholder="Monto"
               onChange={handleChange}
               value={form.monto}
@@ -102,11 +102,15 @@ const AgregarCotizacionModal = ({
             <>
               <Divider></Divider>
               <CompraRapida
+                compraRapida={compraRapidaVisible}
                 visible={compraRapidaVisible}
                 setVisible={() => setCompraRapidaVisible(!compraRapidaVisible)}
                 onSubmit={form => {
                   dispatch({ type: 'LOADING' });
-                  Reportes.create(form, requisicionReporteId)
+                  Requisiciones.ComprasRapidas.create(
+                    form,
+                    requisicionReporteId
+                  )
                     .then(r => {
                       showNotification.success(
                         'Exito!',
@@ -116,7 +120,7 @@ const AgregarCotizacionModal = ({
                     })
                     .then(r => {
                       dispatch({
-                        type: 'CARGAR_REPORTES_SUCCESS',
+                        type: 'CARGAR_REQUISICIONES_SUCCESS',
                         payload: r.data
                       });
                     })

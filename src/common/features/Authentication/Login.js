@@ -33,8 +33,12 @@ const Login = ({ onSuccess }) => {
               onChange={handleChange}
             ></Form.Input>
           </Form.Field>
-          <Button type="button" onClick={() => onSuccess(credentials)}>
-            Login
+          <Button
+            color="blue"
+            type="button"
+            onClick={() => onSuccess(credentials)}
+          >
+            Iniciar Sesion
           </Button>
         </Form>
       </Grid.Column>

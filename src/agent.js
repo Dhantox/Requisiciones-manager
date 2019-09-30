@@ -152,6 +152,13 @@ export const Requisiciones = {
         cotizacion
       )
   },
+  ComprasRapidas: {
+    create: (compraRapida, requisicionId) =>
+      requests.post(
+        `requisiciones/requisiciones/${requisicionId}/create_compra_rapida/`,
+        compraRapida
+      )
+  },
   cotizacionesCompras: {
     create: (cotizacionCompras, requisicionId) =>
       requests.post(
@@ -160,7 +167,10 @@ export const Requisiciones = {
       )
   },
   filtrados: requisicionId =>
-    requests.get('requisiciones/requisiciones/filtrados/', requisicionId)
+    requests.get('requisiciones/requisiciones/filtrados/', requisicionId),
+
+  requisicionFiltrada: requisicionTipo =>
+    requests.get('requisiciones/requisiciones/filtrados/', requisicionTipo)
 };
 
 export const Compras = {

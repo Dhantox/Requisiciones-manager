@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Login from './Login';
-import MainContainer from '../../components/MainContainer';
+import MainContainerLogin from './MainContainerLogin';
 import { getIsAuthenticated } from './authenticationSelectors';
 import { Auth } from '../../../agent';
 
@@ -10,7 +10,7 @@ const LoginContainer = () => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const dispatch = useDispatch();
   return (
-    <MainContainer title="Login">
+    <MainContainerLogin title="Login">
       {isAuthenticated ? (
         <Redirect to="/"></Redirect>
       ) : (
@@ -27,7 +27,7 @@ const LoginContainer = () => {
           }
         ></Login>
       )}
-    </MainContainer>
+    </MainContainerLogin>
   );
 };
 

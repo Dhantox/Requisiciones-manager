@@ -22,6 +22,8 @@ const EstadoRequisicionModal = ({ onSubmit, visible, setVisible }) => {
             <Form.Field>
               <label>Fecha de entrega</label>
               <DateTime
+                inputProps={{ placeholder: 'YYYY-DD-MM' }}
+                // defaultValue="YYYY-DD-MM  "
                 dateFormat="YYYY-DD-MM"
                 timeFormat={false}
                 value={form.fecha_creacion}

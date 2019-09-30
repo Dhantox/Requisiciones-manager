@@ -51,26 +51,27 @@ const CompraRapida = props => {
             onChange={handleChange}
             value={form.proveedores}
           />
+          <Form.Field>
+            <Button
+              icon="add"
+              primary
+              actions={[
+                {
+                  key: 'done',
+                  content: 'Agregar compra',
+                  positive: true,
+                  onClick: () => {
+                    const newForm = { ...form };
+                    newForm.fecha_creacion = form.fecha_creacion.format(
+                      'YYYY-MM-DD HH:mm'
+                    );
+                    props.onSubmit(newForm);
+                  }
+                }
+              ]}
+            ></Button>
+          </Form.Field>
         </Form>
-        <Button
-          icon="add"
-          primary
-          actions={[
-            {
-              key: 'done',
-              content: 'Agregar compra',
-              positive: true,
-              onClick: () => {
-                const newForm = { ...form };
-                newForm.fecha_creacion = form.fecha_creacion.format(
-                  'YYYY-MM-DD HH:mm'
-                );
-                props.onSubmit(newForm);
-              }
-            }
-          ]}
-        ></Button>
-        <TablaReportes />
       </Accordion.Content>
     </Accordion>
   );

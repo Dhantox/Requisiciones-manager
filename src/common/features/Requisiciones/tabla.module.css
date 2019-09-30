@@ -21,3 +21,7 @@
 .button {
   background-color: #43a2a7 !important;
 }
+
+.borderHeader {
+  border-top: solid 1px black;
+}
