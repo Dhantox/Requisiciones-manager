@@ -37,13 +37,9 @@ const RequisicionesContainer = props => {
     setModalEstadoRequisicionVisible
   ] = useState(false);
   const dispatch = useDispatch();
-  const [tipoFiltradoRequisicion, setTipoFiltradoRequisicion] = useState({});
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(0);
   useEffect(() => {
     Promise.all([
-      Requisiciones.all().then(r => {
-        dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
-      }),
       Requisiciones.tipos.all().then(r => {
         dispatch({
           type: 'CARGAR_REQUISICIONES_TIPOS_SUCCESS',
@@ -69,10 +65,19 @@ const RequisicionesContainer = props => {
   }, [dispatch]);
 
   useEffect(() => {
-    Requisiciones.requisicionFiltrada(tipoFiltradoRequisicion).then(r => {
-      dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
-    });
-  }, [dispatch, tipoFiltradoRequisicion]);
+    if (visible == 0) {
+      Requisiciones.all().then(r => {
+        dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
+      });
+    } else {
+      Requisiciones.requisicionFiltrada({ visible }).then(r => {
+        dispatch({
+          type: 'CARGAR_REQUISICIONES_SUCCESS',
+          payload: r.data
+        });
+      });
+    }
+  }, [dispatch, visible]);
 
   const requesiciones = useSelector(store =>
     store.requisiciones.requisiciones.map(cliente => ({ ...cliente }))
@@ -143,30 +148,35 @@ const RequisicionesContainer = props => {
         </>
       }
     >
+      {/* EN_ESPERA = 1
+        ACEPTADO = 2
+        RECHAZADO = 3
+        COTIZADO = 4 */}
       <Menu attached="top" tabular>
         <Menu.Item
           name="Todas"
-          setVisible={() => setVisible(true)}
-          active={true}
-          onClick={setVisible}
+          active={visible == 0}
+          onClick={() => setVisible(0)}
         />
         <Menu.Item
-          name="Pendientes"
-          setVisible={() => setVisible(!visible)}
-          active={false}
-          onClick={setVisible}
+          name="En espera"
+          active={visible == 1}
+          onClick={() => setVisible(1)}
+        />
+        <Menu.Item
+          name="Rechazadas"
+          active={visible == 3}
+          onClick={() => setVisible(3)}
         />
         <Menu.Item
           name="Cotizadas"
-          setVisible={() => setVisible(!visible)}
-          active={false}
-          onClick={setVisible}
+          active={visible == 4}
+          onClick={() => setVisible(4)}
         />
         <Menu.Item
           name="Aceptadas"
-          setVisible={() => setVisible(!visible)}
-          active={false}
-          onClick={setVisible}
+          active={visible == 2}
+          onClick={() => setVisible(2)}
         />
         <Menu.Menu position="right">
           <Menu.Item position="right">

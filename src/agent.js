@@ -11,8 +11,8 @@ const API_ROOT = 'http://127.0.0.1:8000/api/';
 export const mediaServer = process.env.REACT_APP_MEDIA_SERVER;
 
 const requests = {
-  get: url => {
-    const promise = axios.get(`${API_ROOT}${url}`);
+  get: (url, params) => {
+    const promise = axios.get(`${API_ROOT}${url}`, { params });
     promise.catch(e => {
       if (e.response && e.response.status === 401) {
         Auth.cleanCookies();
@@ -170,7 +170,7 @@ export const Requisiciones = {
     requests.get('requisiciones/requisiciones/filtrados/', requisicionId),
 
   requisicionFiltrada: requisicionTipo =>
-    requests.get('requisiciones/requisiciones/filtrados/', requisicionTipo)
+    requests.get('requisiciones/requisiciones/filtrado_tipo/', requisicionTipo)
 };
 
 export const Compras = {
