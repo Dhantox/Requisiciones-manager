@@ -1,0 +1,110 @@
+.navBarContainer {
+  height: 100vh;
+  position: fixed;
+  width: 165px;
+  z-index: 1;
+  padding-left: 0;
+  padding-right: 0;
+  left: 0;
+  background-color: rgba(66, 73, 73, 0.9);
+  color: white;
+  border-right: solid 3px #566573;
+
+  padding-top: 45px;
+}
+
+.navBar {
+  padding-top: 5px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.logoMain {
+  background-image: url(../../img/CMNVisa.png);
+}
+
+.menuIcon {
+  padding: 1em 0.5em 2em 0.5em;
+  border-left: 3px solid #2196f3;
+  color: white;
+}
+.fix {
+  padding-left: 2px;
+}
+.paddingfix {
+  padding-bottom: 5px;
+}
+
+.item {
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 0.9rem;
+  font-family: sans-serif;
+  color: #337ab7;
+  display: inline-block;
+}
+
+a {
+  color: white;
+}
+
+.item:hover {
+  padding: 10px 17px;
+  animation-duration: 200ms;
+  cursor: pointer;
+  animation-name: itemHover;
+  border-radius: 5px;
+  width: 100%;
+  border-left: 3px solid #2185d0;
+  animation-duration: 200ms;
+  background-color: #e3f2fd;
+  font-family: sans-serif;
+}
+.item:hover > a {
+  color: #2185d0;
+}
+
+@keyframes itemHover {
+  from {
+    border-left: 3px solid white;
+  }
+  to {
+    border-left: 3px solid #4080b7;
+  }
+}
+
+.selectedItem {
+  padding: 10px 17px;
+  color: white;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  font-weight: bolder;
+  border-left: 3px solid white;
+  background-color: #2185d0;
+
+  font-family: sans-serif;
+}
+.selectedItem > a {
+  color: white;
+}
+
+.loader {
+  position: fixed;
+  z-index: 10;
+  left: 45%;
+  top: 35%;
+}
+
+.breakWord {
+  hyphens: auto;
+}
+
+.MenuContainer {
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
+  padding-left: 0;
+  padding-right: 0;
+  left: 0;
+
+  padding-top: 45px;
+}

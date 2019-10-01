@@ -17,7 +17,7 @@ import EstadoRequisicionModal from './EstadoRequisicionModal';
 import ComprasModal from './ComprasModal';
 import moment from 'moment';
 import showNotification from '../../utils/notifications';
-import DropdownInput from '../../components/DropdownInput';
+import styles from './tabla.module.css';
 
 const RequisicionesContainer = props => {
   const [modalCotizacionState, setModalCotizacionState] = useState({

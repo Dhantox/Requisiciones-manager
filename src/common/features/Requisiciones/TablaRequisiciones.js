@@ -35,7 +35,6 @@ const TablaRequisiciones = props => {
     return () => {};
   }, [props]);
 
-  console.log(data);
   const handleSort = clickedColumn => () => {
     if (column !== clickedColumn) {
       setState({

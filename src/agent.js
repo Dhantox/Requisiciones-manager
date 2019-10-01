@@ -106,6 +106,10 @@ export const Auth = {
   loadUser: () => JSON.parse(localStorage.user)
 };
 
+export const NavMenu = {
+  loadMenu: () => JSON.parse(localStorage.stateMenu)
+};
+
 export const Usuarios = {
   all: () => requests.get('usuarios/usuarios/'),
   create: lesson => requests.post('usuarios/usuarios/', lesson),
