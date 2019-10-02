@@ -4,7 +4,7 @@ import ReactNotification from 'react-notifications-component';
 import Loader from 'react-loader-spinner';
 import './App.css';
 import { Link } from 'react-router-dom';
-import { Icon, Grid, Menu, Image } from 'semantic-ui-react';
+import { Icon, Grid, Menu, Image, Sidebar } from 'semantic-ui-react';
 import styles from './app.module.css';
 import { Auth, NavMenu } from '../../../agent';
 import AccessContainer from '../../features/Authentication/AccessContainer';
@@ -33,7 +33,7 @@ export default props => {
           visible={loading}
         />
       </div>
-      <Menu secondary fixed={'top'} fluid className={'sidebars'} children>
+      <Menu   secondary fluid className={'sidebars'}>
         <Menu.Item
           className={'itemMenu'}
           active={activeItem}
@@ -57,6 +57,8 @@ export default props => {
         </Menu.Menu>
       </Menu>
       {visibleMenu == true ? (
+        <>
+         <Grid.Column className={styles.largeMenuContainer} />
         <div
           className="ui vertical borderless fluid text menu"
           className={styles.navBarContainer}
@@ -170,17 +172,18 @@ export default props => {
             </div>
           </div>
         </div>
+        </>
       ) : (
         <>
           <Grid.Column className={styles.ghost} />
-          <Menu icon vertical className={styles.MenuContainer} fixed={'left'}>
+          <Menu icon vertical className={`${styles.MenuContainer} ${styles.top} ${styles.menuFixed}`}>
             <Link to="/main/requisiciones">
               <Menu.Item
                 name="gamepad"
                 active={activeItem === 'gamepad'}
                 onClick={{ Link }}
               >
-                <Icon size="large" name="file" />
+                <Icon name="file" />
               </Menu.Item>
             </Link>
             <Link to="/main/compras">

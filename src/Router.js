@@ -8,6 +8,7 @@ import ClientesContainer from './common/features/Clientes/ClientesContainer';
 import RequisicionesContainer from './common/features/Requisiciones/RequisicionesContainer';
 import ProveedoresContainer from './common/features/Proveedores/ProveedoresContainer';
 import ComprasContainer from './common/features/Compras/ComprasContainer';
+import DashboardContainer from './common/features/Dashboard/DashboardContainer';
 
 const Router = () => {
   return (
@@ -20,6 +21,10 @@ const Router = () => {
           path="/main/proveedores"
           component={ProveedoresContainer}
         />
+        <PrivateRoute
+        path="/main/dashboard"
+        component={DashboardContainer}
+      />
         <PrivateRoute
           path="/main/requisiciones"
           component={RequisicionesContainer}
