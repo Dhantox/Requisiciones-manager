@@ -25,3 +25,7 @@
 .borderHeader {
   border-top: solid 1px black;
 }
+
+.tablefix {
+  position: relative;
+}

@@ -152,7 +152,7 @@ const RequisicionesContainer = props => {
         ACEPTADO = 2
         RECHAZADO = 3
         COTIZADO = 4 */}
-      <Menu attached="top" tabular>
+      <Menu attached="top" tabular fluid>
         <Menu.Item
           name="Todas"
           active={visible == 0}

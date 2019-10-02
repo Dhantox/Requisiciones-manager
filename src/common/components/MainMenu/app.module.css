@@ -1,8 +1,9 @@
 .navBarContainer {
   height: 100vh;
-  position: fixed;
-  width: 165px;
+  position: relative;
+  float: left;
   z-index: 1;
+  width: 165px;
   padding-left: 0;
   padding-right: 0;
   left: 0;
@@ -99,12 +100,23 @@ a {
 }
 
 .MenuContainer {
-  height: 100vh;
-  position: fixed;
+  position: relative;
+  float: left;
   z-index: 1;
   padding-left: 0;
   padding-right: 0;
   left: 0;
+  top: 29px;
+}
 
-  padding-top: 45px;
+.ghost {
+  position: relative;
+  height: 300px;
+  width: 57px;
+  float: left;
+  z-index: 1;
+  padding-left: 0;
+  padding-right: 0;
+  left: 0;
+  top: 29px;
 }

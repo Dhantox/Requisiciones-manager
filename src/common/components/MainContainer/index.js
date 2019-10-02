@@ -6,10 +6,10 @@ const MainContainer = ({ children, title, optionsButtons }) => {
   return (
     <div className={styles.mainContainer}>
       <div>
-        <Container fluid className={styles.paddingfix}>
+        <Container fluid>
           <Grid>
             <Grid.Column>
-              <Grid.Column className={`${styles.tableCard}  `}>
+              <Grid.Column className={`${styles.tableCard}`}>
                 <Grid.Column
                   className={`${styles.bordeBottom} ${styles.colorTop} ${styles.tablePadd} ${styles.borderTop}`}
                 >

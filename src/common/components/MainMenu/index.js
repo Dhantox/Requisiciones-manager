@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { History } from 'react-router';
 import ReactNotification from 'react-notifications-component';
 import Loader from 'react-loader-spinner';
 import './App.css';
@@ -34,7 +33,7 @@ export default props => {
           visible={loading}
         />
       </div>
-      <Menu secondary fixed={'top'} fluid className={'sidebars'}>
+      <Menu secondary fixed={'top'} fluid className={'sidebars'} children>
         <Menu.Item
           className={'itemMenu'}
           active={activeItem}
@@ -172,53 +171,56 @@ export default props => {
           </div>
         </div>
       ) : (
-        <Menu icon vertical className={styles.MenuContainer}>
-          <Link to="/main/requisiciones">
-            <Menu.Item
-              name="gamepad"
-              active={activeItem === 'gamepad'}
-              onClick={{ Link }}
-            >
-              <Icon name="file" />
-            </Menu.Item>
-          </Link>
-          <Link to="/main/compras">
-            <Menu.Item
-              name="video camera"
-              active={activeItem === 'video camera'}
-              onClick={''}
-            >
-              <Icon name="box" />
-            </Menu.Item>
-          </Link>
-          <Link to="/main/usuarios">
-            <Menu.Item
-              name="video play"
-              active={activeItem === 'video play'}
-              onClick={''}
-            >
-              <Icon name="user" />
-            </Menu.Item>
-          </Link>
-          <Link to="/main/proveedores">
-            <Menu.Item
-              name="video play"
-              active={activeItem === 'video play'}
-              onClick={''}
-            >
-              <Icon name="truck" />
-            </Menu.Item>
-          </Link>
-          <Link to="/main/clientes">
-            <Menu.Item
-              name="video play"
-              active={activeItem === 'video play'}
-              onClick={''}
-            >
-              <Icon name="users" />
-            </Menu.Item>
-          </Link>
-        </Menu>
+        <>
+          <Grid.Column className={styles.ghost} />
+          <Menu icon vertical className={styles.MenuContainer} fixed={'left'}>
+            <Link to="/main/requisiciones">
+              <Menu.Item
+                name="gamepad"
+                active={activeItem === 'gamepad'}
+                onClick={{ Link }}
+              >
+                <Icon size="large" name="file" />
+              </Menu.Item>
+            </Link>
+            <Link to="/main/compras">
+              <Menu.Item
+                name="video camera"
+                active={activeItem === 'video camera'}
+                onClick={''}
+              >
+                <Icon name="box" />
+              </Menu.Item>
+            </Link>
+            <Link to="/main/usuarios">
+              <Menu.Item
+                name="video play"
+                active={activeItem === 'video play'}
+                onClick={''}
+              >
+                <Icon name="user" />
+              </Menu.Item>
+            </Link>
+            <Link to="/main/proveedores">
+              <Menu.Item
+                name="video play"
+                active={activeItem === 'video play'}
+                onClick={''}
+              >
+                <Icon name="truck" />
+              </Menu.Item>
+            </Link>
+            <Link to="/main/clientes">
+              <Menu.Item
+                name="video play"
+                active={activeItem === 'video play'}
+                onClick={''}
+              >
+                <Icon name="users" />
+              </Menu.Item>
+            </Link>
+          </Menu>
+        </>
       )}
     </>
   );

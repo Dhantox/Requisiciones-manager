@@ -51,9 +51,16 @@ const TablaRequisiciones = props => {
     });
   };
   return (
-    <Table sortable celled striped compact>
+    <Table
+      sortable
+      celled
+      striped
+      compact={'very'}
+      stackable
+      className={styles.tablefix}
+    >
       <Table.Header>
-        <Table.Row textAlign={'center'}>
+        <Table.Row>
           <Table.HeaderCell
             sorted={column === 'id' ? direction : null}
             onClick={handleSort('id')}
@@ -70,7 +77,7 @@ const TablaRequisiciones = props => {
             sorted={column === 'tiempo_transcurrido' ? direction : null}
             onClick={handleSort('tiempo_transcurrido')}
           >
-            Tiempo transcurrido
+            Tiempo
           </Table.HeaderCell>
           <Table.HeaderCell
             sorted={column === 'cliente' ? direction : null}
