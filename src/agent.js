@@ -1,12 +1,12 @@
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import Cookies from 'universal-cookie';
-import showNotificaction from './common/utils/notifications';
-import { request } from 'https';
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import Cookies from "universal-cookie";
+import showNotificaction from "./common/utils/notifications";
+import { request } from "https";
 
 const cookies = new Cookies();
 
-const API_ROOT = 'http://127.0.0.1:8000/api/';
+const API_ROOT = "http://127.0.0.1:8000/api/";
 
 export const mediaServer = process.env.REACT_APP_MEDIA_SERVER;
 
@@ -17,11 +17,11 @@ const requests = {
       if (e.response && e.response.status === 401) {
         Auth.cleanCookies();
         Auth.removeHeaders();
-        useDispatch({ type: 'LOGOUT' });
+        useDispatch({ type: "LOGOUT" });
       } else {
         showNotificaction.error(
-          'Error de conexion',
-          'Compruebe su conexion a internet'
+          "Error de conexion",
+          "Compruebe su conexion a internet"
         );
       }
     });
@@ -33,11 +33,11 @@ const requests = {
       if (e.response && e.response.status === 401) {
         Auth.cleanCookies();
         Auth.removeHeaders();
-        useDispatch({ type: 'LOGOUT' });
+        useDispatch({ type: "LOGOUT" });
       } else {
         showNotificaction.error(
-          'Error de conexion',
-          'Compruebe su conexion a internet'
+          "Error de conexion",
+          "Compruebe su conexion a internet"
         );
       }
     });
@@ -49,11 +49,11 @@ const requests = {
       if (e.response && e.response.status === 401) {
         Auth.cleanCookies();
         Auth.removeHeaders();
-        useDispatch({ type: 'LOGOUT' });
+        useDispatch({ type: "LOGOUT" });
       } else {
         showNotificaction.error(
-          'Error de conexion',
-          'Compruebe su conexion a internet'
+          "Error de conexion",
+          "Compruebe su conexion a internet"
         );
       }
     });
@@ -64,37 +64,37 @@ const requests = {
 
 export const CDN = {
   getUrl: imageUrl =>
-    imageUrl.includes('http') || imageUrl.includes('base64')
+    imageUrl.includes("http") || imageUrl.includes("base64")
       ? imageUrl
       : `${mediaServer}/${imageUrl}`
 };
 
 export const Auth = {
-  login: credentials => requests.post('authentication/login/', credentials),
-  signUp: userData => requests.post('authentication/signup/', userData),
+  login: credentials => requests.post("authentication/login/", credentials),
+  signUp: userData => requests.post("authentication/signup/", userData),
   configHeaders: () => {
-    const session_cookie = cookies.get('token');
+    const session_cookie = cookies.get("token");
     if (session_cookie !== undefined) {
       const token = `Token ${session_cookie}`;
-      axios.defaults.headers.common['Authorization'] = token;
+      axios.defaults.headers.common["Authorization"] = token;
     }
-    axios.defaults.xsrfCookieName = 'csrftoken';
-    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.xsrfHeaderName = "X-CSRFToken";
   },
   removeHeaders: () => {
     delete axios.defaults.headers.common.Authorization;
   },
   cleanCookies: () => {
-    cookies.remove('csrftoken', { path: '/' });
-    cookies.remove('token', { path: '/' });
+    cookies.remove("csrftoken", { path: "/" });
+    cookies.remove("token", { path: "/" });
   },
   configCookies: data => {
-    cookies.set('csrftoken', data['csrf'], { path: '/' });
-    cookies.set('token', data['token'], { path: '/' });
+    cookies.set("csrftoken", data["csrf"], { path: "/" });
+    cookies.set("token", data["token"], { path: "/" });
   },
   hasCookies: () => {
-    const token = cookies.get('token');
-    const csrfToken = cookies.get('csrftoken');
+    const token = cookies.get("token");
+    const csrfToken = cookies.get("csrftoken");
     if (token != null && csrfToken != null) {
       return true;
     }
@@ -111,28 +111,28 @@ export const NavMenu = {
 };
 
 export const Usuarios = {
-  all: () => requests.get('usuarios/usuarios/'),
-  create: lesson => requests.post('usuarios/usuarios/', lesson),
-  groups: () => requests.get('usuarios/usuarios/groups/')
+  all: () => requests.get("usuarios/usuarios/"),
+  create: lesson => requests.post("usuarios/usuarios/", lesson),
+  groups: () => requests.get("usuarios/usuarios/groups/")
 };
 
 export const Clientes = {
-  all: () => requests.get('clientes/clientes/'),
-  create: cliente => requests.post('clientes/clientes/', cliente)
+  all: () => requests.get("clientes/clientes/"),
+  create: cliente => requests.post("clientes/clientes/", cliente)
 };
 
 export const Proveedores = {
-  all: () => requests.get('proveedores/proveedores/'),
-  create: proveedor => requests.post('proveedores/proveedores/', proveedor)
+  all: () => requests.get("proveedores/proveedores/"),
+  create: proveedor => requests.post("proveedores/proveedores/", proveedor)
 };
 
 export const Requisiciones = {
-  all: () => requests.get('requisiciones/requisiciones/'),
+  all: () => requests.get("requisiciones/requisiciones/"),
   tipos: {
-    all: () => requests.get('requisiciones/requisiciones/tipos/')
+    all: () => requests.get("requisiciones/requisiciones/tipos/")
   },
   estatus: {
-    all: () => requests.get('requisiciones/requisiciones/estatus/')
+    all: () => requests.get("requisiciones/requisiciones/estatus/")
   },
   estados: {
     update: (requisicionId, nuevoEstado) =>
@@ -142,13 +142,13 @@ export const Requisiciones = {
       ),
     get: requisicionId =>
       requests.get(`requisiciones/requisiciones/${requisicionId}/estados/`),
-    all: () => requests.get('requisiciones/requisiciones/estados/'),
+    all: () => requests.get("requisiciones/requisiciones/estados/"),
     categorias: {
-      all: () => requests.get('requisiciones/requisiciones/categorias/')
+      all: () => requests.get("requisiciones/requisiciones/categorias/")
     }
   },
   create: requisicion =>
-    requests.post('requisiciones/requisiciones/', requisicion),
+    requests.post("requisiciones/requisiciones/", requisicion),
   cotizaciones: {
     create: (cotizacion, requisicionId) =>
       requests.post(
@@ -171,18 +171,21 @@ export const Requisiciones = {
       )
   },
   filtrados: requisicionId =>
-    requests.get('requisiciones/requisiciones/filtrados/', requisicionId),
+    requests.get("requisiciones/requisiciones/filtrados/", requisicionId),
 
   requisicionFiltrada: requisicionTipo =>
-    requests.get('requisiciones/requisiciones/filtrado_tipo/', requisicionTipo)
+    requests.get("requisiciones/requisiciones/filtrado_tipo/", requisicionTipo),
+
+  totalRequisiciones: () =>
+    requests.get("requisiciones/requisiciones/total_requisiciones/")
 };
 
 export const Compras = {
-  all: () => requests.get('requisiciones/requisiciones/reportes')
+  all: () => requests.get("requisiciones/requisiciones/reportes")
 };
 
 export const Reportes = {
-  all: () => requests.get('requisiciones/requisiciones/reportes'),
+  all: () => requests.get("requisiciones/requisiciones/reportes"),
   get: cotizacionCompraId =>
     requests.get(`requisiciones/requisiciones/${cotizacionCompraId}/reportes/`),
   create: (Reporte, cotizacionCompraId) =>
