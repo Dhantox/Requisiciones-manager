@@ -33,7 +33,7 @@ export default props => {
           visible={loading}
         />
       </div>
-      <Menu   secondary fluid className={'sidebars'}>
+      <Menu secondary fluid className={'sidebars'} fixed={"top"}>
         <Menu.Item
           className={'itemMenu'}
           active={activeItem}
@@ -65,6 +65,31 @@ export default props => {
         >
           <Image src={logo} size="large" />
           <div className={styles.navBar}>
+          <div className={styles.paddingfix}>
+                <div
+                  className={`${
+                    location === '/main/dashboard'
+                      ? styles.selectedItem
+                      : styles.item
+                  }`}
+                >
+             
+                  <Link to="dashboard"  >
+                  <Grid >
+                  <Grid.Row >
+                    <Grid.Column>
+                      <Icon name="pie graph" /> 
+                    </Grid.Column>
+                    <Grid.Column> 
+                       Inicio
+                    </Grid.Column>
+                  </Grid.Row>
+                     
+                  </Grid>
+                  </Link>
+          
+                </div>
+              </div>
             <div className={styles.paddingfix}>
               <div
                 className={`${
@@ -74,18 +99,20 @@ export default props => {
                 } `}
               >
                 <Link to="requisiciones">
-                  <div className="ui grid">
-                    <div className="two wide column">
-                      <Icon name="file" size="large" />
-                    </div>
-                    <div className="two wide column">
-                      <p>Requisiciones</p>
-                    </div>
-                  </div>
+                  <Grid className={styles.navGrid }>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Icon name="file text" /> 
+                    </Grid.Column>
+                    <Grid.Column>
+                       Requisiciones
+                    </Grid.Column>
+                  </Grid.Row>
+                     
+                  </Grid>
                 </Link>
               </div>
             </div>
-
             <AccessContainer access={['compras', 'admin']}>
               <div className={styles.paddingfix}>
                 <div
@@ -96,14 +123,17 @@ export default props => {
                   } `}
                 >
                   <Link to="compras">
-                    <div className="ui grid">
-                      <div className="two wide column">
-                        <Icon name="box" size="large" />
-                      </div>
-                      <div className="two wide column">
-                        <p>Compras</p>
-                      </div>
-                    </div>
+                  <Grid>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Icon name="box"/> 
+                    </Grid.Column>
+                    <Grid.Column>
+                       Compras
+                    </Grid.Column>
+                  </Grid.Row>
+                     
+                  </Grid>
                   </Link>
                 </div>
               </div>
@@ -118,14 +148,17 @@ export default props => {
                   }`}
                 >
                   <Link to="usuarios">
-                    <div className="ui grid">
-                      <div className="two wide column">
-                        <Icon name="user" size="large" />
-                      </div>
-                      <div className="two wide column">
-                        <p>Usuarios</p>
-                      </div>
-                    </div>
+                  <Grid>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Icon name="user"/> 
+                    </Grid.Column>
+                    <Grid.Column>
+                       Usuarios
+                    </Grid.Column>
+                  </Grid.Row>
+                     
+                  </Grid>
                   </Link>
                 </div>
               </div>
@@ -138,14 +171,16 @@ export default props => {
                   }`}
                 >
                   <Link to="proveedores">
-                    <div className="ui grid">
-                      <div className="two wide column">
-                        <Icon name="truck" size="large" />
-                      </div>
-                      <div className="two wide column">
-                        <p>Proveeedores</p>
-                      </div>
-                    </div>
+                  <Grid>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Icon name="truck" /> 
+                    </Grid.Column>
+                    <Grid.Column>
+                       Proveedores
+                    </Grid.Column>
+                  </Grid.Row>
+                  </Grid>
                   </Link>
                 </div>
               </div>
@@ -159,14 +194,17 @@ export default props => {
                 }`}
               >
                 <Link to="clientes">
-                  <div className="ui grid">
-                    <div className="two wide column">
-                      <Icon name="users" size="large" />
-                    </div>
-                    <div className="two wide column">
-                      <p>Clientes</p>
-                    </div>
-                  </div>
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Icon name="users"/> 
+                    </Grid.Column>
+                    <Grid.Column>
+                       Clientes
+                    </Grid.Column>
+                  </Grid.Row>
+                     
+                  </Grid>
                 </Link>
               </div>
             </div>
@@ -176,21 +214,31 @@ export default props => {
       ) : (
         <>
           <Grid.Column className={styles.ghost} />
-          <Menu icon vertical className={`${styles.MenuContainer} ${styles.top} ${styles.menuFixed}`}>
+          <Menu icon  inverted vertical className={`${styles.MenuContainer} ${styles.top} ${styles.menuFixed}`}>
+          <Link to="/main/dashboard">
+              <Menu.Item
+                name="gamepad"
+                active={activeItem === 'gamepad'}
+                onClick={'gamepad'}
+              >
+                <Icon name="pie graph"/>
+              </Menu.Item>
+            </Link>
             <Link to="/main/requisiciones">
               <Menu.Item
                 name="gamepad"
                 active={activeItem === 'gamepad'}
-                onClick={{ Link }}
+                onClick={'gamepad'}
+            
               >
-                <Icon name="file" />
+                <Icon name="file"/>
               </Menu.Item>
             </Link>
             <Link to="/main/compras">
               <Menu.Item
                 name="video camera"
                 active={activeItem === 'video camera'}
-                onClick={''}
+                onClick={'video camera'}
               >
                 <Icon name="box" />
               </Menu.Item>
@@ -199,7 +247,7 @@ export default props => {
               <Menu.Item
                 name="video play"
                 active={activeItem === 'video play'}
-                onClick={''}
+                onClick={'video play'}
               >
                 <Icon name="user" />
               </Menu.Item>
@@ -208,7 +256,7 @@ export default props => {
               <Menu.Item
                 name="video play"
                 active={activeItem === 'video play'}
-                onClick={''}
+                onClick={'video play'}
               >
                 <Icon name="truck" />
               </Menu.Item>
@@ -217,7 +265,7 @@ export default props => {
               <Menu.Item
                 name="video play"
                 active={activeItem === 'video play'}
-                onClick={''}
+                onClick={'video play'}
               >
                 <Icon name="users" />
               </Menu.Item>

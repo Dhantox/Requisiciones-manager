@@ -7,11 +7,10 @@
   padding-left: 0;
   padding-right: 0;
   left: 0;
-  background-color: rgba(66, 73, 73, 0.9);
+  background-color: rgba(45, 45, 45, 0.75);
   color: white;
   border-right: solid 3px #566573;
-
-  padding-top: 4px;
+  top: 40px;
 }
 .largeMenuContainer{
   position: relative;
@@ -24,29 +23,34 @@
   left: 0;
 }
 
-.navBar {
-  padding-top: px;
-  padding-left: 3px;
-  padding-right: 3px;
+.navBar { 
+  font-size:12px;
+}
+.navGrid{
+  height: 40px !important;
 }
 .logoMain {
   background-image: url(../../img/CMNVisa.png);
 }
 
 .menuIcon {
+  height: 35px;
   padding: 1em 0.5em 2em 0.5em;
-  border-left: 3px solid #2196f3;
+  border-right: 3px solid #2196f3;
   color: white;
 }
 .fix {
   padding-left: 2px;
 }
 .paddingfix {
-  padding-bottom: 5px;
+  border-bottom: solid 0.5px #414e5d;
+  height: 35px;
 }
 
 .item {
-  padding: 10px 20px;
+  height: 35px;
+  padding-top: 8px;
+  padding-left: 10px;
   display: inline-block;
   font-size: 0.9rem;
   font-family: sans-serif;
@@ -56,46 +60,49 @@
 
 a {
   color: white;
+  font-size:12px;
 }
 
 .item:hover {
-  padding: 10px 17px;
+  height: 35px;
+  padding-top: 8px;
+  padding-left: 10px;
   animation-duration: 200ms;
   cursor: pointer;
   animation-name: itemHover;
-  border-radius: 5px;
   width: 100%;
-  border-left: 3px solid #2185d0;
+  border-right: 3px solid #2185d0;
   animation-duration: 200ms;
-  background-color: #e3f2fd;
+  background-color:rgba(229, 229, 229, 0.15);
   font-family: sans-serif;
 }
 .item:hover > a {
-  color: #2185d0;
+  color: #ffffff;
+  font-size: 12px;
 }
 
 @keyframes itemHover {
   from {
-    border-left: 3px solid white;
+    border-right: 3px solid white;
   }
   to {
-    border-left: 3px solid #4080b7;
+    border-right: 3px solid #4080b7;
   }
 }
 
 .selectedItem {
-  padding: 10px 17px;
+  padding-top: 8px;
+  padding-left: 10px;
+  height: 35px;
   color: white;
   font-size: 0.9rem;
-  border-radius: 5px;
-  font-weight: bolder;
-  border-left: 3px solid white;
+  border-right: 3px solid white;
   background-color: #2185d0;
-
   font-family: sans-serif;
 }
 .selectedItem > a {
   color: white;
+  font-size: 12px;
 }
 
 .loader {
@@ -116,12 +123,12 @@ a {
   padding-left: 0;
   padding-right: 0;
   left: 0;
-  top: 29px;
+  top: 23px;
 }
 
 .ghost {
   position: relative;
-  height: 300px;
+  height: 100px;
   width: 50px;
   float: left;
   z-index: 1;
@@ -131,6 +138,10 @@ a {
 }
 .top{
   padding-top: 20px;
+   background-color: rgba(45, 45, 45, 0.75) !important; 
+}
+.colorIcon{
+  background-color: #ffffff;
 }
 .menuFixed{
   position: fixed;

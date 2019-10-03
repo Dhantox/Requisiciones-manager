@@ -1,16 +1,25 @@
-import React from 'react';
-import MainContainer from '../../components/MainContainer';
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import React from "react";
+import MainContainer from "../../components/MainContainer";
+import SalesChart from "./TablaGraficas";
+import ChartDiv from "./TablaGraficaPastel";
+import RequisicionesTotales from "./RequisicionesTotales";
+import { Grid } from "semantic-ui-react";
 
-am4core.useTheme(am4themes_animated);
-
-const DashboardContainer =() => {
-
-
-return(
-    <MainContainer></MainContainer>
-);
+const DashboardContainer = props => {
+  return (
+    <MainContainer title={"Dashboard"}>
+      <RequisicionesTotales></RequisicionesTotales>
+      <Grid columns={2}>
+        <Grid.Row>
+          <Grid.Column>
+            <ChartDiv></ChartDiv>
+          </Grid.Column>
+          <Grid.Column>
+            <SalesChart></SalesChart>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </MainContainer>
+  );
 };
 export default DashboardContainer;

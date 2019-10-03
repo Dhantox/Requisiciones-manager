@@ -22,9 +22,9 @@ const Router = () => {
           component={ProveedoresContainer}
         />
         <PrivateRoute
-        path="/main/dashboard"
-        component={DashboardContainer}
-      />
+          path="/main/dashboard"
+          component={DashboardContainer}
+        />
         <PrivateRoute
           path="/main/requisiciones"
           component={RequisicionesContainer}
