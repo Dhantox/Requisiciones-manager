@@ -60,6 +60,12 @@ const RequisicionesContainer = props => {
       }),
       Clientes.all().then(r => {
         dispatch({ type: 'CARGAR_CLIENTES_SUCCESS', payload: r.data });
+      }),
+      Requisiciones.totalRequisiciones().then(r => {
+        dispatch({
+          type: 'CARGAR_TOTAL_REQUISICIONES',
+          payload: r.data
+        });
       })
     ]);
   }, [dispatch]);
@@ -123,6 +129,14 @@ const RequisicionesContainer = props => {
                         type: 'CARGAR_REQUISICIONES_SUCCESS',
                         payload: r.data
                       })
+                    )
+                    .then(
+                      Requisiciones.totalRequisiciones().then(r =>
+                        dispatch({
+                          type: 'CARGAR_TOTAL_REQUISICIONES',
+                          payload: r.data
+                        })
+                      )
                     )
                 }
               ></AgregarRequisicionesModal>

@@ -4,7 +4,8 @@ const initialState = {
   requisicionesEstadosCategorias: [],
   requisicionesEstatus: [],
   requisicionEstado: {},
-  selectedRequisicion: null
+  selectedRequisicion: null,
+  totalRequisicion: null
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -26,6 +27,8 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, requisicionesEstatus: payload };
     case 'CARGAR_REQUISICION_ESTADO':
       return { ...state, requisicionEstado: payload };
+    case 'CARGAR_TOTAL_REQUISICIONES':
+      return { ...state, totalRequisicion: payload };
     default:
       return state;
   }
