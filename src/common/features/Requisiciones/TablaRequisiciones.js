@@ -50,6 +50,7 @@ const TablaRequisiciones = props => {
       direction: direction === 'ascending' ? 'descending' : 'ascending'
     });
   };
+
   return (
     <Table
       sortable
@@ -57,9 +58,9 @@ const TablaRequisiciones = props => {
       striped
       compact={'very'}
       stackable
-      className={styles.tablefix}
+      className={`${styles.tablefix}  `}
     >
-      <Table.Header>
+      <Table.Header className={styles.tableHeaderBorder}>
         <Table.Row>
           <Table.HeaderCell
             sorted={column === 'id' ? direction : null}
@@ -85,19 +86,21 @@ const TablaRequisiciones = props => {
           >
             Cliente
           </Table.HeaderCell>
-          <Table.HeaderCell
+          {/* <Table.HeaderCell
             sorted={column === 'tipo' ? direction : null}
             onClick={handleSort('tipo')}
           >
             Nota
-          </Table.HeaderCell>
+          </Table.HeaderCell> */}
           <Table.HeaderCell
+            className={styles.tableHeaderColorSecundary}
             sorted={column === 'folio' ? direction : null}
             onClick={handleSort('folio')}
           >
             Folio
           </Table.HeaderCell>
           <Table.HeaderCell
+            className={styles.tableHeaderColorSecundary}
             sorted={column === 'monto' ? direction : null}
             onClick={handleSort('monto')}
           >
@@ -141,12 +144,12 @@ const TablaRequisiciones = props => {
               <Table.Cell>{fecha_correo.format('DD/MM/YY:HH:mm')}</Table.Cell>
               <Table.Cell>{fecha_correo.fromNow()}</Table.Cell>
               <Table.Cell>{cliente.nombre}</Table.Cell>
-              <Popup
+              {/* <Popup
                 content={`${'Tipo:'} ${tipo.concepto} ${'Nota:'} ${nota}`}
                 trigger={
                   <Table.Cell className={styles.visibility}>{nota}</Table.Cell>
                 }
-              ></Popup>
+              ></Popup> */}
               <Table.Cell>
                 {cotizacion ? cotizacion.folio : 'Sin cotización'}
               </Table.Cell>

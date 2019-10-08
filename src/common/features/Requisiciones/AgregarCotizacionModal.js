@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal, Form, Divider } from 'semantic-ui-react';
+import { Modal, Form, Divider, Dropdown } from 'semantic-ui-react';
+import DropdownInput from '../../components/DropdownInput';
 import DateTime from 'react-datetime';
 import { useForm } from '../../hooks/formHooks';
 import CompraRapida from './CompraRapida';
@@ -16,7 +17,8 @@ const AgregarCotizacionModal = ({
   onSubmit,
   visible,
   setVisible,
-  mode
+  mode,
+  proveedores
 }) => {
   const dispatch = useDispatch();
   const requisicionReporteId = useSelector(store => {
@@ -54,7 +56,7 @@ const AgregarCotizacionModal = ({
       ];
   }
   const [compraRapidaVisible, setCompraRapidaVisible] = useState(false);
-
+  console.log(proveedores);
   return (
     <Modal open={visible} onClose={() => setVisible(false)} centered={false}>
       <Modal.Header>{modal.title} cotización</Modal.Header>
@@ -87,14 +89,27 @@ const AgregarCotizacionModal = ({
               onChange={handleChange}
               value={form.folio}
             />
-            <Form.Input
+            <DropdownInput
+              placeholder="Proveedores"
+              label="Proveedores"
+              name="orden_proveedor"
+              onChange={handleChange}
+              valuename="nombre_fiscal"
+              fluid
+              search
+              selection
+              options={proveedores}
+              value={form.orden_proveedor}
+              clearable
+            ></DropdownInput>
+            {/* <Form.Input
               fluid
               name="orden_proveedor"
               label="Orden proveedor"
               placeholder="Orden proveedor"
               onChange={handleChange}
               value={form.orden_proveedor}
-            />
+            /> */}
           </Form>
         </Modal.Description>
         <Modal.Description>

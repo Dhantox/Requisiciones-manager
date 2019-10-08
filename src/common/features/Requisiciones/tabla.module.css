@@ -29,3 +29,14 @@
 .tablefix {
   position: relative;
 }
+
+.tableHeaderColorSecundary {
+  background-color: #fbeee6 !important;
+}
+
+.tableHeaderColorPrimary {
+  background-color: white !important;
+}
+.tableHeaderBorder {
+  border: solid 1px black !important;
+}

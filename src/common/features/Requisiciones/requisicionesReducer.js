@@ -1,11 +1,14 @@
 const initialState = {
   requisiciones: [],
+  requisicionesFiltradas: [],
   requisicionesTipos: [],
   requisicionesEstadosCategorias: [],
   requisicionesEstatus: [],
   requisicionEstado: {},
   selectedRequisicion: null,
-  totalRequisicion: null
+  totalRequisicion: null,
+  totalCategoria: null,
+  totalTipo: null
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -29,6 +32,14 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, requisicionEstado: payload };
     case 'CARGAR_TOTAL_REQUISICIONES':
       return { ...state, totalRequisicion: payload };
+    case 'CARGAR_TOTAL_CATEGORIAS':
+      return { ...state, totalCategoria: payload };
+    case 'CARGAR_TOTAL_TIPOS':
+      return { ...state, totalTipo: payload };
+    case 'REQUISICIONES_FLUSH':
+      return { ...state, totalCategoria: [] };
+    case 'CARGAR_REQUISICIONES_FILTRADAS_SUCCESS':
+      return { ...state, requisicionesFiltradas: payload };
     default:
       return state;
   }

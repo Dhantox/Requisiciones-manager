@@ -1,2 +1,2 @@
 export const getProveedores = store =>
-  store.proveedores.proveedores.map(proveedor => ({ ...proveedor }));
+  store.proveedores.proveedores.map(proveedores => ({ ...proveedores }));

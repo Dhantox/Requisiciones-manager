@@ -21,7 +21,7 @@ const EstadoRequisicionModal = ({
     setForm(defaultForm);
     return () => {};
   }, [defaultForm]);
-
+  console.log(estatus);
   return (
     <Modal open={visible} onClose={() => setVisible(false)} centered={false}>
       <Modal.Header>Estado requisición</Modal.Header>

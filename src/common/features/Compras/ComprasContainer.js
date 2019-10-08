@@ -4,7 +4,11 @@ import MainContainer from '../../components/MainContainer';
 import { Grid } from 'semantic-ui-react';
 import { Requisiciones, Clientes, Reportes } from '../../../agent';
 import TablaCotizacionesCompras from './TablaCotizacionesCompras';
-import { getSelectedRequisicion, getRequisicionesEstatus } from './selectors';
+import {
+  getSelectedRequisicion,
+  getRequisicionesEstatus,
+  getRequesicionesFiltradas
+} from './selectors';
 import AgregarCotizacionModal from './AgregarCotizacionModal';
 import AgregarReportesModal from './AgregarReportesModal';
 import moment from 'moment';
@@ -27,26 +31,12 @@ const RequisicionesContainer = props => {
       return store.requisiciones.selectedRequisicion.id;
     }
   });
+
   useEffect(() => {
     Promise.all([
       Requisiciones.filtrados().then(r => {
-        dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
-      }),
-      Requisiciones.tipos.all().then(r => {
         dispatch({
-          type: 'CARGAR_REQUISICIONES_TIPOS_SUCCESS',
-          payload: r.data
-        });
-      }),
-      Requisiciones.estados.categorias.all().then(r => {
-        dispatch({
-          type: 'CARGAR_REQUISICIONES_ESTADOS_CATEGORIAS_SUCCESS',
-          payload: r.data
-        });
-      }),
-      Requisiciones.estatus.all().then(r => {
-        dispatch({
-          type: 'CARGAR_REQUISICIONES_ESTATUS_SUCCESS',
+          type: 'CARGAR_REQUISICIONES_SUCCESS',
           payload: r.data
         });
       }),
@@ -55,13 +45,14 @@ const RequisicionesContainer = props => {
       })
     ]);
   }, [dispatch]);
+
   const requesiciones = useSelector(store =>
     store.requisiciones.requisiciones.map(cliente => ({ ...cliente }))
   ).map(requisicion => {
     requisicion.fecha_correo = moment(requisicion.fecha_correo);
     return requisicion;
   });
-
+  // const requesicionesFiltradas = useSelector(getRequesicionesFiltradas);
   const estatus = useSelector(getRequisicionesEstatus);
   const selectedRequisicion = useSelector(getSelectedRequisicion);
   let defaultFormCotizacion = {

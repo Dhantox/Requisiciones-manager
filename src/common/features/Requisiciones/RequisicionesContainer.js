@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MainContainer from '../../components/MainContainer';
 import { Grid, Input, Menu, Segment } from 'semantic-ui-react';
 import AgregarRequisicionesModal from './AgregarRequisicionesModal';
-import { Requisiciones, Clientes } from '../../../agent';
+import { Requisiciones, Clientes, Proveedores } from '../../../agent';
 import TablaRequisiciones from './TablaRequisiciones';
 import { getClientes } from '../Clientes/selectors';
 import {
@@ -12,6 +12,7 @@ import {
   getEstadosCategorias,
   getRequisicionesEstatus
 } from './selectors';
+import { getProveedores } from '../Proveedores/selectors';
 import AgregarCotizacionModal from './AgregarCotizacionModal';
 import EstadoRequisicionModal from './EstadoRequisicionModal';
 import ComprasModal from './ComprasModal';
@@ -66,6 +67,12 @@ const RequisicionesContainer = props => {
           type: 'CARGAR_TOTAL_REQUISICIONES',
           payload: r.data
         });
+      }),
+      Proveedores.all().then(r => {
+        dispatch({
+          type: 'CARGAR_PROVEEDORES_SUCCESS',
+          payload: r.data
+        });
       })
     ]);
   }, [dispatch]);
@@ -95,7 +102,7 @@ const RequisicionesContainer = props => {
   const clientes = useSelector(getClientes);
   const estatus = useSelector(getRequisicionesEstatus);
   const estadosCategorias = useSelector(getEstadosCategorias);
-
+  const proveedores = useSelector(getProveedores);
   const selectedRequisicion = useSelector(getSelectedRequisicion);
   let defaultFormCotizacion = {
     fecha: moment(),
@@ -252,6 +259,7 @@ const RequisicionesContainer = props => {
         ></TablaRequisiciones>
       </Segment>
       <AgregarCotizacionModal
+        proveedores={proveedores}
         visible={modalCotizacionState.visible}
         mode={modalCotizacionState.mode}
         setVisible={visible =>

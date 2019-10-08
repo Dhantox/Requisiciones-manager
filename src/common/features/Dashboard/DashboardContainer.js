@@ -2,39 +2,56 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainContainer from '../../components/MainContainer';
 import SalesChart from './TablaGraficas';
-import ChartDiv from './TablaGraficaPastel';
+import ChartTipos from './GraficaPastelTipos';
+import ChartCategorias from './GraficaPastelCategorias';
 import RequisicionesTotales from './RequisicionesTotales';
 import { Grid } from 'semantic-ui-react';
 import { Requisiciones } from '../../../agent';
-import { getTotalRequisiciones } from './selectors';
+import {
+  getTotalRequisiciones,
+  getTotalCategorias,
+  getTotalTipos
+} from './selectors';
 
 const DashboardContainer = props => {
   const dispatch = useDispatch();
   useEffect(() => {
     Promise.all([
-      Requisiciones.all().then(r => {
-        dispatch({ type: 'CARGAR_REQUISICIONES_SUCCESS', payload: r.data });
-      }),
       Requisiciones.totalRequisiciones().then(r => {
         dispatch({
           type: 'CARGAR_TOTAL_REQUISICIONES',
+          payload: r.data
+        });
+      }),
+      Requisiciones.totalCategorias().then(r => {
+        dispatch({
+          type: 'CARGAR_TOTAL_CATEGORIAS',
+          payload: r.data
+        });
+      }),
+      Requisiciones.totalTipos().then(r => {
+        dispatch({
+          type: 'CARGAR_TOTAL_TIPOS',
           payload: r.data
         });
       })
     ]);
   }, []);
   const totalRequisiciones = useSelector(getTotalRequisiciones);
-  if (totalRequisiciones == null) {
-    console.log(totalRequisiciones);
-  }
-
+  const totalCategorias = useSelector(getTotalCategorias);
+  const totalTipos = useSelector(getTotalTipos);
   return (
     <MainContainer title={'Dashboard'}>
       <RequisicionesTotales data={totalRequisiciones}></RequisicionesTotales>
       <Grid columns={2}>
         <Grid.Row>
           <Grid.Column>
-            <ChartDiv></ChartDiv>
+            <Grid.Column>
+              <ChartCategorias data={totalCategorias}></ChartCategorias>
+            </Grid.Column>
+            <Grid.Column>
+              <ChartTipos data={totalTipos}></ChartTipos>
+            </Grid.Column>
           </Grid.Column>
           <Grid.Column>
             <SalesChart></SalesChart>
